@@ -26,8 +26,8 @@
           $(arg gui_args)
           $(arg load_moveit_args)
           $(arg fill_demo_shipment_args)
-          -f $(find rwa5_group_1)/config/rwa5-sample.yaml
-          $(find rwa5_group_1)/config/sensor.yaml
+          -f $(find final-group1)/config/rwa5-sample.yaml
+          $(find final-group1)/config/sensor.yaml
           " required="true" output="screen" />
 
 <!--  <group ns='ariac/gantry'>-->
