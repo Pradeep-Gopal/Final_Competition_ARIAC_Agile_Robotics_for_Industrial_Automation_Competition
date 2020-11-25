@@ -344,9 +344,13 @@ void GantryControl::init() {
     shelf11_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    belt_pickup_.gantry = {0.52, -3.27, PI/2};
-    belt_pickup_.left_arm = {0.38, -0.41, 1.05, -0.63, 1.94, 0.0};
-    belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    belt_pickup_1.gantry = {0.52, -3.27, PI/2};
+    belt_pickup_1.left_arm = {PI/4, -0.41, 1.05, -0.63, 1.94, 0.0};
+    belt_pickup_1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    belt_pickup_2.gantry = {0.52, -3.27, PI/2};
+    belt_pickup_2.left_arm = {0.38, -0.41, 1.05, -0.63, 1.94, 0.0};
+    belt_pickup_2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
     bin1_.gantry = {2.75, - 0.77, PI/2};

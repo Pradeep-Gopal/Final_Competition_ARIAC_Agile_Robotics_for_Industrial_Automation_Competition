@@ -70,7 +70,7 @@ class GantryControl {
     geometry_msgs::Pose getTargetWorldPose_right_arm(geometry_msgs::Pose target, std::string agv);
 
     //--preset locations;
-    start start_, belt_pickup_;
+    start start_, belt_pickup_1, belt_pickup_2;
     bin3 bin3_, bin1_, bin1_w1, bin1_w2;
     agv2 agv2_, agv1_;
     agv2_drop agv2_drop_, agv1_drop_;

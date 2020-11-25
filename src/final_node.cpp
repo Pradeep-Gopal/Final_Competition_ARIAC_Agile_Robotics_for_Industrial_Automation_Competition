@@ -280,6 +280,22 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
     }
 }
 
+double get_offset_to_pickup_part_on_belt(const std::string& part_name) {
+    if (part_name == "pulley_part_red" || part_name == "pulley_part_blue" || part_name == "pulley_part_green") {
+        return 0.22;    // checked
+    } else if (part_name == "gasket_part_red" || part_name == "gasket_part_blue" || part_name == "gasket_part_green") {
+        return 0.295;   // checked
+    } else if (part_name == "piston_rod_part_red" || part_name == "piston_rod_part_blue" || part_name == "piston_rod_part_green") {
+        return 0.295;   // checked
+    } else if (part_name == "gear_part_red" || part_name == "gear_part_blue" || part_name == "gear_part_green") {
+        return 0.1;
+    } else if (part_name == "disk_part_red" || part_name == "disk_part_blue" || part_name ==" disk_part_green") {
+        return 0.23;    // checked
+    } else {
+        ROS_ERROR_STREAM(part_name << " is not a part in record" ) ;
+    }
+}
+
 void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
     ROS_INFO_STREAM("Picking up part from conveyor belt");
     gantry.goToPresetLocation(gantry.start_);
@@ -288,11 +304,12 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 //    gantry.goToPresetLocation(gantry.belt_pickup_);
 //    ROS_INFO_STREAM("belt pick up location reached");
 
-    double offset_est = 0.292;
+    double offset_est = 0.0;
     int no_of_parts{2}, count{0};
     while(count < no_of_parts) {
         // move above pick location above belt
-        gantry.goToPresetLocation(gantry.belt_pickup_);
+        gantry.goToPresetLocation(gantry.belt_pickup_1);
+        gantry.goToPresetLocation(gantry.belt_pickup_2);
         ROS_INFO_STREAM("belt pick up location reached");
 
         ROS_INFO_STREAM("Picking up part number " << count + 1);
@@ -304,11 +321,12 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
             part part_picking = comp.get_parts_from_15_camera().back();
 //            ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
             part_picking.pose.position.z += 0.009;
-            part_picking.pose.position.y -= offset_est;
+            part_picking.pose.position.y -= get_offset_to_pickup_part_on_belt(part_picking.type);   // give the picking up
 
             if (gantry.pickMovingPart(part_picking)) {    // if part picked up
                 ROS_INFO_STREAM("Part picked");
-                gantry.goToPresetLocation(gantry.belt_pickup_);
+                gantry.goToPresetLocation(gantry.belt_pickup_2);
+                gantry.goToPresetLocation(gantry.belt_pickup_1);
                 ROS_INFO_STREAM("belt pick up location reached");
 
                 //// drop part at desired location on bin1
