@@ -13,6 +13,7 @@
 // limitations under the License.
 
 
+
 #include <algorithm>
 #include <vector>
 #include <ros/ros.h>
@@ -37,9 +38,15 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf/transform_listener.h> //for shelves gap
 #include <tf/LinearMath/Vector3.h>
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/PoseStamped.h>
+
 
 #define MAX_NUMBER_OF_CAMERAS 18
 std::array<std::array<part, 20>, 20>  parts_from_camera_main ;
+std::vector<std::vector<double>> shelf_vector_gantry(9,std::vector<double>(3));
+
 std::vector<std::vector<std::vector<master_struct> > > master_vector_main (10,std::vector<std::vector<master_struct> >(10,std::vector <master_struct>(20)));
 bool part_placed = false;
 int k = 0, i = 0, temp = 45;
@@ -345,7 +352,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 int main(int argc, char ** argv) {
 
-    ros::init(argc, argv, "rwa3_node");
+    ros::init(argc, argv, "final_node");
     ros::NodeHandle node;
     ros::AsyncSpinner spinner(8);
     spinner.start();
@@ -374,6 +381,50 @@ int main(int argc, char ** argv) {
 
     GantryControl gantry(node);
     gantry.init();
+
+
+    std::vector <std::string> shelf_vector;
+    shelf_vector.push_back("/shelf3_frame");
+    shelf_vector.push_back("/shelf4_frame");
+    shelf_vector.push_back("/shelf5_frame");
+    shelf_vector.push_back("/shelf6_frame");
+    shelf_vector.push_back("/shelf7_frame");
+    shelf_vector.push_back("/shelf8_frame");
+    shelf_vector.push_back("/shelf9_frame");
+    shelf_vector.push_back("/shelf10_frame");
+    shelf_vector.push_back("/shelf11_frame");
+
+    for (auto c: shelf_vector) {
+        gantry.shelf_callback(c);
+    }
+
+
+    shelf_vector_gantry = gantry.get_shelf_vector();
+    ROS_INFO_STREAM("Distance between the shelves");
+    for (int i = 0; i <=7 ; i++) {
+        if (5<=(abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0])) and (abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0]))<=7){
+            ROS_INFO_STREAM("Gaps between shelves"<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0]));
+            if (i+3 == 3){
+                ROS_WARN_STREAM("GAP AISLE : 1, GAP : 1");
+            }
+            if (i+3 == 4){
+                ROS_WARN_STREAM("GAP AISLE : 1, GAP : 2");
+            }
+            if (i+3 == 6){
+                ROS_WARN_STREAM("GAP AISLE : 2, GAP : 1");
+            }
+            if (i+3 == 7){
+                ROS_WARN_STREAM("GAP AISLE : 2, GAP : 2");
+            }
+            if (i+3 == 9){
+                ROS_WARN_STREAM("GAP AISLE : 3, GAP : 1");
+            }
+            if (i+3 == 20){
+                ROS_WARN_STREAM("GAP AISLE : 3, GAP : 2");
+            }
+        }
+    }
+
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
@@ -828,7 +879,7 @@ int main(int argc, char ** argv) {
                                 }
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Part picked");
-                                
+
                                 ROS_INFO_STREAM("AGVVVVVVVVVVVVVVVVVVVVVVV");
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);
                                 gantry.placePart(part_in_tray, master_vector_main[i][j][k].agv_id);
@@ -1386,7 +1437,6 @@ int main(int argc, char ** argv) {
     ros::Duration timeout(5.0);
     if((i > 1) && (temp!= i-2))
     {
-        ROS_INFO_STREAM("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
         i = i-2;
         k = 0;
         ROS_INFO_STREAM("Executing Order = " << i-1);
@@ -1398,7 +1448,6 @@ int main(int argc, char ** argv) {
     submitOrder("agv2", "order_0_shipment_1");
 
 //    submitOrder(2, "order_0_shipment_0");
-    ROS_INFO_STREAM("Mangathaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa DaWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 
     comp.endCompetition();
     spinner.stop();

@@ -7,6 +7,9 @@
 #include <tf/LinearMath/Vector3.h>
 #include "competition.h"
 
+//shelf vector
+std::vector<std::vector<double>> shelf_vector(9,std::vector<double>(3));
+
 Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw) // yaw (Z), pitch (Y), roll (X)
 {
     // Abbreviations for the various angular functions
@@ -44,10 +47,87 @@ GantryControl::GantryControl(ros::NodeHandle & node):
 }
 
 
+void GantryControl::shelf_callback(std::string shelf_name)
+{
+//    ros::init(argc, argv, "getShelfDistances");
+//    ros::NodeHandle node;
+    tf::TransformListener listener;
+    ros::Rate rate(10.0);
+    while (node_.ok()) {
+        tf::StampedTransform transform;
+        try {
+            ROS_INFO_STREAM(shelf_name);
+            listener.lookupTransform("/world", shelf_name,
+                                     ros::Time(0), transform);
+            tf::Transform tf(transform.getBasis(), transform.getOrigin());
+            tf::Vector3 tfVec;
+            tf::Matrix3x3 tfR;
+            tf::Quaternion quat;
+            tfVec = tf.getOrigin();
+            ROS_INFO_STREAM(double(tfVec.getX()));
+            if (shelf_name == "/shelf3_frame"){
+                shelf_vector[0][0] = double(tfVec.getX());
+                shelf_vector[0][1] = double(tfVec.getY());
+                shelf_vector[0][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf4_frame"){
+                shelf_vector[1][0] = double(tfVec.getX());
+                shelf_vector[1][1] = double(tfVec.getY());
+                shelf_vector[1][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf5_frame"){
+                shelf_vector[2][0] = double(tfVec.getX());
+                shelf_vector[2][1] = double(tfVec.getY());
+                shelf_vector[2][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf6_frame"){
+                shelf_vector[3][0] = double(tfVec.getX());
+                shelf_vector[3][1] = double(tfVec.getY());
+                shelf_vector[3][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf7_frame"){
+                shelf_vector[4][0] = double(tfVec.getX());
+                shelf_vector[4][1] = double(tfVec.getY());
+                shelf_vector[4][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf8_frame"){
+                shelf_vector[5][0] = double(tfVec.getX());
+                shelf_vector[5][1] = double(tfVec.getY());
+                shelf_vector[5][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf9_frame"){
+                shelf_vector[6][0] = double(tfVec.getX());
+                shelf_vector[6][1] = double(tfVec.getY());
+                shelf_vector[6][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf10_frame"){
+                shelf_vector[7][0] = double(tfVec.getX());
+                shelf_vector[7][1] = double(tfVec.getY());
+                shelf_vector[7][2] = double(tfVec.getZ());
+            }
+            if (shelf_name == "/shelf11_frame"){
+                shelf_vector[8][0] = double(tfVec.getX());
+                shelf_vector[8][1] = double(tfVec.getY());
+                shelf_vector[8][2] = double(tfVec.getZ());
+            }
+            ROS_INFO_STREAM(tfVec.getX() << "," << tfVec.getY() << "," << tfVec.getZ());
+            break;
+
+        }
+        catch (tf::TransformException ex) {
+            ROS_ERROR("%s", ex.what());
+            ros::Duration(1.0).sleep();
+        }
+    }
+}
+
+std::vector<std::vector<double>> GantryControl::get_shelf_vector(){
+    return shelf_vector;
+}
+
 void GantryControl::init() {
     ROS_INFO_STREAM("[GantryControl::init] init... ");
     double time_called = ros::Time::now().toSec();
-
 
     ROS_INFO_NAMED("init", "Planning frame: %s", left_arm_group_.getPlanningFrame().c_str());
     ROS_INFO_NAMED("init", "Planning frame: %s", right_arm_group_.getPlanningFrame().c_str());
@@ -59,6 +139,7 @@ void GantryControl::init() {
     ROS_INFO_NAMED("init", "End effector link: %s", right_arm_group_.getEndEffectorLink().c_str());
 
     left_arm_group_.setPoseReferenceFrame("world");
+
 
     //Moving to shelf 8
     // gasket part green

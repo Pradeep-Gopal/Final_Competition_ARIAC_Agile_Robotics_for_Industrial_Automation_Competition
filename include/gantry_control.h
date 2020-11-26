@@ -39,10 +39,18 @@
 #include "utils.h"
 #include <unordered_map>
 
+#include <tf/transform_listener.h> //for shelves gap
+#include <tf/LinearMath/Vector3.h>
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/PoseStamped.h>
 
 class GantryControl {
 
   public:
+    std::vector<std::vector<double>> get_shelf_vector();
+    void shelf_callback(std::string);
+
     GantryControl(ros::NodeHandle & node);
 
     void init();

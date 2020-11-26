@@ -62,9 +62,6 @@ public:
     std::array<part, 20> parts_from_17_camera;
     bool conveyor_belt_part_status = false;
 
-    //vector to store shelves
-    std::vector<std::vector<double>> get_shelf_vector();
-
     // all breakbeam related initialization
     void breakbeam_sensor_0_callback(const nist_gear::Proximity::ConstPtr & msg);
     void breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstPtr & msg);
@@ -119,9 +116,6 @@ public:
     bool breakbeam_part_status_44= false;
     bool breakbeam_part_status_45= false;
     bool breakbeam_part_status_46= false;
-
-
-    void shelf_callback(std::string);
 
     int get_human_existence();
     int human_detected = 0;
