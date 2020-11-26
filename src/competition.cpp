@@ -57,47 +57,90 @@ void Competition::init() {
     ROS_INFO("Subscribe to the /ariac/breakbeam_0");
     breakbeam_sensor_0_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_0", 10, &Competition::breakbeam_sensor_0_callback, this);
-
     ROS_INFO("Subscribe to the /ariac/breakbeam_1");
     breakbeam_sensor_1_subscriber_ = node_.subscribe(
             "/ariac/breakbeam_1", 10, &Competition::breakbeam_sensor_1_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_2");
-    breakbeam_sensor_2_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_2", 10, &Competition::breakbeam_sensor_2_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_11");
+    breakbeam_sensor_11_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_11", 10, &Competition::breakbeam_sensor_11_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_12");
+    breakbeam_sensor_12_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_12", 10, &Competition::breakbeam_sensor_12_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_13");
+    breakbeam_sensor_13_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_13", 10, &Competition::breakbeam_sensor_13_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_14");
+    breakbeam_sensor_14_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_14", 10, &Competition::breakbeam_sensor_14_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_15");
+    breakbeam_sensor_15_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_15", 10, &Competition::breakbeam_sensor_15_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_16");
+    breakbeam_sensor_16_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_16", 10, &Competition::breakbeam_sensor_16_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_3");
-    breakbeam_sensor_3_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_3", 10, &Competition::breakbeam_sensor_3_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_4");
-    breakbeam_sensor_4_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_4", 10, &Competition::breakbeam_sensor_4_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_5");
-    breakbeam_sensor_5_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_5", 10, &Competition::breakbeam_sensor_5_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_21");
+    breakbeam_sensor_21_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_21", 10, &Competition::breakbeam_sensor_21_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_22");
+    breakbeam_sensor_22_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_22", 10, &Competition::breakbeam_sensor_22_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_23");
+    breakbeam_sensor_23_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_23", 10, &Competition::breakbeam_sensor_23_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_24");
+    breakbeam_sensor_24_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_24", 10, &Competition::breakbeam_sensor_24_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_25");
+    breakbeam_sensor_25_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_25", 10, &Competition::breakbeam_sensor_25_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_26");
+    breakbeam_sensor_26_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_26", 10, &Competition::breakbeam_sensor_26_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_6");
-    breakbeam_sensor_6_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_6", 10, &Competition::breakbeam_sensor_6_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_7");
-    breakbeam_sensor_7_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_7", 10, &Competition::breakbeam_sensor_7_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_31");
+    breakbeam_sensor_31_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_31", 10, &Competition::breakbeam_sensor_31_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_32");
+    breakbeam_sensor_32_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_32", 10, &Competition::breakbeam_sensor_32_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_33");
+    breakbeam_sensor_33_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_33", 10, &Competition::breakbeam_sensor_33_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_34");
+    breakbeam_sensor_34_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_34", 10, &Competition::breakbeam_sensor_34_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_35");
+    breakbeam_sensor_35_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_35", 10, &Competition::breakbeam_sensor_35_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_36");
+    breakbeam_sensor_36_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_36", 10, &Competition::breakbeam_sensor_36_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_8");
-    breakbeam_sensor_8_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_8", 10, &Competition::breakbeam_sensor_8_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_9");
-    breakbeam_sensor_9_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_9", 10, &Competition::breakbeam_sensor_9_callback, this);
 
-    ROS_INFO("Subscribe to the /ariac/breakbeam_10");
-    breakbeam_sensor_10_subscriber_ = node_.subscribe(
-            "/ariac/breakbeam_10", 10, &Competition::breakbeam_sensor_10_callback, this);
-
+    ROS_INFO("Subscribe to the /ariac/breakbeam_41");
+    breakbeam_sensor_41_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_41", 10, &Competition::breakbeam_sensor_41_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_42");
+    breakbeam_sensor_42_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_42", 10, &Competition::breakbeam_sensor_42_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_43");
+    breakbeam_sensor_43_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_43", 10, &Competition::breakbeam_sensor_43_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_44");
+    breakbeam_sensor_44_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_44", 10, &Competition::breakbeam_sensor_44_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_45");
+    breakbeam_sensor_45_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_45", 10, &Competition::breakbeam_sensor_45_callback, this);
+    ROS_INFO("Subscribe to the /ariac/breakbeam_46");
+    breakbeam_sensor_46_subscriber_ = node_.subscribe(
+            "/ariac/breakbeam_46", 10, &Competition::breakbeam_sensor_46_callback, this);
 
 
   startCompetition();
@@ -114,69 +157,158 @@ void Competition::breakbeam_sensor_1_callback(const nist_gear::Proximity::ConstP
     breakbeam_conveyor_belt_part_status_1 = msg->object_detected;
 }
 
-void Competition::breakbeam_sensor_2_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_2 = msg->object_detected;
-    if(breakbeam_part_status_2 == true){
+
+void Competition::breakbeam_sensor_11_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_11 = msg->object_detected;
+    if(breakbeam_part_status_11 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_12_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_12 = msg->object_detected;
+    if(breakbeam_part_status_12 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_13_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_13 = msg->object_detected;
+    if(breakbeam_part_status_13 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_14_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_14 = msg->object_detected;
+    if(breakbeam_part_status_14 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_15_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_15 = msg->object_detected;
+    if(breakbeam_part_status_15 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_16_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_16 = msg->object_detected;
+    if(breakbeam_part_status_16 == true){
         human_detected=1;
     }
 }
 
-void Competition::breakbeam_sensor_3_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_3 = msg->object_detected;
-    if(breakbeam_part_status_3 == true){
+
+
+void Competition::breakbeam_sensor_21_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_21 = msg->object_detected;
+    if(breakbeam_part_status_21 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_22_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_22 = msg->object_detected;
+    if(breakbeam_part_status_22 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_23_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_23 = msg->object_detected;
+    if(breakbeam_part_status_23 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_24_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_24 = msg->object_detected;
+    if(breakbeam_part_status_24 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_25_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_25 = msg->object_detected;
+    if(breakbeam_part_status_25 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_26_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_26 = msg->object_detected;
+    if(breakbeam_part_status_26 == true){
         human_detected=1;
     }
 }
 
-void Competition::breakbeam_sensor_4_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_4 = msg->object_detected;
-    if(breakbeam_part_status_4 == true){
+
+void Competition::breakbeam_sensor_31_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_31 = msg->object_detected;
+    if(breakbeam_part_status_31 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_32_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_32 = msg->object_detected;
+    if(breakbeam_part_status_32 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_33_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_33 = msg->object_detected;
+    if(breakbeam_part_status_33 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_34_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_34 = msg->object_detected;
+    if(breakbeam_part_status_34 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_35_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_35 = msg->object_detected;
+    if(breakbeam_part_status_35 == true){
+        human_detected=1;
+    }
+}
+void Competition::breakbeam_sensor_36_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_36 = msg->object_detected;
+    if(breakbeam_part_status_36 == true){
         human_detected=1;
     }
 }
 
-void Competition::breakbeam_sensor_5_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_5 = msg->object_detected;
-    if(breakbeam_part_status_5 == true){
+
+void Competition::breakbeam_sensor_41_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_41 = msg->object_detected;
+    if(breakbeam_part_status_41 == true){
         human_detected=1;
     }
 }
-
-void Competition::breakbeam_sensor_6_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_6 = msg->object_detected;
-    if(breakbeam_part_status_6 == true){
+void Competition::breakbeam_sensor_42_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_42 = msg->object_detected;
+    if(breakbeam_part_status_42 == true){
         human_detected=1;
     }
 }
-
-void Competition::breakbeam_sensor_7_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_7 = msg->object_detected;
-    if(breakbeam_part_status_7 == true){
+void Competition::breakbeam_sensor_43_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_43 = msg->object_detected;
+    if(breakbeam_part_status_43 == true){
         human_detected=1;
     }
 }
-
-void Competition::breakbeam_sensor_8_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_8 = msg->object_detected;
-    if(breakbeam_part_status_8 == true){
+void Competition::breakbeam_sensor_44_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_44 = msg->object_detected;
+    if(breakbeam_part_status_44 == true){
         human_detected=1;
     }
 }
-
-void Competition::breakbeam_sensor_9_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_9 = msg->object_detected;
-    if(breakbeam_part_status_9 == true){
+void Competition::breakbeam_sensor_45_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_45 = msg->object_detected;
+    if(breakbeam_part_status_45 == true){
         human_detected=1;
     }
 }
-
-void Competition::breakbeam_sensor_10_callback(const nist_gear::Proximity::ConstPtr & msg){
-    breakbeam_part_status_10 = msg->object_detected;
-    if(breakbeam_part_status_10 == true){
+void Competition::breakbeam_sensor_46_callback(const nist_gear::Proximity::ConstPtr & msg){
+    breakbeam_part_status_46 = msg->object_detected;
+    if(breakbeam_part_status_46 == true){
         human_detected=1;
     }
 }
-
 
 //checks if a human was EVER detected
 // can include functionality for which aisle as well

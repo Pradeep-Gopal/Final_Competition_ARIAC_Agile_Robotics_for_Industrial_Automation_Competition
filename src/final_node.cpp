@@ -642,36 +642,36 @@ int main(int argc, char ** argv) {
                                 for (auto y: q->second){
                                     if(green_gasket_counter==4 && human_exists == 1){
                                         ROS_INFO_STREAM("Waiting for the person to move");
-                                        bool breakbeam_4_triggered = false;
-                                        ros::Time time_4;
-                                        bool breakbeam_5_triggered = false;
-                                        ros::Time time_5;
+                                        bool breakbeam_24_triggered = false;
+                                        ros::Time time_24;
+                                        bool breakbeam_25_triggered = false;
+                                        ros::Time time_25;
                                         while (true){
-                                            if (comp.breakbeam_part_status_4 == true and  breakbeam_4_triggered == false){
-                                                ROS_INFO_STREAM("4 TRIGGERED ");
-                                                time_4 = ros::Time::now();
-                                                breakbeam_4_triggered = true;
+                                            if (comp.breakbeam_part_status_24 == true and  breakbeam_24_triggered == false){
+                                                ROS_INFO_STREAM("24 TRIGGERED ");
+                                                time_24 = ros::Time::now();
+                                                breakbeam_24_triggered = true;
                                             }
-                                            if (comp.breakbeam_part_status_5 == true and  breakbeam_5_triggered == false){
-                                                ROS_INFO_STREAM("5 TRIGGERED ");
-                                                time_5 = ros::Time::now();
-                                                breakbeam_5_triggered = true;
+                                            if (comp.breakbeam_part_status_25 == true and  breakbeam_25_triggered == false){
+                                                ROS_INFO_STREAM("25 TRIGGERED ");
+                                                time_25 = ros::Time::now();
+                                                breakbeam_25_triggered = true;
                                             }
 
-                                            if(breakbeam_4_triggered == true and breakbeam_5_triggered == true){
+                                            if(breakbeam_24_triggered == true and breakbeam_25_triggered == true){
                                                 ROS_INFO_STREAM("BOTH TRIGGERED");
-                                                ROS_INFO_STREAM(time_4);
-                                                ROS_INFO_STREAM(time_5);
-                                                ros::Duration diff = time_4 - time_5;
+                                                ROS_INFO_STREAM(time_24);
+                                                ROS_INFO_STREAM(time_25);
+                                                ros::Duration diff = time_24 - time_25;
                                                 ROS_INFO_STREAM("diff in time between both is : "<<diff);
-                                                if(time_4 > time_5){
+                                                if(time_24 > time_25){
                                                     gantry.goToPresetLocation(y);
                                                     green_gasket_counter +=1;
                                                     break;
                                                 }
                                                 else{
-                                                    breakbeam_4_triggered = false;
-                                                    breakbeam_5_triggered = false;
+                                                    breakbeam_24_triggered = false;
+                                                    breakbeam_25_triggered = false;
                                                 }
                                             }
 
@@ -930,36 +930,36 @@ int main(int argc, char ** argv) {
                                 for (auto y: q->second){
                                     if(blue_pulley_counter==3 && human_exists == 1 ){
                                         ROS_INFO_STREAM("Waiting for the person to move");
-                                        bool breakbeam_8_triggered = false;
-                                        ros::Time time_8;
-                                        bool breakbeam_9_triggered = false;
-                                        ros::Time time_9;
+                                        bool breakbeam_34_triggered = false;
+                                        ros::Time time_34;
+                                        bool breakbeam_35_triggered = false;
+                                        ros::Time time_35;
                                         while (true){
-                                            if (comp.breakbeam_part_status_8 == true and  breakbeam_8_triggered == false){
-                                                ROS_INFO_STREAM("8 TRIGGERED ");
-                                                time_8 = ros::Time::now();
-                                                breakbeam_8_triggered = true;
+                                            if (comp.breakbeam_part_status_34 == true and  breakbeam_34_triggered == false){
+                                                ROS_INFO_STREAM("34 TRIGGERED ");
+                                                time_34 = ros::Time::now();
+                                                breakbeam_34_triggered = true;
                                             }
-                                            if (comp.breakbeam_part_status_9 == true and  breakbeam_9_triggered == false){
-                                                ROS_INFO_STREAM("9 TRIGGERED ");
-                                                time_9 = ros::Time::now();
-                                                breakbeam_9_triggered = true;
+                                            if (comp.breakbeam_part_status_35 == true and  breakbeam_35_triggered == false){
+                                                ROS_INFO_STREAM("35 TRIGGERED ");
+                                                time_35 = ros::Time::now();
+                                                breakbeam_35_triggered = true;
                                             }
 
-                                            if(breakbeam_9_triggered == true and breakbeam_8_triggered == true){
+                                            if(breakbeam_35_triggered == true and breakbeam_34_triggered == true){
                                                 ROS_INFO_STREAM("BOTH TRIGGERED");
-                                                ROS_INFO_STREAM(time_8);
-                                                ROS_INFO_STREAM(time_9);
-                                                ros::Duration diff = time_8 - time_9;
+                                                ROS_INFO_STREAM(time_34);
+                                                ROS_INFO_STREAM(time_35);
+                                                ros::Duration diff = time_34 - time_35;
                                                 ROS_INFO_STREAM("diff in time between both is : "<<diff);
-                                                if(time_8 > time_9){
+                                                if(time_34 > time_35){
                                                     gantry.goToPresetLocation(y);
                                                     blue_pulley_counter +=1;
                                                     break;
                                                 }
                                                 else{
-                                                    breakbeam_8_triggered = false;
-                                                    breakbeam_9_triggered = false;
+                                                    breakbeam_34_triggered = false;
+                                                    breakbeam_35_triggered = false;
                                                 }
                                             }
 

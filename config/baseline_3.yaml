@@ -87,7 +87,7 @@ models_over_bins:
         rpy: [0, 0, 0]
         num_models_x: 3
         num_models_y: 3
-  bin3:
+  bin8:
     models:
       pulley_part_red:
         xyz_start: [0.15, 0.15, 0.0]
@@ -108,5 +108,9 @@ models_over_shelves:
 
 #Faulty products
 faulty_products:
+  - pulley_part_red_3
+  - pulley_part_red_2
   - disk_part_blue_1
+  - disk_part_blue_2
+  - disk_part_green_3
   - disk_part_green_5
