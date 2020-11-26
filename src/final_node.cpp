@@ -289,8 +289,6 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
     gantry.goToPresetLocation(gantry.start_);
     ROS_INFO_STREAM("Start location reached");
 
-
-
     while(count < no_of_parts) {
         // move above pick location above belt
         gantry.goToPresetLocation(gantry.belt_pickup_);
@@ -304,8 +302,12 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
 
-            if(comp.get_parts_from_15_camera().back().type == "piston_rod_part_red" || "piston_rod_part_blue" || "piston_rod_part_red") {
+            if(comp.get_parts_from_15_camera().back().type == "piston_rod_part_red" || "piston_rod_part_blue" || "piston_rod_part_green") {
                 y_offset_est = 0.292;
+                z_offset_est = 0.009;
+            }
+            else if(comp.get_parts_from_15_camera().back().type == "gasket_part_red" || "gasket_part_blue" || "gasket_part_green") {
+                y_offset_est = 0.295;
                 z_offset_est = 0.009;
             }
 

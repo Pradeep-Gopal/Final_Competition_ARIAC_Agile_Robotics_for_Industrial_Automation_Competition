@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd85d6f5-1e41-4fba-9d9a-e0123b3206ed" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/rwa5-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/rwa5-sample.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/final_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/final_node.cpp" afterDir="false" />
     </list>
@@ -54,7 +55,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606414034317</updated>
-      <workItem from="1606414035908" duration="2839000" />
+      <workItem from="1606414035908" duration="3331000" />
     </task>
     <servers />
   </component>
