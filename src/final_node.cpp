@@ -281,15 +281,16 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 }
 
 void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
+    double y_offset_est = 0;
+    double z_offset_est = 0;
+    int no_of_parts{2}, count{0};
+
     ROS_INFO_STREAM("Picking up part from conveyor belt");
     gantry.goToPresetLocation(gantry.start_);
     ROS_INFO_STREAM("Start location reached");
-    // move above pick location above belt
-//    gantry.goToPresetLocation(gantry.belt_pickup_);
-//    ROS_INFO_STREAM("belt pick up location reached");
 
-    double offset_est = 0.292;
-    int no_of_parts{2}, count{0};
+
+
     while(count < no_of_parts) {
         // move above pick location above belt
         gantry.goToPresetLocation(gantry.belt_pickup_);
@@ -297,14 +298,20 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
         ROS_INFO_STREAM("Picking up part number " << count + 1);
         while ((comp.breakbeam_conveyor_belt_part_status_0 == true) || (comp.breakbeam_conveyor_belt_part_status_1 == true)){
-//            ROS_INFO_STREAM("Breakbeam sensor triggered, waiting to turn off");
         }
         ROS_INFO_STREAM("Attempting to pickup part on belt");
+
+
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
+
+            if(comp.get_parts_from_15_camera().back().type == "piston_rod_part_red" || "piston_rod_part_blue" || "piston_rod_part_red") {
+                y_offset_est = 0.292;
+                z_offset_est = 0.009;
+            }
+
             part part_picking = comp.get_parts_from_15_camera().back();
-//            ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
-            part_picking.pose.position.z += 0.009;
-            part_picking.pose.position.y -= offset_est;
+            part_picking.pose.position.z += z_offset_est;
+            part_picking.pose.position.y -= y_offset_est;
 
             if (gantry.pickMovingPart(part_picking)) {    // if part picked up
                 ROS_INFO_STREAM("Part picked");
