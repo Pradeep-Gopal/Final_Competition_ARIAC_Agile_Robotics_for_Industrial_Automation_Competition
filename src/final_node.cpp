@@ -366,6 +366,22 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 }
 
+std::string part_location(geometry_msgs::Pose pose, int camera_index){
+    if (camera_index == 7)
+    {
+        if (pose.position.y > 3.5)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 7");
+            return "f";
+        }
+
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 7");
+            return "b";
+        }
+    }
+}
+
 
 int main(int argc, char ** argv) {
 
@@ -633,7 +649,7 @@ int main(int argc, char ** argv) {
                                     }
                                     goto LOOP;
                                 }
-                            } else if (master_vector_main[i][j][k].type == "gasket_part_green") {
+                            } else if ((master_vector_main[i][j][k].type == "gasket_part_green") || (master_vector_main[i][j][k].type == "gasket_part_red")) {
                                 ROS_INFO_STREAM("Part to be picked = " << master_vector_main[i][j][k].type);
                                 part part_in_tray;
                                 part_in_tray.type = master_vector_main[i][j][k].type;
@@ -656,11 +672,13 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].place_part_pose);
                                 ROS_INFO_STREAM("Part to be picked from = ");
                                 ROS_INFO_STREAM(parts_from_camera_main[l][m].pose);
-                                std::string location = "shelf 8";
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
-                                std::string camera_id = std::to_string(l) + "f";
+
+                                std::string location = part_location(parts_from_camera_main[l][m].pose, l);
+                                std::string camera_id = std::to_string(l) + location;
+
                                 auto q = gantry.pickup_locations.find(camera_id);
                                 int green_gasket_counter = 0;
                                 for (auto y: q->second){
@@ -735,11 +753,11 @@ int main(int argc, char ** argv) {
                                 // Checking if parts have arrived on conveyor belt
 
                                 ROS_INFO_STREAM("First condition " << comp.conveyor_belt_part_status << "Second condition " << conveyor_part_picked);
-                                if((comp.conveyor_belt_part_status == true) && (conveyor_part_picked == false))
-                                {
-                                    ROS_INFO_STREAM("Picking part from conveyor belt");
-                                    pick_part_from_conveyor(comp, gantry);
-                                }
+//                                if((comp.conveyor_belt_part_status == true) && (conveyor_part_picked == false))
+//                                {
+//                                    ROS_INFO_STREAM("Picking part from conveyor belt");
+//                                    pick_part_from_conveyor(comp, gantry);
+//                                }
 
                                 if(master_vector_main[i][j][k].agv_id == "agv2") {
                                     ROS_INFO_STREAM("Loading faulty part status from agv2");
@@ -952,7 +970,9 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
-                                std::string camera_id = std::to_string(l) + "f";
+                                location = part_location(parts_from_camera_main[l][m].pose, l);
+                                std::string camera_id = std::to_string(l) + location;
+
                                 auto q = gantry.pickup_locations.find(camera_id);
 //                                auto q = gantry.pickup_locations.find(l);
                                 int blue_pulley_counter = 0;

@@ -79,7 +79,8 @@ class GantryControl {
     shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_,
     shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_,
     shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_
-    ,shelf1_lb_w1, shelf1_lb_w2, shelf1_lb_w3, shelf1_lb_w4;
+    ,shelf1_lb_w1, shelf1_lb_w2, shelf1_lb_w3, shelf1_lb_w4
+    ,shelf1_lf_w1, shelf1_lf_w2, shelf1_lf_w3, shelf1_lf_w4;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
