@@ -466,6 +466,23 @@ stats GantryControl::getStats(std::string function) {
     if (function == "grip") return grip_;
 }
 
+double GantryControl::get_offset_to_pickup_part_on_belt(const std::string& part_name) {
+    if (part_name == "pulley_part_red" || part_name == "pulley_part_blue" || part_name == "pulley_part_green") {
+        return 0.22;    // checked
+    } else if (part_name == "gasket_part_red" || part_name == "gasket_part_blue" || part_name == "gasket_part_green") {
+        return 0.295;   // checked
+    } else if (part_name == "piston_rod_part_red" || part_name == "piston_rod_part_blue" || part_name == "pisy"
+                                                                                                         "ton_rod_part_green") {
+        return 0.295;   // checked
+    } else if (part_name == "gear_part_red" || part_name == "gear_part_blue" || part_name == "gear_part_green") {
+        return 0.05;
+    } else if (part_name == "disk_part_red" || part_name == "disk_part_blue" || part_name ==" disk_part_green") {
+        return 0.23;    // checked
+    } else {
+        ROS_ERROR_STREAM(part_name << " is not a part in record" ) ;
+    }
+}
+
 bool GantryControl::pickMovingPart(part part) {
     //--Activate gripper
     activateGripper("left_arm");

@@ -10,12 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31dacebf-0efa-49b5-8d80-ae694a24e275" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/config/rwa5-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/rwa5-sample.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/gantry_control.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/gantry_control.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/launch/final.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/final.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/final_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/final_node.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gantry_control.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/gantry_control.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,18 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,6 +67,7 @@
       <workItem from="1606185763781" duration="161000" />
       <workItem from="1606271018927" duration="6968000" />
       <workItem from="1606281122310" duration="6255000" />
+      <workItem from="1606500761910" duration="373000" />
     </task>
     <servers />
   </component>

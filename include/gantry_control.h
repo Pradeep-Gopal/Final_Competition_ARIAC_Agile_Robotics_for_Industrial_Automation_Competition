@@ -56,7 +56,7 @@ class GantryControl {
     bool pickMovingPart(part part);
     void placePart(part part, std::string agv);
     void placePart_right_arm(part part,std::string agv);
-    
+    double get_offset_to_pickup_part_on_belt(const std::string& part_name);
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
