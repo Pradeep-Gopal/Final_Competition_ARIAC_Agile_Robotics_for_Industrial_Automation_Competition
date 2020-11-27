@@ -349,7 +349,7 @@ void GantryControl::init() {
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    bin1_.gantry = {2.75, - 0.77, PI/2};
+    bin1_.gantry = {2.6, - 0.87, PI/2};
     bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 

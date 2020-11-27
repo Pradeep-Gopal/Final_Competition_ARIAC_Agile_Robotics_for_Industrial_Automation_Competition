@@ -283,7 +283,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
     double y_offset_est = 0;
     double z_offset_est = 0;
-    int no_of_parts{2}, count{0};
+    int no_of_parts{3}, count{0};
 
     ROS_INFO_STREAM("Picking up part from conveyor belt");
     gantry.goToPresetLocation(gantry.start_);
@@ -301,13 +301,25 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
-
-            if(comp.get_parts_from_15_camera().back().type == "piston_rod_part_red" || "piston_rod_part_blue" || "piston_rod_part_green") {
+            ROS_INFO_STREAM(comp.get_parts_from_15_camera().back().type);
+            if((comp.get_parts_from_15_camera().back().type == "piston_rod_part_red") || (comp.get_parts_from_15_camera().back().type =="piston_rod_part_blue") || (comp.get_parts_from_15_camera().back().type =="piston_rod_part_green")) {
+                ROS_INFO_STREAM("piston part");
                 y_offset_est = 0.292;
                 z_offset_est = 0.009;
             }
-            else if(comp.get_parts_from_15_camera().back().type == "gasket_part_red" || "gasket_part_blue" || "gasket_part_green") {
+            else if((comp.get_parts_from_15_camera().back().type == "gasket_part_green") || (comp.get_parts_from_15_camera().back().type =="gasket_part_blue") || (comp.get_parts_from_15_camera().back().type =="gasket_part_red")) {
+                ROS_INFO_STREAM("gasket part");
                 y_offset_est = 0.295;
+                z_offset_est = 0.009;
+            }
+            else if((comp.get_parts_from_15_camera().back().type == "disk_part_green") || (comp.get_parts_from_15_camera().back().type =="disk_part_blue") || (comp.get_parts_from_15_camera().back().type =="disk_part_red")) {
+                ROS_INFO_STREAM("disk part");
+                y_offset_est = 0.295;
+                z_offset_est = 0.009;
+            }
+            else if((comp.get_parts_from_15_camera().back().type == "pulley_part_green") || (comp.get_parts_from_15_camera().back().type =="pulley_part_blue") || (comp.get_parts_from_15_camera().back().type =="pulley_part_red")) {
+                ROS_INFO_STREAM("pulley part");
+                y_offset_est = 0.265;
                 z_offset_est = 0.009;
             }
 
@@ -322,7 +334,10 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
                 //// drop part at desired location on bin1
                 PresetLocation bin1_drop = gantry.bin1_;
-                bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
+                if(count == 1)
+                    bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
+                if(count == 2)
+                    bin1_drop.gantry[1] += (count)*0.1;    // offset the next drop off location by 0.25
                 gantry.goToPresetLocation(bin1_drop);
                 ROS_INFO_STREAM("bin 1 location reached");
                 gantry.deactivateGripper("left_arm");
