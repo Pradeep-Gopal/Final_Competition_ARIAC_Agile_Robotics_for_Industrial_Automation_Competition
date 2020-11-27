@@ -417,7 +417,7 @@ int main(int argc, char ** argv) {
 
 
     // Picking parts from the conveyor belt
-    pick_part_from_conveyor(comp, gantry);
+//    pick_part_from_conveyor(comp, gantry);
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
@@ -660,8 +660,8 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
-
-                                auto q = gantry.pickup_locations.find(l);
+                                std::string camera_id = std::to_string(l) + "f";
+                                auto q = gantry.pickup_locations.find(camera_id);
                                 int green_gasket_counter = 0;
                                 for (auto y: q->second){
                                     if(green_gasket_counter==4 && human_exists == 1){
@@ -835,7 +835,10 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
-                                auto q = gantry.pickup_locations.find(l);
+                                std::string camera_id = std::to_string(l);
+                                auto q = gantry.pickup_locations.find(camera_id);
+
+//                                auto q = gantry.pickup_locations.find(l);
                                 for (auto y: q->second) {
                                     gantry.goToPresetLocation(y);
                                 }
@@ -949,7 +952,9 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
-                                auto q = gantry.pickup_locations.find(l);
+                                std::string camera_id = std::to_string(l) + "f";
+                                auto q = gantry.pickup_locations.find(camera_id);
+//                                auto q = gantry.pickup_locations.find(l);
                                 int blue_pulley_counter = 0;
                                 for (auto y: q->second){
                                     if(blue_pulley_counter==3 && human_exists == 1 ){

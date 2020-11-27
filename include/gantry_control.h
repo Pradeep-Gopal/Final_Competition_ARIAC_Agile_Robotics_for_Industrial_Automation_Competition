@@ -76,7 +76,10 @@ class GantryControl {
     agv2_drop agv2_drop_, agv1_drop_;
     bin13 bin13_;
     bin16 bin16_;
-    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_, shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
+    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_,
+    shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_,
+    shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_
+    ,shelf1_lb_w1, shelf1_lb_w2, shelf1_lb_w3, shelf1_lb_w4;
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
@@ -86,8 +89,8 @@ class GantryControl {
     pose_change pose_change_1_agv1, pose_change_2_agv1,pose_change_1_agv2,pose_change_2_agv2;
     agv2_flip agv2_flip_,agv1_flip_;
     flip_target agv2_flip_target_,agv1_flip_target_;
-    std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
-    std::unordered_map<int, char>:: iterator itr;
+    std::unordered_map<std::string, std::vector<PresetLocation>> pickup_locations;
+    std::unordered_map<std::string, char>:: iterator itr;
 
   private:
     std::vector<double> joint_group_positions_;

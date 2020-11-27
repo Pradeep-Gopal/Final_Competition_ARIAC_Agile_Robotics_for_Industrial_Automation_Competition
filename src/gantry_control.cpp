@@ -175,9 +175,25 @@ void GantryControl::init() {
     bin1_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin1_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Shelf 1, left front
+    shelf1_lb_w1.gantry = {0,-5.1,0};
+    shelf1_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf1_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf1_lb_w2.gantry = {4.5,-5.1,0};
+    shelf1_lb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf1_lb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf1_lb_w3.gantry = {4.5,-5.1,0};
+    shelf1_lb_w3.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf1_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf1_lb_w4.gantry = {4.5,-5.0,0};
+    shelf1_lb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf1_lb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //shelf 4
-    int cam = 4;
+    std::string cam = "4";
     std::vector<PresetLocation> waypoints;
     waypoints.push_back(shelf8_w1_);
     waypoints.push_back(shelf8_w2_);
@@ -188,7 +204,7 @@ void GantryControl::init() {
     waypoints.push_back(shelf8_w7_);
     pickup_locations[cam] = waypoints;
 
-    cam = 3;
+    cam ="3";
     waypoints.clear();
     waypoints.push_back(shelf8a_w1_);
     waypoints.push_back(shelf8a_w2_);
@@ -198,10 +214,18 @@ void GantryControl::init() {
     waypoints.push_back(shelf8a_w6_);
     pickup_locations[cam] = waypoints;
 
-    cam = 11;
+    cam = "11";
     waypoints.clear();
     waypoints.push_back(bin1_w1);
-//    waypoints.push_back(bin1_w2);
+    pickup_locations[cam] = waypoints;
+
+    //Shelf 1, left front
+    cam = "7f";
+    waypoints.clear();
+    waypoints.push_back(shelf1_lb_w1);
+    waypoints.push_back(shelf1_lb_w2);
+    waypoints.push_back(shelf1_lb_w3);
+    waypoints.push_back(shelf1_lb_w4);
     pickup_locations[cam] = waypoints;
 
 // BIN 16 preset location

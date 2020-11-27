@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cd85d6f5-1e41-4fba-9d9a-e0123b3206ed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/rwa5-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/rwa5-sample.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/final_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/final_node.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gantry_control.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/gantry_control.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,18 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -56,11 +43,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606414034317</updated>
-      <workItem from="1606414035908" duration="6513000" />
+      <workItem from="1606414035908" duration="7752000" />
+      <workItem from="1606494086478" duration="556000" />
+      <workItem from="1606494652835" duration="16000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606494666468">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606494666468" />
   </component>
 </project>
