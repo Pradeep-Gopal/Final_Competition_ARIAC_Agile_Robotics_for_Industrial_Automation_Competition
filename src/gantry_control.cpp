@@ -243,6 +243,75 @@ void GantryControl::init() {
     shelf1_rb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf1_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Shelf 2, left front, Camera 9
+    shelf2_lf_w1.gantry = {0,2.15,0};
+    shelf2_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lf_w2.gantry = {4.5,2.15,0};
+    shelf2_lf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_lf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lf_w3.gantry = {4.5,2.15,0};
+    shelf2_lf_w3.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lf_w4.gantry = {4.5,2.35,0};
+    shelf2_lf_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_lf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 2, left back, Camera 9
+    shelf2_lb_w1.gantry = {0,5.1,3.14};
+    shelf2_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lb_w2.gantry = {5.7,5.1,3.14};
+    shelf2_lb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_lb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lb_w3.gantry = {5.7,5.1,3.14};
+    shelf2_lb_w3.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_lb_w4.gantry = {5.7,5,3.14};
+    shelf2_lb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_lb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 2, left front, Camera 8
+    shelf2_rf_w1.gantry = {0,2.15,0};
+    shelf2_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rf_w2.gantry = {2.6,2.15,0};
+    shelf2_rf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_rf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rf_w3.gantry = {2.6,2.15,0};
+    shelf2_rf_w3.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rf_w4.gantry = {2.6,2.35,0};
+    shelf2_rf_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_rf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 2, left back, Camera 8
+    shelf2_rb_w1.gantry = {0,5.1,3.14};
+    shelf2_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rb_w2.gantry = {3.6,5.1,3.14};
+    shelf2_rb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf2_rb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rb_w3.gantry = {3.6,5.1,3.14};
+    shelf2_rb_w3.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf2_rb_w4.gantry = {3.6,5.0,3.14};
+    shelf2_rb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf2_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
 
     //shelf 4
     std::string cam = "4";
@@ -305,6 +374,42 @@ void GantryControl::init() {
     waypoints.push_back(shelf1_rb_w2);
     waypoints.push_back(shelf1_rb_w3);
     waypoints.push_back(shelf1_rb_w4);
+    pickup_locations[cam] = waypoints;
+
+    //Shelf 2, left front, camera 9
+    cam = "9f";
+    waypoints.clear();
+    waypoints.push_back(shelf2_lf_w1);
+    waypoints.push_back(shelf2_lf_w2);
+    waypoints.push_back(shelf2_lf_w3);
+    waypoints.push_back(shelf2_lf_w4);
+    pickup_locations[cam] = waypoints;
+
+    //Shelf 2, left back, camera 9
+    cam = "9b";
+    waypoints.clear();
+    waypoints.push_back(shelf2_lb_w1);
+    waypoints.push_back(shelf2_lb_w2);
+    waypoints.push_back(shelf2_lb_w3);
+    waypoints.push_back(shelf2_lb_w4);
+    pickup_locations[cam] = waypoints;
+
+    //Shelf 2, right front, camera 8
+    cam = "8f";
+    waypoints.clear();
+    waypoints.push_back(shelf2_rf_w1);
+    waypoints.push_back(shelf2_rf_w2);
+    waypoints.push_back(shelf2_rf_w3);
+    waypoints.push_back(shelf2_rf_w4);
+    pickup_locations[cam] = waypoints;
+
+    //Shelf 2, right back, camera 8
+    cam = "8b";
+    waypoints.clear();
+    waypoints.push_back(shelf2_rb_w1);
+    waypoints.push_back(shelf2_rb_w2);
+    waypoints.push_back(shelf2_rb_w3);
+    waypoints.push_back(shelf2_rb_w4);
     pickup_locations[cam] = waypoints;
 
 
