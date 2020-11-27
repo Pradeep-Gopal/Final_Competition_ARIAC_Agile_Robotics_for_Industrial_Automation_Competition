@@ -40,9 +40,9 @@ orders:
         type: gasket_part_red
         pose:
           xyz: [0.0, 0.15, 0]
-          rpy: [0 , 0, 0]
+          rpy: [0, 0, 0]
       product_1:
-        type: gasket_part_green
+        type: gasket_part_red
         pose:
           xyz: [-0.1, -0.2, 0]
           rpy: [0, 0, '-pi/4']
@@ -63,14 +63,14 @@ models_over_shelves:
   shelf1:
     models:
       gasket_part_green:
-        xyz_start: [0.5, 0.4, 0.0]
-        xyz_end: [1.4, 0.4, 0.0]
+        xyz_start: [-0.5, 0.4, 0.0]
+        xyz_end: [-1.4, 0.4, 0.0]
         rpy: [0, 0, -pi/4]
-        num_models_x: 6
+        num_models_x: 4
         num_models_y: 1
       gasket_part_red:
-        xyz_start: [0.5, -0.4, 0.0]
-        xyz_end: [1.4, -0.4, 0.0]
+        xyz_start: [-0.5, -0.4, 0.0]
+        xyz_end: [-1.4, -0.4, 0.0]
         rpy: [0, 0, pi/4]
         num_models_x: 4
         num_models_y: 1

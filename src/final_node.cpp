@@ -367,7 +367,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 }
 
 std::string part_location(geometry_msgs::Pose pose, int camera_index){
-    if (camera_index == 7)
+    if ((camera_index == 7) || (camera_index == 10)) // Shelf 1
     {
         if (pose.position.y > 3.5)
         {
