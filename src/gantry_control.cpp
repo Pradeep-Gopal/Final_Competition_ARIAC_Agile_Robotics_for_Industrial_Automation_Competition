@@ -43,6 +43,7 @@ GantryControl::GantryControl(ros::NodeHandle & node):
         left_ee_link_group_(left_ee_link_options_),
         right_ee_link_group_(right_ee_link_options_)
 {
+
     ROS_INFO_STREAM("[GantryControl::GantryControl] constructor called... ");
 }
 
@@ -56,7 +57,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
     while (node_.ok()) {
         tf::StampedTransform transform;
         try {
-            ROS_INFO_STREAM(shelf_name);
+//            ROS_INFO_STREAM(shelf_name);
             listener.lookupTransform("/world", shelf_name,
                                      ros::Time(0), transform);
             tf::Transform tf(transform.getBasis(), transform.getOrigin());
@@ -64,7 +65,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
             tf::Matrix3x3 tfR;
             tf::Quaternion quat;
             tfVec = tf.getOrigin();
-            ROS_INFO_STREAM(double(tfVec.getX()));
+//            ROS_INFO_STREAM(double(tfVec.getX()));
             if (shelf_name == "/shelf3_frame"){
                 shelf_vector[0][0] = double(tfVec.getX());
                 shelf_vector[0][1] = double(tfVec.getY());
@@ -110,7 +111,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
                 shelf_vector[8][1] = double(tfVec.getY());
                 shelf_vector[8][2] = double(tfVec.getZ());
             }
-            ROS_INFO_STREAM(tfVec.getX() << "," << tfVec.getY() << "," << tfVec.getZ());
+//            ROS_INFO_STREAM(tfVec.getX() << "," << tfVec.getY() << "," << tfVec.getZ());
             break;
 
         }
@@ -126,9 +127,9 @@ std::vector<std::vector<double>> GantryControl::get_shelf_vector(){
 }
 
 void GantryControl::init() {
-    ROS_INFO_STREAM("[GantryControl::init] init... ");
     double time_called = ros::Time::now().toSec();
-
+    full_robot_group_.setMaxVelocityScalingFactor(0.8);
+    ROS_INFO_STREAM("MOVE VELOCITY CHANGED");
     ROS_INFO_NAMED("init", "Planning frame: %s", left_arm_group_.getPlanningFrame().c_str());
     ROS_INFO_NAMED("init", "Planning frame: %s", right_arm_group_.getPlanningFrame().c_str());
     ROS_INFO_NAMED("init", "Planning frame: %s", full_robot_group_.getPlanningFrame().c_str());
@@ -208,42 +209,33 @@ void GantryControl::init() {
 
 // Pradeep Waypoints to Blue
 
-    shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
-    shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
+//    shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_w1_.gantry = {0.4, 1.68, 3.14};
+    shelf8a_w1_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-//    shelf8a_w2_.gantry = {-11.4, 4.48,3.14};
+//    shelf8a_w2_.gantry = {-11.40, 4.48,3.45};
 //    shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w2_.gantry = {-11.40, 4.48,3.45};
-    shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    shelf8a_w3_.gantry = {-11.4, 1.6, 3.14};
+    //this is where the gantry waits
+//    shelf8a_w3_.gantry = {-11.4, 2.99, 3.45};
 //    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    //this is where the gantry waits
-    shelf8a_w3_.gantry = {-11.4, 2.99, 3.45};
-    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w4_.gantry = {-11.40, 1.6, 3.14};
-    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    shelf8a_w4_.gantry = {-14.7, 1.6, 3.14};
+//    shelf8a_w4_.gantry = {-11.40, 1.6, 3.14};
 //    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
 //    shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
-    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_w2_.gantry = {-14.7, 1.6, 3.14};
+    shelf8a_w2_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
-    shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8a_w3_.gantry = {-14.7, 1.3, 3.14};
+    shelf8a_w3_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
 
@@ -274,9 +266,9 @@ void GantryControl::init() {
     waypoints.push_back(shelf8a_w1_);
     waypoints.push_back(shelf8a_w2_);
     waypoints.push_back(shelf8a_w3_);
-    waypoints.push_back(shelf8a_w4_);
-    waypoints.push_back(shelf8a_w5_);
-    waypoints.push_back(shelf8a_w6_);
+//    waypoints.push_back(shelf8a_w4_);
+//    waypoints.push_back(shelf8a_w5_);
+//    waypoints.push_back(shelf8a_w6_);
     pickup_locations[cam] = waypoints;
 
     cam = 11;

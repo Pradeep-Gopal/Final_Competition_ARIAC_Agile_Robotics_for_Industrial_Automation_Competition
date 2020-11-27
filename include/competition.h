@@ -117,8 +117,14 @@ public:
     bool breakbeam_part_status_45= false;
     bool breakbeam_part_status_46= false;
 
-    int get_human_existence();
-    int human_detected = 0;
+    int get_human_1_existence();
+    int get_human_2_existence();
+    int get_human_3_existence();
+    int get_human_4_existence();
+    int human_1_detected = 0;
+    int human_2_detected = 0;
+    int human_3_detected = 0;
+    int human_4_detected = 0;
 
 private:
     ros::NodeHandle node_;

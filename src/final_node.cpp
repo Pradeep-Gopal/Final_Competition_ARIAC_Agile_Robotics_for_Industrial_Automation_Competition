@@ -29,7 +29,7 @@
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h> //--needed for tf2::Matrix3x3
-
+#include <moveit/move_group_interface/move_group_interface.h>
 #include "competition.h"
 #include "utils.h"
 #include "gantry_control.h"
@@ -128,6 +128,75 @@ bool submitOrder(std::string AVG_id, std::string shipment_type){
 
 
 }
+
+bool getBreakBeam1(Competition &comp,std::string br_1){
+    if (br_1=="11"){
+        return comp.breakbeam_part_status_11;
+    }
+    else if (br_1=="21"){
+        return comp.breakbeam_part_status_21;
+    }
+    else if (br_1=="31"){
+    return comp.breakbeam_part_status_31;
+    }
+    else if (br_1=="41"){
+    return comp.breakbeam_part_status_41;
+    }
+}
+
+bool getBreakBeam2(Competition &comp,std::string br_2){
+    if (br_2=="12"){
+    return comp.breakbeam_part_status_12;
+    }
+    else if (br_2=="22"){
+    return comp.breakbeam_part_status_22;
+    }
+    else if (br_2=="32"){
+    return comp.breakbeam_part_status_32;
+    }
+    else if (br_2=="42"){
+    return comp.breakbeam_part_status_42;
+}
+}
+
+
+void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter, std::string br_1,
+                 std::string br_2, bool GENERAL_BREAKBEAM_1, bool GENERAL_BREAKBEAM_2){
+    ROS_INFO_STREAM("Waiting for the person to move");
+    GENERAL_BREAKBEAM_1 = false;
+    ros::Time TIME_1;
+    GENERAL_BREAKBEAM_2 = false;
+    ros::Time TIME_2;
+    while (true){
+        if (getBreakBeam1(comp, br_1) == true and  GENERAL_BREAKBEAM_1 == false){
+            ROS_INFO_STREAM("FIRST ONE TRIGGERED ");
+            TIME_1 = ros::Time::now();
+            GENERAL_BREAKBEAM_1 = true;
+        }
+        if (getBreakBeam2(comp, br_2) == true and  GENERAL_BREAKBEAM_2 == false){
+            ROS_INFO_STREAM("SECOND ONE TRIGGERED ");
+            TIME_2 = ros::Time::now();
+            GENERAL_BREAKBEAM_2 = true;
+        }
+        if(GENERAL_BREAKBEAM_1 == true and GENERAL_BREAKBEAM_2 == true){
+            ROS_INFO_STREAM("BOTH TRIGGERED");
+            ROS_INFO_STREAM(TIME_1);
+            ROS_INFO_STREAM(TIME_2);
+            ros::Duration diff = TIME_1 - TIME_2;
+            ROS_INFO_STREAM("diff in time between both is : "<<diff);
+        if(TIME_2 > TIME_1){ROS_INFO_STREAM("human moving out of the way now");
+            gantry.
+            goToPresetLocation(waypoint_iter);
+            break;
+        }
+        else{
+            GENERAL_BREAKBEAM_1 = false;
+            GENERAL_BREAKBEAM_2 = false;
+        }
+        }
+    }
+}
+
 
 void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryControl &gantry, part &part_in_tray) {
     double offset = 0.2;
@@ -428,15 +497,35 @@ int main(int argc, char ** argv) {
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
-
     //checks if a human was ever detected in an aisle
+    int human_1_existence;
+    int human_2_existence;
+    int human_3_existence;
+    int human_4_existence;
+    int human_exists;
     ROS_INFO_STREAM("CHECKING FOR HUMAN IN ALL AISLES....");
-    int human_exists = 0;
-    human_exists = comp.get_human_existence();
-    if (human_exists == 1){
-        ROS_INFO_STREAM("< --- HUMAN FOUND --- >");
+    if (comp.get_human_1_existence() == 1){
+        human_1_existence = 1;
+        ROS_INFO_STREAM("< --- HUMAN FOUND IN 1--- >");
     }
-    else if (human_exists ==0){
+    if (comp.get_human_2_existence()  == 1){
+        human_2_existence = 1;
+        ROS_INFO_STREAM("< --- HUMAN FOUND IN 2--- >");
+    }
+    if (comp.get_human_3_existence()  == 1){
+        human_3_existence = 1;
+        ROS_INFO_STREAM("< --- HUMAN FOUND IN 3--- >");
+    }
+    if (comp.get_human_4_existence()  == 1){
+        human_4_existence = 1;
+        ROS_INFO_STREAM("< --- HUMAN FOUND IN 4--- >");
+    }
+
+    if (human_1_existence ==1  || human_2_existence == 1|| human_3_existence ==1  || human_4_existence == 1){
+        human_exists = 1;
+    }
+    else {
+        human_exists ==0;
         ROS_INFO_STREAM(" -x-x-x-THERE IS A NO HUMAN AT ALL!-x-x-x- ");
     }
     ROS_INFO_STREAM("CHECKING FOR HUMANS COMPLETE....");
@@ -444,7 +533,7 @@ int main(int argc, char ** argv) {
 
 
     // Picking parts from the conveyor belt
-    pick_part_from_conveyor(comp, gantry);
+//    pick_part_from_conveyor(comp, gantry);
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
@@ -689,51 +778,55 @@ int main(int argc, char ** argv) {
 
 
                                 auto q = gantry.pickup_locations.find(l);
-                                int green_gasket_counter = 0;
-                                for (auto y: q->second){
-                                    if(green_gasket_counter==4 && human_exists == 1){
+                                ROS_INFO_STREAM("FOUND PICK UP LOCATION");
+                                int gasket_green_counter = 0;
+                                ROS_INFO_STREAM("BEFORE FOR LOOP");
+                                for (auto waypoint_iter: q->second){
+                                    if(gasket_green_counter==1 && human_exists == 1 ){
                                         ROS_INFO_STREAM("Waiting for the person to move");
-                                        bool breakbeam_24_triggered = false;
-                                        ros::Time time_24;
-                                        bool breakbeam_25_triggered = false;
-                                        ros::Time time_25;
+                                        bool breakbeam_31_triggered = false;
+                                        ros::Time time_31;
+                                        bool breakbeam_32_triggered = false;
+                                        ros::Time time_32;
                                         while (true){
-                                            if (comp.breakbeam_part_status_24 == true and  breakbeam_24_triggered == false){
-                                                ROS_INFO_STREAM("24 TRIGGERED ");
-                                                time_24 = ros::Time::now();
-                                                breakbeam_24_triggered = true;
+                                            if (comp.breakbeam_part_status_31 == true and  breakbeam_31_triggered == false){
+                                                ROS_INFO_STREAM("31 TRIGGERED ");
+                                                time_31 = ros::Time::now();
+                                                breakbeam_31_triggered = true;
                                             }
-                                            if (comp.breakbeam_part_status_25 == true and  breakbeam_25_triggered == false){
-                                                ROS_INFO_STREAM("25 TRIGGERED ");
-                                                time_25 = ros::Time::now();
-                                                breakbeam_25_triggered = true;
+                                            if (comp.breakbeam_part_status_32 == true and  breakbeam_32_triggered == false){
+                                                ROS_INFO_STREAM("32 TRIGGERED ");
+                                                time_32 = ros::Time::now();
+                                                breakbeam_32_triggered = true;
                                             }
 
-                                            if(breakbeam_24_triggered == true and breakbeam_25_triggered == true){
+                                            if(breakbeam_32_triggered == true and breakbeam_31_triggered == true){
                                                 ROS_INFO_STREAM("BOTH TRIGGERED");
-                                                ROS_INFO_STREAM(time_24);
-                                                ROS_INFO_STREAM(time_25);
-                                                ros::Duration diff = time_24 - time_25;
+                                                ROS_INFO_STREAM(time_31);
+                                                ROS_INFO_STREAM(time_32);
+                                                ros::Duration diff = time_31 - time_32;
                                                 ROS_INFO_STREAM("diff in time between both is : "<<diff);
-                                                if(time_24 > time_25){
-                                                    gantry.goToPresetLocation(y);
-                                                    green_gasket_counter +=1;
+                                                if(time_32 > time_31){
+                                                    ROS_INFO_STREAM("human moving out of the way now");
+                                                    gantry.goToPresetLocation(waypoint_iter);
+                                                    gasket_green_counter +=1;
                                                     break;
                                                 }
                                                 else{
-                                                    breakbeam_24_triggered = false;
-                                                    breakbeam_25_triggered = false;
+                                                    breakbeam_31_triggered = false;
+                                                    breakbeam_32_triggered = false;
                                                 }
                                             }
 
                                         }
                                     }
                                     else{
-                                        gantry.goToPresetLocation(y);
-                                        green_gasket_counter +=1;
+                                        gantry.goToPresetLocation(waypoint_iter);
+                                        gasket_green_counter +=1;
                                     }
                                     ros::Duration timeout(0.5);
                                 }
+
 
                                 gantry.pickPart(parts_from_camera_main[l][m]);
                                 ROS_INFO_STREAM("Part picked");
@@ -893,15 +986,6 @@ int main(int argc, char ** argv) {
                                     ROS_INFO_STREAM("AGV1 location reached");
                                 }
 
-//                                //Fixing part pose if gripper is Faulty
-//                                fix_part_pose(comp, master_vector_main[i][j][k], gantry, part_in_tray);
-//
-//                                // Checking if parts have arrived on conveyor belt
-//                                if((comp.conveyor_belt_part_status == true) && (conveyor_part_picked == false))
-//                                {
-//                                    pick_part_from_conveyor(comp, gantry);
-//                                }
-
                                 faulty_part = comp.get_quality_sensor_status_agv2();
                                 ROS_INFO_STREAM("Status of faulty part = ");
                                 ROS_INFO_STREAM(faulty_part.faulty);
@@ -976,49 +1060,94 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
 
+                                double y_coord = parts_from_camera_main[l][m].pose.position.y;
+                                bool GENERAL_BREAKBEAM_1 = false;
+                                bool GENERAL_BREAKBEAM_2 = false;
+                                std::string br_1;
+                                std::string br_2;
+                                ROS_INFO_STREAM("Y coord OF THE part is : "<<y_coord);
+                                if(y_coord >3.15){
+                                    ROS_INFO_STREAM("AISLE 1");
+                                    br_1 = "11";
+                                    br_2 = "12";
+                                }
+                                if(y_coord >2.6 && y_coord < 3.1){
+                                    ROS_INFO_STREAM("AISLE 2 - SHELF 1");
+                                    br_1 = "21";
+                                    br_2 = "22";
+                                }
+                                if( y_coord>0 && y_coord < 0.7){
+                                    ROS_INFO_STREAM("AISLE 2 - SHELF 2");
+                                    br_1 = "21";
+                                    br_2 = "22";
+                                }
+                                if(y_coord <0 && y_coord > -0.7){
+                                    ROS_INFO_STREAM("AISLE 3 -  SHELF 2");
+                                    br_1 = "31";
+                                    br_2 = "32";
+                                }
+                                if(y_coord <-2.6 && y_coord > -3.1){
+                                    ROS_INFO_STREAM("AISLE 3 - SHELF 3");
+                                    br_1 = "31";
+                                    br_2 = "32";
+                                }
+                                if(y_coord <-3.15){
+                                    ROS_INFO_STREAM("AISLE 4");
+                                    br_1 = "41";
+                                    br_2 = "42";
+                                }
                                 auto q = gantry.pickup_locations.find(l);
-                                int blue_pulley_counter = 0;
-                                for (auto y: q->second){
-                                    if(blue_pulley_counter==3 && human_exists == 1 ){
-                                        ROS_INFO_STREAM("Waiting for the person to move");
-                                        bool breakbeam_34_triggered = false;
-                                        ros::Time time_34;
-                                        bool breakbeam_35_triggered = false;
-                                        ros::Time time_35;
-                                        while (true){
-                                            if (comp.breakbeam_part_status_34 == true and  breakbeam_34_triggered == false){
-                                                ROS_INFO_STREAM("34 TRIGGERED ");
-                                                time_34 = ros::Time::now();
-                                                breakbeam_34_triggered = true;
-                                            }
-                                            if (comp.breakbeam_part_status_35 == true and  breakbeam_35_triggered == false){
-                                                ROS_INFO_STREAM("35 TRIGGERED ");
-                                                time_35 = ros::Time::now();
-                                                breakbeam_35_triggered = true;
-                                            }
-
-                                            if(breakbeam_35_triggered == true and breakbeam_34_triggered == true){
-                                                ROS_INFO_STREAM("BOTH TRIGGERED");
-                                                ROS_INFO_STREAM(time_34);
-                                                ROS_INFO_STREAM(time_35);
-                                                ros::Duration diff = time_34 - time_35;
-                                                ROS_INFO_STREAM("diff in time between both is : "<<diff);
-                                                if(time_34 > time_35){
-                                                    gantry.goToPresetLocation(y);
-                                                    blue_pulley_counter +=1;
-                                                    break;
-                                                }
-                                                else{
-                                                    breakbeam_34_triggered = false;
-                                                    breakbeam_35_triggered = false;
-                                                }
-                                            }
-
-                                        }
+                                ROS_INFO_STREAM("FOUND PICK UP LOCATION");
+                                int waypoint_counter = 0;
+                                ROS_INFO_STREAM("BEFORE FOR LOOP");
+                                // which row the part is in
+                                // map the row number to the breakbeam
+                                // assign breakbeam triggers accordingly
+                                for (auto waypoint_iter: q->second){
+                                    if(waypoint_counter==1 && human_exists == 1 ){
+                                        followHuman(comp, gantry, waypoint_iter, br_1, br_2, GENERAL_BREAKBEAM_1, GENERAL_BREAKBEAM_2);
+//                                        ROS_INFO_STREAM("Waiting for the person to move");
+//                                        bool GENERAL_BREAKBEAM_1 = false;
+//                                        ros::Time TIME_1;
+//                                        bool GENERAL_BREAKBEAM_2 = false;
+//                                        ros::Time TIME_2;
+//                                        while (true){
+//
+//                                            if (getBreakBeam1(comp,br_1) == true and  GENERAL_BREAKBEAM_1 == false){
+//                                                ROS_INFO_STREAM("FIRST ONE TRIGGERED ");
+//                                                TIME_1 = ros::Time::now();
+//                                                GENERAL_BREAKBEAM_1 = true;
+//                                            }
+//                                            if (getBreakBeam2(comp,br_2) == true and  GENERAL_BREAKBEAM_2 == false){
+//                                                ROS_INFO_STREAM("SECOND ONE TRIGGERED ");
+//                                                TIME_2 = ros::Time::now();
+//                                                GENERAL_BREAKBEAM_2 = true;
+//                                            }
+//
+//                                            if(GENERAL_BREAKBEAM_1 == true and GENERAL_BREAKBEAM_2 == true){
+//                                                ROS_INFO_STREAM("BOTH TRIGGERED");
+//                                                ROS_INFO_STREAM(TIME_1);
+//                                                ROS_INFO_STREAM(TIME_2);
+//                                                ros::Duration diff = TIME_1 - TIME_2;
+//                                                ROS_INFO_STREAM("diff in time between both is : "<<diff);
+//                                                if(TIME_2 > TIME_1){
+//                                                    ROS_INFO_STREAM("human moving out of the way now");
+//                                                    gantry.goToPresetLocation(waypoint_iter);
+//                                                    break;
+//                                                }
+//                                                else{
+//                                                    GENERAL_BREAKBEAM_1 = false;
+//                                                    GENERAL_BREAKBEAM_2 = false;
+//                                                }
+//                                            }
+//
+//                                        }
+                                        waypoint_counter +=1;
                                     }
                                     else{
-                                        gantry.goToPresetLocation(y);
-                                        blue_pulley_counter +=1;
+                                        ROS_INFO_STREAM("NOW IN ELSE LOOP");
+                                        gantry.goToPresetLocation(waypoint_iter);
+                                        waypoint_counter +=1;
                                     }
                                     ros::Duration timeout(0.5);
                                 }

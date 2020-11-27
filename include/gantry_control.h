@@ -18,7 +18,6 @@
 #include <moveit_msgs/CollisionObject.h>
 #include <moveit_visual_tools/moveit_visual_tools.h>
 
-
 #include <boost/foreach.hpp>
 #define foreach BOOST_FOREACH
 

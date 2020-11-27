@@ -38,7 +38,7 @@ sensors:
   breakbeam_22:
     type: break_beam
     pose:
-      xyz: [ -7.2831, 0.585950, 0.21 ]
+      xyz: [ -3.1, 0.585950, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
   breakbeam_23:
     type: break_beam
@@ -65,32 +65,32 @@ sensors:
   breakbeam_11:
     type: break_beam
     pose:
-      xyz: [ -1.9, 3.594794, 0.21 ]
+      xyz: [ -1.9, 3.75, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
   breakbeam_12:
     type: break_beam
     pose:
-      xyz: [ -7.2831, 3.594794, 0.21 ]
+      xyz: [ -3.1, 3.75, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
   breakbeam_13:
     type: break_beam
     pose:
-      xyz: [ -8.488, 3.594794, 0.21 ]
+      xyz: [ -8.488, 3.75, 0.21 ]
       rpy: [ 0, 0,1.54 ]
   breakbeam_14:
     type: break_beam
     pose:
-      xyz: [ -11.183661,3.594794, 0.21 ]
+      xyz: [ -11.183661,3.75, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
   breakbeam_15:
     type: break_beam
     pose:
-      xyz: [ -12.454859, 3.594794, 0.21 ]
+      xyz: [ -12.454859, 3.75, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
   breakbeam_16:
     type: break_beam
     pose:
-      xyz: [ -16.595247, 3.594794, 0.21 ]
+      xyz: [ -16.595247, 3.75, 0.21 ]
       rpy: [ 0, 0, 1.54 ]
 
 
@@ -101,10 +101,15 @@ sensors:
     pose:
       xyz: [ -1.9, -0.657948, 0.21 ]
       rpy: [ 0, 0,-1.54 ]
+#  breakbeam_32:
+#    type: break_beam
+#    pose:
+#      xyz: [ -7.2831, -0.657948, 0.21 ]
+#      rpy: [ 0, 0,-1.54 ]
   breakbeam_32:
     type: break_beam
     pose:
-      xyz: [ -7.2831, -0.657948, 0.21 ]
+      xyz: [ -3.1, -0.657948, 0.21 ]
       rpy: [ 0, 0,-1.54 ]
   breakbeam_33:
     type: break_beam
@@ -137,7 +142,7 @@ sensors:
   breakbeam_42:
     type: break_beam
     pose:
-      xyz: [ -7.2831, -3.7039, 0.21 ]
+      xyz: [ -3.1, -3.7039, 0.21 ]
       rpy: [ 0, 0,-1.54 ]
   breakbeam_43:
     type: break_beam
