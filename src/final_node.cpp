@@ -470,6 +470,32 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
             return "_16";
         }
     }
+
+    else if (camera_index == 13)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((2.3 < pose.position.x) && (pose.position.x < 2.9) && (-1.65 < pose.position.y) && (pose.position.y < -1))
+        {
+            ROS_INFO_STREAM("Part found in bin9");
+            return "_9";
+        }
+
+        else if((2.3 < pose.position.x) && (pose.position.x < 2.9) && (-2.5 < pose.position.y) && (pose.position.y < -1.7)){
+            ROS_INFO_STREAM("Part found in bin13");
+            return "_13";
+        }
+
+        else if((3.12 < pose.position.x) && (pose.position.x < 4) && (-1.65 < pose.position.y) && (pose.position.y < -1)){
+            ROS_INFO_STREAM("Part found in bin10");
+            return "_10";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin14");
+            return "_14";
+        }
+    }
 }
 
 

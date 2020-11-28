@@ -36,11 +36,11 @@ orders:
     shipment_count: 1
     destinations: [agv1]
     products:
-#      product_0:
-#        type: gasket_part_green
-#        pose:
-#          xyz: [0.0, 0.15, 0]
-#          rpy: [0, 0, 0]
+      product_0:
+        type: gasket_part_green
+        pose:
+          xyz: [0.0, 0.15, 0]
+          rpy: [0, 0, 0]
       product_1:
         type: gasket_part_red
         pose:
@@ -65,15 +65,15 @@ belt_models:
         rpy: [0, 0, 'pi/4']
 
 models_over_bins:
-#  bin15:
-#    models:
-#      gasket_part_green:
-#        xyz_start: [0.1, 0.1, 0.0]
-#        xyz_end: [0.5, 0.5, 0.0]
-#        rpy: [0, 0, 0]
-#        num_models_x: 3
-#        num_models_y: 3
-  bin12:
+  bin13:
+    models:
+      gasket_part_green:
+        xyz_start: [0.1, 0.1, 0.0]
+        xyz_end: [0.5, 0.5, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 3
+        num_models_y: 3
+  bin14:
     models:
       gasket_part_red:
         xyz_start: [0.1, 0.1, 0.0]
@@ -81,7 +81,7 @@ models_over_bins:
         rpy: [0, 0, 0]
         num_models_x: 3
         num_models_y: 3
-  bin16:
+  bin9:
     models:
       gasket_part_blue:
         xyz_start: [ 0.1, 0.1, 0.0 ]
@@ -89,7 +89,7 @@ models_over_bins:
         rpy: [ 0, 0, 0 ]
         num_models_x: 3
         num_models_y: 3
-#  bin11:
+#  bin10:
 #    models:
 #      gasket_part_red:
 #        xyz_start: [ 0.1, 0.1, 0.0 ]

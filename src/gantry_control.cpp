@@ -374,6 +374,26 @@ void GantryControl::init() {
     bin12_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Bin 13, camera 13
+    bin13_.gantry = {2.145,  2.29, 0};
+    bin13_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 14, camera 13
+    bin14_.gantry = {3.086,  2.29, 0};
+    bin14_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin14_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 9, camera 13
+    bin9_.gantry = {2.145,  1.45, 0};
+    bin9_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin9_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 10, camera 13
+    bin10_.gantry = {3.086,  1.45, 0};
+    bin10_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
 
     //shelf 4
     std::string cam = "4";
@@ -546,6 +566,30 @@ void GantryControl::init() {
     waypoints.push_back(bin12_);
     pickup_locations[cam] = waypoints;
 
+    //Bin 13, camera 13
+    cam = "13_13";
+    waypoints.clear();
+    waypoints.push_back(bin13_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 14, camera 13
+    cam = "13_14";
+    waypoints.clear();
+    waypoints.push_back(bin14_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 9, camera 13
+    cam = "13_9";
+    waypoints.clear();
+    waypoints.push_back(bin9_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 10, camera 13
+    cam = "13_10";
+    waypoints.clear();
+    waypoints.push_back(bin10_);
+    pickup_locations[cam] = waypoints;
+
 
 
 // BIN 16 preset location
@@ -564,9 +608,9 @@ void GantryControl::init() {
 //    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //    bin13_.gantry = {2.55, -1.58, 1.54};
-    bin13_.gantry = {3.1, 1.68, 3.77};
-    bin13_.left_arm = {0.0, -0.63, 1.26, -0.65, PI/2, 0};
-    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    bin13_.gantry = {3.1, 1.68, 3.77};
+//    bin13_.left_arm = {0.0, -0.63, 1.26, -0.65, PI/2, 0};
+//    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    pulley_part_red located on waypoint_1
     waypoint_1_.gantry = {0.0, -4.7, 0.0};
