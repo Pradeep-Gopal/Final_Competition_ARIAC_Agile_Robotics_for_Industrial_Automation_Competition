@@ -334,6 +334,25 @@ void GantryControl::init() {
     bin6_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Bin 3, camera 12
+    bin3_.gantry = {4.626, - 0.77, PI/2};
+    bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 4, camera 12
+    bin4_.gantry = {5.326, - 0.77, PI/2};
+    bin4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 7, camera 12
+    bin7_.gantry = {4.026, - 2.15, 0};
+    bin7_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin7_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 8, camera 12
+    bin8_.gantry = {5.826, - 1.67, PI/2};
+    bin8_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //shelf 4
     std::string cam = "4";
@@ -458,6 +477,29 @@ void GantryControl::init() {
     waypoints.push_back(bin6_);
     pickup_locations[cam] = waypoints;
 
+    //Bin 3, camera 12
+    cam = "12_3";
+    waypoints.clear();
+    waypoints.push_back(bin3_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 4, camera 12
+    cam = "12_4";
+    waypoints.clear();
+    waypoints.push_back(bin4_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 7, camera 12
+    cam = "12_7";
+    waypoints.clear();
+    waypoints.push_back(bin7_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 8, camera 12
+    cam = "12_8";
+    waypoints.clear();
+    waypoints.push_back(bin8_);
+    pickup_locations[cam] = waypoints;
 
 // BIN 16 preset location
     bin16_.gantry = {5.00, 1.95,0.0};
@@ -513,10 +555,10 @@ void GantryControl::init() {
     start_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-//    Bin3 location
-    bin3_.gantry = {4.0, -1.1, 0.};
-    bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+////    Bin3 location
+//    bin3_.gantry = {4.0, -1.1, 0.};
+//    bin3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+//    bin3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    Agv2 location
     agv2_.gantry = {0.6, 6.9, PI};

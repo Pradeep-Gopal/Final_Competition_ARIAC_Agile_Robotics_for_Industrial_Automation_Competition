@@ -393,7 +393,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         }
     }
 
-    if (camera_index == 11) // Shelf 2
+    if (camera_index == 11)
     {
         ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
 
@@ -416,6 +416,32 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         else{
             ROS_INFO_STREAM("Part found in bin2");
             return "_2";
+        }
+    }
+
+    if (camera_index == 12)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((4.18 < pose.position.x) && (pose.position.x < 4.78) && (1.7 < pose.position.y) && (pose.position.y < 2.5))
+        {
+            ROS_INFO_STREAM("Part found in bin7");
+            return "_7";
+        }
+
+        else if((4.18 < pose.position.x) && (pose.position.x < 4.78) && (1.0 < pose.position.y) && (pose.position.y < 1.7)){
+            ROS_INFO_STREAM("Part found in bin3");
+            return "_3";
+        }
+
+        else if((5 < pose.position.x) && (pose.position.x < 5.88) && (1.8 < pose.position.y) && (pose.position.y < 2.5)){
+            ROS_INFO_STREAM("Part found in bin8");
+            return "_8";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin4");
+            return "_4";
         }
     }
 }
@@ -687,7 +713,7 @@ int main(int argc, char ** argv) {
                                     }
                                     goto LOOP;
                                 }
-                            } else if ((master_vector_main[i][j][k].type == "gasket_part_green") || (master_vector_main[i][j][k].type == "gasket_part_red")) {
+                            } else if ((master_vector_main[i][j][k].type == "gasket_part_green") || (master_vector_main[i][j][k].type == "gasket_part_red") || (master_vector_main[i][j][k].type == "gasket_part_blue")) {
                                 ROS_INFO_STREAM("Part to be picked = " << master_vector_main[i][j][k].type);
                                 part part_in_tray;
                                 part_in_tray.type = master_vector_main[i][j][k].type;
@@ -769,8 +795,10 @@ int main(int argc, char ** argv) {
 
                                 for (auto it = q->second.rbegin(); it != q->second.rend(); it++){
                                     gantry.goToPresetLocation(*it);
-                                    ros::Duration timeout(0.5);
+                                    ROS_INFO_STREAM("Reversing");
                                 }
+
+                                gantry.goToPresetLocation(gantry.start_);
 
                                 ROS_INFO_STREAM("AGVVVVVVVVVVVVVVVVVVVVVVV");
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);

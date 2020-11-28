@@ -71,7 +71,7 @@ class GantryControl {
 
     //--preset locations;
     start start_, belt_pickup_;
-    bin3 bin1_, bin2_, bin5_, bin6_, bin3_, bin1_drop_, bin1_w1, bin1_w2;
+    bin3 bin1_, bin2_, bin5_, bin6_, bin3_, bin4_, bin7_, bin8_,  bin1_drop_, bin1_w1, bin1_w2;
     agv2 agv2_, agv1_;
     agv2_drop agv2_drop_, agv1_drop_;
     bin13 bin13_;
