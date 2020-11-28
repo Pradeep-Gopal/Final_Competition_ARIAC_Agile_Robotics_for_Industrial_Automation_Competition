@@ -26,7 +26,7 @@
           $(arg gui_args)
           $(arg load_moveit_args)
           $(arg fill_demo_shipment_args)
-          -f $(find final-group1)/config/mo.yaml
+          -f $(find final-group1)/config/rwa5-sample.yaml
           $(find final-group1)/config/sensor.yaml
           " required="true" output="screen" />
 

@@ -126,9 +126,17 @@ std::vector<std::vector<double>> GantryControl::get_shelf_vector(){
     return shelf_vector;
 }
 
+void GantryControl::setRobotSpeed(double speed_factor, double acc_factor){
+    full_robot_group_.setMaxVelocityScalingFactor(speed_factor);
+    full_robot_group_.setMaxAccelerationScalingFactor(acc_factor);
+    ROS_INFO_STREAM("<<<<<<<<<<<MOVE VELOCITY CHANGED>>>>>>>>>>>>>>");
+}
+
 void GantryControl::init() {
     double time_called = ros::Time::now().toSec();
-    full_robot_group_.setMaxVelocityScalingFactor(0.8);
+    full_robot_group_.setMaxVelocityScalingFactor(0.6);
+    full_robot_group_.setMaxAccelerationScalingFactor(0.1);
+
     ROS_INFO_STREAM("MOVE VELOCITY CHANGED");
     ROS_INFO_NAMED("init", "Planning frame: %s", left_arm_group_.getPlanningFrame().c_str());
     ROS_INFO_NAMED("init", "Planning frame: %s", right_arm_group_.getPlanningFrame().c_str());
@@ -143,7 +151,7 @@ void GantryControl::init() {
 
 //new waypoints by Rajesh and Govind to reach green
 
-    shelf8_w1_.gantry = {0.0,-1.68,0.0};
+    shelf8_w1_.gantry = {0.2,-1.68,0.0};
     shelf8_w1_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -157,7 +165,7 @@ void GantryControl::init() {
 
 // Pradeep Waypoints to Blue
 
-    shelf8a_w1_.gantry = {0.4, 1.68, 3.14};
+    shelf8a_w1_.gantry = {0.2, 1.68, 3.14};
     shelf8a_w1_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 

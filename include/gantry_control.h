@@ -51,7 +51,7 @@ class GantryControl {
     void shelf_callback(std::string);
 
     GantryControl(ros::NodeHandle & node);
-
+    void setRobotSpeed(double speed_factor, double acc_factor);
     void init();
     stats getStats(std::string function);
     Quat ToQuaternion(double roll, double pitch, double yaw);
