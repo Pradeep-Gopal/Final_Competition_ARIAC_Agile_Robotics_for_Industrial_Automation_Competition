@@ -175,6 +175,9 @@ void GantryControl::init() {
     bin1_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin1_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+
+    //----NEW WAYPOINTS
+
     //Shelf 1, left front, Camera 7
     shelf1_lf_w1.gantry = {0,-5.1,0};
     shelf1_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -311,6 +314,25 @@ void GantryControl::init() {
     shelf2_rb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf2_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Bin 1, camera 11
+    bin1_.gantry = {2.75, - 0.77, PI/2};
+    bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 2, camera 11
+    bin2_.gantry = {3.45, - 0.77, PI/2};
+    bin2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 5, camera 11
+    bin5_.gantry = {2.15, - 2.15, 0};
+    bin5_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Bin 6, camera 11
+    bin6_.gantry = {3.95, - 1.67, PI/2};
+    bin6_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
     //shelf 4
@@ -410,6 +432,30 @@ void GantryControl::init() {
     waypoints.push_back(shelf2_rb_w2);
     waypoints.push_back(shelf2_rb_w3);
     waypoints.push_back(shelf2_rb_w4);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 1, camera 11
+    cam = "11_1";
+    waypoints.clear();
+    waypoints.push_back(bin1_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 2, camera 11
+    cam = "11_2";
+    waypoints.clear();
+    waypoints.push_back(bin2_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 5, camera 11
+    cam = "11_5";
+    waypoints.clear();
+    waypoints.push_back(bin5_);
+    pickup_locations[cam] = waypoints;
+
+    //Bin 6, camera 11
+    cam = "11_6";
+    waypoints.clear();
+    waypoints.push_back(bin6_);
     pickup_locations[cam] = waypoints;
 
 
@@ -558,9 +604,9 @@ void GantryControl::init() {
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    bin1_.gantry = {2.6, - 0.87, PI/2};
-    bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    bin1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_drop_.gantry = {2.6, - 0.87, PI/2};
+    bin1_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    bin1_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    tf2_ros::Buffer tfBuffer;
 //    tf2_ros::TransformListener tfListener(tfBuffer);

@@ -333,7 +333,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
                 ROS_INFO_STREAM("belt pick up location reached");
 
                 //// drop part at desired location on bin1
-                PresetLocation bin1_drop = gantry.bin1_;
+                PresetLocation bin1_drop = gantry.bin1_drop_;
                 if(count == 1)
                     bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
                 if(count == 2)
@@ -390,6 +390,32 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         else {
             ROS_INFO_STREAM("Part found in back of shelf 2");
             return "b";
+        }
+    }
+
+    if (camera_index == 11) // Shelf 2
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((2.3 < pose.position.x) && (pose.position.x < 2.9) && (1.7 < pose.position.y) && (pose.position.y < 2.5))
+        {
+            ROS_INFO_STREAM("Part found in bin5");
+            return "_5";
+        }
+
+        else if((2.3 < pose.position.x) && (pose.position.x < 2.9) && (1.0 < pose.position.y) && (pose.position.y < 1.7)){
+            ROS_INFO_STREAM("Part found in bin1");
+            return "_1";
+        }
+
+        else if((3.1 < pose.position.x) && (pose.position.x < 4) && (1.8 < pose.position.y) && (pose.position.y < 2.5)){
+            ROS_INFO_STREAM("Part found in bin6");
+            return "_6";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin2");
+            return "_2";
         }
     }
 }
@@ -1283,8 +1309,8 @@ int main(int argc, char ** argv) {
                                 std::string location = "shelf5";
                                 gantry.goToPresetLocation(gantry.start_);
                                 ROS_INFO_STREAM("Start location reached");
-                                gantry.goToPresetLocation(gantry.bin1_);
-                                ROS_INFO_STREAM("bin1 location reached");
+                                gantry.goToPresetLocation(gantry.bin1_drop_);
+                                ROS_INFO_STREAM("bin1_drop_ location reached");
 //                                gantry.goToPresetLocation(gantry.waypoint_1_);
 //                                ROS_INFO_STREAM("waypont1 location reached");
 //                                gantry.goToPresetLocation(gantry.waypoint_2_);
@@ -1294,7 +1320,7 @@ int main(int argc, char ** argv) {
 //                                gantry.goToPresetLocation(gantry.waypoint_4_);
 //                                ROS_INFO_STREAM("waypoint4 location reached");
                                 gantry.pickPart(parts_from_camera_main[l][m]);
-                                gantry.goToPresetLocation(gantry.bin1_);
+                                gantry.goToPresetLocation(gantry.bin1_drop_);
                                 ROS_INFO_STREAM("Part picked");
 //                                gantry.goToPresetLocation(gantry.waypoint_4_);
 //                                ROS_INFO_STREAM("waypoint4 location reached");

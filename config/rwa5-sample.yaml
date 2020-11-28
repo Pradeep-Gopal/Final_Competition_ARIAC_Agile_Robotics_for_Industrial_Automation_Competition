@@ -37,15 +37,20 @@ orders:
     destinations: [agv1]
     products:
       product_0:
-        type: gasket_part_red
+        type: gasket_part_green
         pose:
           xyz: [0.0, 0.15, 0]
           rpy: [0, 0, 0]
-      product_1:
-        type: gasket_part_green
-        pose:
-          xyz: [-0.1, -0.2, 0]
-          rpy: [0, 0, '-pi/4']
+#      product_1:
+#        type: gasket_part_red
+#        pose:
+#          xyz: [-0.1, -0.2, 0]
+#          rpy: [0, 0, '-pi/4']
+#      product_2:
+#        type: gasket_part_blue
+#        pose:
+#          xyz: [ -0.1, -0.2, 0 ]
+#          rpy: [ 0, 0, '-pi/4' ]
 #      product_2:
 #        type: piston_rod_part_red
 #        pose:
@@ -59,21 +64,55 @@ belt_models:
         xyz: [0.0, 4.3, 0.92]
         rpy: [0, 0, 'pi/4']
 
-models_over_shelves:
-  shelf2:
+models_over_bins:
+  bin5:
+    models:
+      gasket_part_blue:
+        xyz_start: [0.1, 0.1, 0.0]
+        xyz_end: [0.5, 0.5, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 3
+        num_models_y: 3
+  bin2:
     models:
       gasket_part_green:
-        xyz_start: [-0.5, 0.4, 0.0]
-        xyz_end: [-1.4, 0.4, 0.0]
-        rpy: [0, 0, -pi/4]
-        num_models_x: 4
-        num_models_y: 1
-      gasket_part_red:
-        xyz_start: [-0.5, -0.4, 0.0]
-        xyz_end: [-1.4, -0.4, 0.0]
-        rpy: [0, 0, pi/4]
-        num_models_x: 4
-        num_models_y: 1
+        xyz_start: [0.1, 0.1, 0.0]
+        xyz_end: [0.5, 0.5, 0.0]
+        rpy: [0, 0, 0]
+        num_models_x: 3
+        num_models_y: 3
+  bin1:
+    models:
+      gasket_part_blue:
+        xyz_start: [ 0.1, 0.1, 0.0 ]
+        xyz_end: [ 0.5, 0.5, 0.0 ]
+        rpy: [ 0, 0, 0 ]
+        num_models_x: 3
+        num_models_y: 3
+  bin6:
+    models:
+      gasket_part_green:
+        xyz_start: [ 0.1, 0.1, 0.0 ]
+        xyz_end: [ 0.5, 0.5, 0.0 ]
+        rpy: [ 0, 0, 0 ]
+        num_models_x: 3
+        num_models_y: 3
+
+#models_over_shelves:
+#  shelf2:
+#    models:
+#      gasket_part_green:
+#        xyz_start: [-0.5, 0.4, 0.0]
+#        xyz_end: [-1.4, 0.4, 0.0]
+#        rpy: [0, 0, 0]
+#        num_models_x: 4
+#        num_models_y: 1
+#      gasket_part_red:
+#        xyz_start: [-0.5, -0.4, 0.0]
+#        xyz_end: [-1.4, -0.4, 0.0]
+#        rpy: [0, 0, pi/4]
+#        num_models_x: 4
+#        num_models_y: 1
 
 sensor_blackout:
   product_count: 2
