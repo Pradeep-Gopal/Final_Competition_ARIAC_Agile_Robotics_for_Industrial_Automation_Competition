@@ -380,7 +380,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         }
     }
 
-    if ((camera_index == 8) || (camera_index == 9)) // Shelf 2
+    else if ((camera_index == 8) || (camera_index == 9)) // Shelf 2
     {
         if (pose.position.y > -3.5)
         {
@@ -393,7 +393,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         }
     }
 
-    if (camera_index == 11)
+    else if (camera_index == 11)
     {
         ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
 
@@ -419,7 +419,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         }
     }
 
-    if (camera_index == 12)
+    else if (camera_index == 12)
     {
         ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
 
@@ -442,6 +442,32 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         else{
             ROS_INFO_STREAM("Part found in bin4");
             return "_4";
+        }
+    }
+
+    else if (camera_index == 14)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((4.18 < pose.position.x) && (pose.position.x < 4.78) && (-1.65 < pose.position.y) && (pose.position.y < -1))
+        {
+            ROS_INFO_STREAM("Part found in bin11");
+            return "_11";
+        }
+
+        else if((4.18 < pose.position.x) && (pose.position.x < 4.78) && (-2.5 < pose.position.y) && (pose.position.y < -1.7)){
+            ROS_INFO_STREAM("Part found in bin15");
+            return "_15";
+        }
+
+        else if((5 < pose.position.x) && (pose.position.x < 5.88) && (-1.65 < pose.position.y) && (pose.position.y < -1)){
+            ROS_INFO_STREAM("Part found in bin12");
+            return "_12";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin16");
+            return "_16";
         }
     }
 }
