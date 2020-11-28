@@ -355,22 +355,22 @@ void GantryControl::init() {
     bin8_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Bin 15, camera 14
-    bin15_.gantry = {4.026,  2.15, 0};
+    bin15_.gantry = {4.026,  2.29, 0};
     bin15_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin15_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Bin 16, camera 14
-    bin16_.gantry = {5.826,  1.67, PI/2};
+    bin16_.gantry = {4.967,  2.29, 0};
     bin16_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Bin 11, camera 14
-    bin11_.gantry = {4.626,  0.77, PI/2};
+    bin11_.gantry = {4.026,  1.45, 0};
     bin11_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin11_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Bin 12, camera 14
-    bin12_.gantry = {5.326,  0.77, PI/2};
+    bin12_.gantry = {4.967,  1.45, 0};
     bin12_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin12_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
