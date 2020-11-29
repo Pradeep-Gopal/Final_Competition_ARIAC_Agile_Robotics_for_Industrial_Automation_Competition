@@ -95,74 +95,9 @@ void GantryControl::init() {
 //    shelf8_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
 //    shelf8_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-//new waypoints by Rajesh and Govind to reach green
 
-    shelf8_w1_.gantry = {0.0,-4.48,0.0};
-    shelf8_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w2_.gantry = {-11.58,-4.48,0};
-    shelf8_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf8_w3_.gantry = {-11.58,-4.48,1.57};
-    shelf8_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w4_.gantry = {-11.58, -2.99, 0.73};
-    shelf8_w4_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w5_.gantry = {-11.47, -1.68, 0.0};
-    shelf8_w5_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w6_.gantry = {-13.5, -1.6, 0.0};
-    shelf8_w6_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8_w7_.gantry = {-14, -1.2, 0.0};
-    shelf8_w7_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8_w7_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-// Pradeep Waypoints to Blue
-
-    shelf8a_w1_.gantry = {0.0, 4.48, 3.14};
-    shelf8a_w1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w1_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    shelf8a_w2_.gantry = {-11.4, 4.48,3.14};
-//    shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w2_.gantry = {-11.40, 4.48,3.45};
-    shelf8a_w2_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w2_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    shelf8a_w3_.gantry = {-11.4, 1.6, 3.14};
-//    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    //this is where the gantry waits
-    shelf8a_w3_.gantry = {-11.4, 2.99, 3.45};
-    shelf8a_w3_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w3_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w4_.gantry = {-11.40, 1.6, 3.14};
-    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-    shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    shelf8a_w4_.gantry = {-14.7, 1.6, 3.14};
-//    shelf8a_w4_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8a_w4_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w5_.gantry = {-14.7, 1.6, 3.14};
-    shelf8a_w5_.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8a_w5_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    shelf8a_w6_.gantry = {-14.7, 1.3, 3.14};
-    shelf8a_w6_.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-    shelf8a_w6_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
 
@@ -314,6 +249,118 @@ void GantryControl::init() {
     shelf2_rb_w4.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf2_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
+    //Shelf 8, Left Front, Camera 4
+    shelf8_lf_w1.gantry = {0.0,-4.48,0.0};
+    shelf8_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w2.gantry = {-11.58,-4.48,0};
+    shelf8_lf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w3.gantry = {-11.58,-4.48,1.57};
+    shelf8_lf_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w4.gantry = {-11.58, -2.99, 0.73};
+    shelf8_lf_w4.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w5.gantry = {-11.47, -1.68, 0.0};
+    shelf8_lf_w5.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lf_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w6.gantry = {-13.5, -1.6, 0.0};
+    shelf8_lf_w6.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lf_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lf_w7.gantry = {-14, -1.2, 0.0};
+    shelf8_lf_w7.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lf_w7.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 8, Right Front, Camera 3
+    shelf8_rf_w1.gantry = {0.0,-4.48,0.0};
+    shelf8_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w2.gantry = {-11.58,-4.48,0};
+    shelf8_rf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w3.gantry = {-11.58,-4.48,1.57};
+    shelf8_rf_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w4.gantry = {-11.58, -2.99, 0.73};
+    shelf8_rf_w4.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w5.gantry = {-11.47, -1.68, 0.0};
+    shelf8_rf_w5.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rf_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w6.gantry = {-15.4, -1.6, 0.0};
+    shelf8_rf_w6.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rf_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rf_w7.gantry = {-15.4, -1.2, 0.0};
+    shelf8_rf_w7.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rf_w7.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+
+    //Shelf 8, Right Back, Camera 3
+    shelf8_rb_w1.gantry = {0.0, 4.48, 3.14};
+    shelf8_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rb_w2.gantry = {-11.40, 4.48,3.45};
+    shelf8_rb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //this is where the gantry waits
+    shelf8_rb_w3.gantry = {-11.4, 2.99, 3.45};
+    shelf8_rb_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rb_w4.gantry = {-11.40, 1.6, 3.14};
+    shelf8_rb_w4.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rb_w5.gantry = {-14.7, 1.6, 3.14};
+    shelf8_rb_w5.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rb_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_rb_w6.gantry = {-14.7, 1.3, 3.14};
+    shelf8_rb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_rb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 8, Left Back, Camera 3
+
+    shelf8_lb_w1.gantry = {0.0, 4.48, 3.14};
+    shelf8_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lb_w2.gantry = {-11.40, 4.48,3.45};
+    shelf8_lb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //this is where the gantry waits
+    shelf8_lb_w3.gantry = {-11.4, 2.99, 3.45};
+    shelf8_lb_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lb_w4.gantry = {-11.40, 1.6, 3.14};
+    shelf8_lb_w4.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf8_lb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lb_w5.gantry = {-12.8, 1.6, 3.14};
+    shelf8_lb_w5.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lb_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf8_lb_w6.gantry = {-12.8, 1.3, 3.14};
+    shelf8_lb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf8_lb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
     //Bin 1, camera 11
     bin1_.gantry = {2.75, - 0.77, PI/2};
     bin1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -407,14 +454,46 @@ void GantryControl::init() {
     waypoints.push_back(shelf8_w7_);
     pickup_locations[cam] = waypoints;
 
-    cam ="3";
+    cam ="3b";
     waypoints.clear();
-    waypoints.push_back(shelf8a_w1_);
-    waypoints.push_back(shelf8a_w2_);
-    waypoints.push_back(shelf8a_w3_);
-    waypoints.push_back(shelf8a_w4_);
-    waypoints.push_back(shelf8a_w5_);
-    waypoints.push_back(shelf8a_w6_);
+    waypoints.push_back(shelf8_rb_w1);
+    waypoints.push_back(shelf8_rb_w2);
+    waypoints.push_back(shelf8_rb_w3);
+    waypoints.push_back(shelf8_rb_w4);
+    waypoints.push_back(shelf8_rb_w5);
+    waypoints.push_back(shelf8_rb_w6);
+    pickup_locations[cam] = waypoints;
+
+    cam ="3f";
+    waypoints.clear();
+    waypoints.push_back(shelf8_rf_w1);
+    waypoints.push_back(shelf8_rf_w2);
+    waypoints.push_back(shelf8_rf_w3);
+    waypoints.push_back(shelf8_rf_w4);
+    waypoints.push_back(shelf8_rf_w5);
+    waypoints.push_back(shelf8_rf_w6);
+    waypoints.push_back(shelf8_rf_w7);
+    pickup_locations[cam] = waypoints;
+
+    cam ="4b";
+    waypoints.clear();
+    waypoints.push_back(shelf8_lb_w1);
+    waypoints.push_back(shelf8_lb_w2);
+    waypoints.push_back(shelf8_lb_w3);
+    waypoints.push_back(shelf8_lb_w4);
+    waypoints.push_back(shelf8_lb_w5);
+    waypoints.push_back(shelf8_lb_w6);
+    pickup_locations[cam] = waypoints;
+
+    cam ="4f";
+    waypoints.clear();
+    waypoints.push_back(shelf8_lf_w1);
+    waypoints.push_back(shelf8_lf_w2);
+    waypoints.push_back(shelf8_lf_w3);
+    waypoints.push_back(shelf8_lf_w4);
+    waypoints.push_back(shelf8_lf_w5);
+    waypoints.push_back(shelf8_lf_w6);
+    waypoints.push_back(shelf8_lf_w7);
     pickup_locations[cam] = waypoints;
 
     cam = "11";

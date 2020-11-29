@@ -384,11 +384,24 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
     {
         if (pose.position.y > -3.5)
         {
-            ROS_INFO_STREAM("Part found in front of shelf 2");
+            ROS_INFO_STREAM("Part found in front of shelf 8");
             return "f";
         }
         else {
-            ROS_INFO_STREAM("Part found in back of shelf 2");
+            ROS_INFO_STREAM("Part found in back of shelf 8");
+            return "b";
+        }
+    }
+
+    else if ((camera_index == 3) || (camera_index == 4)) // Shelf 8
+    {
+        if (pose.position.y > 0)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 8");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 8");
             return "b";
         }
     }
@@ -794,6 +807,8 @@ int main(int argc, char ** argv) {
 
                                 std::string location = part_location(parts_from_camera_main[l][m].pose, l);
                                 std::string camera_id = std::to_string(l) + location;
+
+                                ROS_INFO_STREAM("Camera  Id" << camera_id);
 
                                 auto q = gantry.pickup_locations.find(camera_id);
                                 int green_gasket_counter = 0;
