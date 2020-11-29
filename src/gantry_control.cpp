@@ -334,8 +334,7 @@ void GantryControl::init() {
     shelf8_rb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_rb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    //Shelf 8, Left Back, Camera 3
-
+    //Shelf 8, Left Back, Camera 4
     shelf8_lb_w1.gantry = {0.0, 4.48, 3.14};
     shelf8_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf8_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -360,6 +359,58 @@ void GantryControl::init() {
     shelf8_lb_w6.gantry = {-12.8, 1.3, 3.14};
     shelf8_lb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_lb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 5, Left Front, Camera 2
+    shelf5_lf_w1.gantry = {0.0,-4.48,0.0};
+    shelf5_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf5_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_lf_w2.gantry = {-13.5, -4.6973, 0.0};
+    shelf5_lf_w2.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_lf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_lf_w3.gantry = {-14, -4.2973, 0.0};
+    shelf5_lf_w3.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 5, Right Front, Camera 1
+    shelf5_rf_w1.gantry = {0.0,-4.48,0.0};
+    shelf5_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf5_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_rf_w2.gantry = {-15.4, -4.6973, 0.0};
+    shelf5_rf_w2.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_rf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_rf_w3.gantry = {-15.4, -4.3973, 0.0};
+    shelf5_rf_w3.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 5, Right Back, Camera 1
+    shelf5_rb_w1.gantry = {0.0, -1.3827, 3.14};
+    shelf5_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf5_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_rb_w2.gantry = {-14.7, -1.4973, 3.14};
+    shelf5_rb_w2.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_rb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_rb_w3.gantry = {-14.7, -1.8, 3.14};
+    shelf5_rb_w3.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    //Shelf 5, Left Back, Camera 2
+    shelf5_lb_w1.gantry = {0.0, -1.3827, 3.14};
+    shelf5_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    shelf5_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_lb_w2.gantry = {-12.8, -1.4973, 3.14};
+    shelf5_lb_w2.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_lb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    shelf5_lb_w3.gantry = {-12.8, -1.8, 3.14};
+    shelf5_lb_w3.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
+    shelf5_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Bin 1, camera 11
     bin1_.gantry = {2.75, - 0.77, PI/2};
@@ -442,17 +493,8 @@ void GantryControl::init() {
     bin10_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 
-    //shelf 4
-    std::string cam = "4";
+    std::string cam;
     std::vector<PresetLocation> waypoints;
-    waypoints.push_back(shelf8_w1_);
-    waypoints.push_back(shelf8_w2_);
-    waypoints.push_back(shelf8_w3_);
-    waypoints.push_back(shelf8_w4_);
-    waypoints.push_back(shelf8_w5_);
-    waypoints.push_back(shelf8_w6_);
-    waypoints.push_back(shelf8_w7_);
-    pickup_locations[cam] = waypoints;
 
     cam ="3b";
     waypoints.clear();
@@ -494,6 +536,34 @@ void GantryControl::init() {
     waypoints.push_back(shelf8_lf_w5);
     waypoints.push_back(shelf8_lf_w6);
     waypoints.push_back(shelf8_lf_w7);
+    pickup_locations[cam] = waypoints;
+
+    cam ="1b";
+    waypoints.clear();
+    waypoints.push_back(shelf5_rb_w1);
+    waypoints.push_back(shelf5_rb_w2);
+    waypoints.push_back(shelf5_rb_w3);
+    pickup_locations[cam] = waypoints;
+
+    cam ="1f";
+    waypoints.clear();
+    waypoints.push_back(shelf5_rf_w1);
+    waypoints.push_back(shelf5_rf_w2);
+    waypoints.push_back(shelf5_rf_w3);
+    pickup_locations[cam] = waypoints;
+
+    cam ="2b";
+    waypoints.clear();
+    waypoints.push_back(shelf5_lb_w1);
+    waypoints.push_back(shelf5_lb_w2);
+    waypoints.push_back(shelf5_lb_w3);
+    pickup_locations[cam] = waypoints;
+
+    cam ="2f";
+    waypoints.clear();
+    waypoints.push_back(shelf5_lf_w1);
+    waypoints.push_back(shelf5_lf_w2);
+    waypoints.push_back(shelf5_lf_w3);
     pickup_locations[cam] = waypoints;
 
     cam = "11";
@@ -671,26 +741,6 @@ void GantryControl::init() {
 
 
 
-// BIN 16 preset location
-//    bin16_.gantry = {5.00, 1.95,0.0};
-//    bin16_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    bin16_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    disk_part_green located in bin13
-//    bin13_.gantry = {2.0, 2.35,0.0};
-//    bin13_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    bin13_.gantry = {2.55, -1.58, 1.54};
-//    bin13_.gantry = {2.55, 1.56, -1.58};
-//    bin13_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-    //    bin13_.gantry = {2.55, -1.58, 1.54};
-//    bin13_.gantry = {3.1, 1.68, 3.77};
-//    bin13_.left_arm = {0.0, -0.63, 1.26, -0.65, PI/2, 0};
-//    bin13_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
 //    pulley_part_red located on waypoint_1
     waypoint_1_.gantry = {0.0, -4.7, 0.0};
     waypoint_1_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -789,8 +839,6 @@ void GantryControl::init() {
     agv2_flip_target_.gantry = {-0.66, 6.9, PI};
     agv2_flip_target_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     agv2_flip_target_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-
 
     //Moving to shelf 11
     // gasket part blue

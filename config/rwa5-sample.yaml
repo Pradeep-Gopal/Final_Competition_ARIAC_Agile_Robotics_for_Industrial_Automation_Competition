@@ -180,7 +180,22 @@ belt_models:
 #        num_models_y: 1
 
 models_over_shelves:
-  shelf8:
+  shelf5:
+    models:
+      gasket_part_green:
+        xyz_start: [0.5, 0.4, 0.0]
+        xyz_end: [1.4, 0.4, 0.0]
+        rpy: [0, 0, -pi/4]
+        num_models_x: 6
+        num_models_y: 1
+      gasket_part_red:
+        xyz_start: [-0.5, -0.4, 0.0]
+        xyz_end: [-1.4, -0.4, 0.0]
+        rpy: [0, 0, pi/4]
+        num_models_x: 4
+        num_models_y: 1
+
+  shelf11:
     models:
       gasket_part_green:
         xyz_start: [0.5, 0.4, 0.0]

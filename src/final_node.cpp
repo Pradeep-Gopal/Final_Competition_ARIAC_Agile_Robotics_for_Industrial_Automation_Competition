@@ -406,6 +406,19 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         }
     }
 
+    else if ((camera_index == 1) || (camera_index == 2)) // Shelf 5
+    {
+        if (pose.position.y > 3.1)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 5");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 5");
+            return "b";
+        }
+    }
+
     else if (camera_index == 11)
     {
         ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
