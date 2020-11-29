@@ -94,12 +94,34 @@ class GantryControl {
 
     //--preset locations;
     start start_, belt_pickup_;
-    bin3 bin3_, bin1_, bin1_w1, bin1_w2;
+    bin3 bin1_, bin2_, bin5_, bin6_, bin3_, bin4_, bin7_, bin8_, bin15_, bin16_, bin11_, bin12_, bin13_, bin14_, bin9_, bin10_, bin1_drop_, bin1_w1, bin1_w2;
     agv2 agv2_, agv1_;
     agv2_drop agv2_drop_, agv1_drop_;
-    bin13 bin13_;
-    bin16 bin16_;
-    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_, shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_, shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_;
+    shelf5 shelf5_, shelf8_w1_, shelf8_w2_, shelf8_w3_, shelf8_w4_, shelf8_w5_,
+            shelf8_w6_,shelf8_w7_, shelf8a_w1_, shelf8a_w2_, shelf8a_w3_, shelf8a_w4_,
+            shelf8a_w5_, shelf8a_w6_,shelf11_w1_, shelf11_w2_, shelf11_w3_, shelf11_w4_
+    ,shelf1_lb_w1, shelf1_lb_w2, shelf1_lb_w3, shelf1_lb_w4
+    ,shelf1_lf_w1, shelf1_lf_w2, shelf1_lf_w3, shelf1_lf_w4
+    ,shelf1_rb_w1, shelf1_rb_w2, shelf1_rb_w3, shelf1_rb_w4
+    ,shelf1_rf_w1, shelf1_rf_w2, shelf1_rf_w3, shelf1_rf_w4
+    ,shelf2_lb_w1, shelf2_lb_w2, shelf2_lb_w3, shelf2_lb_w4
+    ,shelf2_lf_w1, shelf2_lf_w2, shelf2_lf_w3, shelf2_lf_w4
+    ,shelf2_rb_w1, shelf2_rb_w2, shelf2_rb_w3, shelf2_rb_w4
+    ,shelf2_rf_w1, shelf2_rf_w2, shelf2_rf_w3, shelf2_rf_w4
+    ,shelf8_rb_w1,shelf8_rb_w2,shelf8_rb_w3,shelf8_rb_w4,shelf8_rb_w5,shelf8_rb_w6
+    ,shelf8_lf_w1,shelf8_lf_w2,shelf8_lf_w3,shelf8_lf_w4,shelf8_lf_w5,shelf8_lf_w6, shelf8_lf_w7
+    ,shelf8_lb_w1, shelf8_lb_w2, shelf8_lb_w3, shelf8_lb_w4, shelf8_lb_w5, shelf8_lb_w6
+    ,shelf8_rf_w1,shelf8_rf_w2,shelf8_rf_w3,shelf8_rf_w4,shelf8_rf_w5,shelf8_rf_w6, shelf8_rf_w7
+    ,shelf5_rb_w1,shelf5_rb_w2,shelf5_rb_w3,shelf5_rb_w4,shelf5_rb_w5,shelf5_rb_w6
+    ,shelf5_lf_w1,shelf5_lf_w2,shelf5_lf_w3,shelf5_lf_w4,shelf5_lf_w5,shelf5_lf_w6, shelf5_lf_w7
+    ,shelf5_lb_w1, shelf5_lb_w2, shelf5_lb_w3, shelf5_lb_w4, shelf5_lb_w5, shelf5_lb_w6
+    ,shelf5_rf_w1,shelf5_rf_w2,shelf5_rf_w3,shelf5_rf_w4,shelf5_rf_w5,shelf5_rf_w6, shelf5_rf_w7
+    ,shelf11_rb_w1,shelf11_rb_w2,shelf11_rb_w3,shelf11_rb_w4,shelf11_rb_w5,shelf11_rb_w6
+    ,shelf11_lf_w1,shelf11_lf_w2,shelf11_lf_w3,shelf11_lf_w4,shelf11_lf_w5,shelf11_lf_w6, shelf11_lf_w7
+    ,shelf11_lb_w1, shelf11_lb_w2, shelf11_lb_w3, shelf11_lb_w4, shelf11_lb_w5, shelf11_lb_w6
+    ,shelf11_rf_w1,shelf11_rf_w2,shelf11_rf_w3,shelf11_rf_w4,shelf11_rf_w5,shelf11_rf_w6, shelf11_rf_w7,
+    GAP_1,GAP_2,GAP_3,gap_1_1,gap_1_2,gap_2_2,gap_2_3,gap_3_3,gap_3_4;
+
 
     waypoint_1 waypoint_1_;
     waypoint_2 waypoint_2_;
@@ -109,7 +131,7 @@ class GantryControl {
     pose_change pose_change_1_agv1, pose_change_2_agv1,pose_change_1_agv2,pose_change_2_agv2;
     agv2_flip agv2_flip_,agv1_flip_;
     flip_target agv2_flip_target_,agv1_flip_target_;
-    std::unordered_map<int, std::vector<PresetLocation>> pickup_locations;
+    std::unordered_map<std::string, std::vector<PresetLocation>> pickup_locations;
     std::unordered_map<int, char>:: iterator itr;
 
   private:

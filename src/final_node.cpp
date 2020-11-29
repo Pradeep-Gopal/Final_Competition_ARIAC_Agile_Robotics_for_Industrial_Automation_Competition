@@ -359,6 +359,177 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 }
 
+std::string part_location(geometry_msgs::Pose pose, int camera_index){
+    if ((camera_index == 7) || (camera_index == 10)) // Shelf 1
+    {
+        if (pose.position.y > 3.5)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 1");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 1");
+            return "b";
+        }
+    }
+
+    else if ((camera_index == 8) || (camera_index == 9)) // Shelf 2
+    {
+        if (pose.position.y > -3.5)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 8");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 8");
+            return "b";
+        }
+    }
+
+    else if ((camera_index == 3) || (camera_index == 4)) // Shelf 8
+    {
+        if (pose.position.y > 0)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 8");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 8");
+            return "b";
+        }
+    }
+
+    else if ((camera_index == 1) || (camera_index == 2)) // Shelf 5
+    {
+        if (pose.position.y > 3.1)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 5");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 5");
+            return "b";
+        }
+    }
+
+    else if ((camera_index == 5) || (camera_index == 6)) // Shelf 11
+    {
+        if (pose.position.y > -3.0)
+        {
+            ROS_INFO_STREAM("Part found in front of shelf 11");
+            return "f";
+        }
+        else {
+            ROS_INFO_STREAM("Part found in back of shelf 11");
+            return "b";
+        }
+    }
+
+    else if (camera_index == 11)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((2.3 < pose.position.x) && (pose.position.x < 2.9) && (1.7 < pose.position.y) && (pose.position.y < 2.5))
+        {
+            ROS_INFO_STREAM("Part found in bin5");
+            return "_5";
+        }
+
+        else if((2.3 < pose.position.x) && (pose.position.x < 2.9) && (1.0 < pose.position.y) && (pose.position.y < 1.7)){
+            ROS_INFO_STREAM("Part found in bin1");
+            return "_1";
+        }
+
+        else if((3.1 < pose.position.x) && (pose.position.x < 4) && (1.8 < pose.position.y) && (pose.position.y < 2.5)){
+            ROS_INFO_STREAM("Part found in bin6");
+            return "_6";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin2");
+            return "_2";
+        }
+    }
+
+    else if (camera_index == 12)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((4.18 < pose.position.x) && (pose.position.x < 4.78) && (1.7 < pose.position.y) && (pose.position.y < 2.5))
+        {
+            ROS_INFO_STREAM("Part found in bin7");
+            return "_7";
+        }
+
+        else if((4.18 < pose.position.x) && (pose.position.x < 4.78) && (1.0 < pose.position.y) && (pose.position.y < 1.7)){
+            ROS_INFO_STREAM("Part found in bin3");
+            return "_3";
+        }
+
+        else if((5 < pose.position.x) && (pose.position.x < 5.88) && (1.8 < pose.position.y) && (pose.position.y < 2.5)){
+            ROS_INFO_STREAM("Part found in bin8");
+            return "_8";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin4");
+            return "_4";
+        }
+    }
+
+    else if (camera_index == 14)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((4.18 < pose.position.x) && (pose.position.x < 4.78) && (-1.65 < pose.position.y) && (pose.position.y < -1))
+        {
+            ROS_INFO_STREAM("Part found in bin11");
+            return "_11";
+        }
+
+        else if((4.18 < pose.position.x) && (pose.position.x < 4.78) && (-2.5 < pose.position.y) && (pose.position.y < -1.7)){
+            ROS_INFO_STREAM("Part found in bin15");
+            return "_15";
+        }
+
+        else if((5 < pose.position.x) && (pose.position.x < 5.88) && (-1.65 < pose.position.y) && (pose.position.y < -1)){
+            ROS_INFO_STREAM("Part found in bin12");
+            return "_12";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin16");
+            return "_16";
+        }
+    }
+
+    else if (camera_index == 13)
+    {
+        ROS_INFO_STREAM("X = " << pose.position.x <<" Y = " << pose.position.y);
+
+        if ((2.3 < pose.position.x) && (pose.position.x < 2.9) && (-1.65 < pose.position.y) && (pose.position.y < -1))
+        {
+            ROS_INFO_STREAM("Part found in bin9");
+            return "_9";
+        }
+
+        else if((2.3 < pose.position.x) && (pose.position.x < 2.9) && (-2.5 < pose.position.y) && (pose.position.y < -1.7)){
+            ROS_INFO_STREAM("Part found in bin13");
+            return "_13";
+        }
+
+        else if((3.12 < pose.position.x) && (pose.position.x < 4) && (-1.65 < pose.position.y) && (pose.position.y < -1)){
+            ROS_INFO_STREAM("Part found in bin10");
+            return "_10";
+        }
+
+        else{
+            ROS_INFO_STREAM("Part found in bin14");
+            return "_14";
+        }
+    }
+}
+
 
 int main(int argc, char ** argv) {
 
@@ -541,7 +712,6 @@ int main(int argc, char ** argv) {
                             ROS_INFO_STREAM(master_vector_main[i][j][k].place_part_pose);
                             ROS_INFO_STREAM("Part to be picked from = ");
                             ROS_INFO_STREAM(parts_from_camera_main[l][m].pose);
-                            std::string location = "shelf 8a";
                             gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM("Start location reached");
 
@@ -581,10 +751,16 @@ int main(int argc, char ** argv) {
                                 br_1 = "41";
                                 br_2 = "42";
                             }
-                            auto q = gantry.pickup_locations.find(l);
+//                            auto q = gantry.pickup_locations.find(l);
                             ROS_INFO_STREAM("FOUND PICK UP LOCATION");
                             int waypoint_counter = 0;
                             ROS_INFO_STREAM("BEFORE FOR LOOP");
+
+                            std::string location = part_location(parts_from_camera_main[l][m].pose, l);
+                            std::string camera_id = std::to_string(l) + location;
+                            ROS_INFO_STREAM("Camera  Id" << camera_id);
+                            auto q = gantry.pickup_locations.find(camera_id);
+
                             for (auto waypoint_iter: q->second) {
                                 if (waypoint_counter == 1 && human_exists == 1) {
                                     followHuman(comp, gantry, waypoint_iter, br_1, br_2, GENERAL_BREAKBEAM_1,
