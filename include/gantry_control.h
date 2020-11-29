@@ -56,7 +56,6 @@ class GantryControl {
     bool pickMovingPart(part part);
     void placePart(part part, std::string agv);
     void placePart_right_arm(part part,std::string agv);
-    double get_offset_to_pickup_part_on_belt(const std::string& part_name);
     /// Send command message to robot controller
     bool send_command(trajectory_msgs::JointTrajectory command_msg);
     void goToPresetLocation(PresetLocation location);
@@ -67,7 +66,8 @@ class GantryControl {
     geometry_msgs::Pose getTargetWorldPose(geometry_msgs::Pose target, std::string agv);
     geometry_msgs::Pose getTargetWorldPose_dummy(geometry_msgs::Pose target,
                                                                 std::string agv);
-
+    geometry_msgs::Pose getTargetWorldPose_right_arm(geometry_msgs::Pose target,
+                                                                    std::string agv);
     //--preset locations;
     start start_, belt_pickup_1, belt_pickup_2;
     bin3 bin3_, bin1_, bin1_w1, bin1_w2;

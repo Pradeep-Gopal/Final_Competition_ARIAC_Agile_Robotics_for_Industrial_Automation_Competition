@@ -1,4 +1,6 @@
 <launch>
+  <param name ="/use_sim_time" value="true"/>
+
   <arg name="verbose" default="false" />
   <arg unless="$(arg verbose)" name="verbose_args" value="" />
   <arg     if="$(arg verbose)" name="verbose_args" value="--verbose" />
@@ -26,9 +28,11 @@
           $(arg gui_args)
           $(arg load_moveit_args)
           $(arg fill_demo_shipment_args)
-          -f $(find final-group1)/config/rwa5-sample.yaml
+          --visualize-sensor-views
+          -f $(find final-group1)/config/rwa4-sample.yaml
           $(find final-group1)/config/sensor.yaml
           " required="true" output="screen" />
+
 
 <!--  <group ns='ariac/gantry'>-->
 <!--    <include file="$(find gantry_moveit_config)/launch/moveit_rviz.launch">-->
