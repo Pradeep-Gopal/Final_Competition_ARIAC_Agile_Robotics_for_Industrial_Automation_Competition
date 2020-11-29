@@ -48,16 +48,12 @@ GantryControl::GantryControl(ros::NodeHandle & node):
 }
 
 
-void GantryControl::shelf_callback(std::string shelf_name)
-{
-//    ros::init(argc, argv, "getShelfDistances");
-//    ros::NodeHandle node;
+void GantryControl::shelf_callback(std::string shelf_name) {
     tf::TransformListener listener;
     ros::Rate rate(10.0);
     while (node_.ok()) {
         tf::StampedTransform transform;
         try {
-//            ROS_INFO_STREAM(shelf_name);
             listener.lookupTransform("/world", shelf_name,
                                      ros::Time(0), transform);
             tf::Transform tf(transform.getBasis(), transform.getOrigin());
@@ -65,7 +61,6 @@ void GantryControl::shelf_callback(std::string shelf_name)
             tf::Matrix3x3 tfR;
             tf::Quaternion quat;
             tfVec = tf.getOrigin();
-//            ROS_INFO_STREAM(double(tfVec.getX()));
             if (shelf_name == "/shelf3_frame"){
                 shelf_vector[0][0] = double(tfVec.getX());
                 shelf_vector[0][1] = double(tfVec.getY());
@@ -73,6 +68,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
             }
             if (shelf_name == "/shelf4_frame"){
                 shelf_vector[1][0] = double(tfVec.getX());
+                shelf_4_x = shelf_vector[1][0];
                 shelf_vector[1][1] = double(tfVec.getY());
                 shelf_vector[1][2] = double(tfVec.getZ());
             }
@@ -88,6 +84,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
             }
             if (shelf_name == "/shelf7_frame"){
                 shelf_vector[4][0] = double(tfVec.getX());
+                shelf_7_x = shelf_vector[4][0];
                 shelf_vector[4][1] = double(tfVec.getY());
                 shelf_vector[4][2] = double(tfVec.getZ());
             }
@@ -103,6 +100,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
             }
             if (shelf_name == "/shelf10_frame"){
                 shelf_vector[7][0] = double(tfVec.getX());
+                shelf_10_x = shelf_vector[7][0];
                 shelf_vector[7][1] = double(tfVec.getY());
                 shelf_vector[7][2] = double(tfVec.getZ());
             }
@@ -111,9 +109,37 @@ void GantryControl::shelf_callback(std::string shelf_name)
                 shelf_vector[8][1] = double(tfVec.getY());
                 shelf_vector[8][2] = double(tfVec.getZ());
             }
-//            ROS_INFO_STREAM(tfVec.getX() << "," << tfVec.getY() << "," << tfVec.getZ());
-            break;
 
+            for (int i = 0; i <=7 ; i++) {
+                if (5<=(abs(shelf_vector[i][0] - shelf_vector[i+1][0])) and (abs(shelf_vector[i][0] - shelf_vector[i+1][0]))<=7){
+                    ROS_INFO_STREAM("Gaps between shelves "<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector[i][0] - shelf_vector[i+1][0]));
+                    if (i+3 == 3){
+                        ROS_WARN_STREAM("GAP AISLE : 1, GAP : 1");
+                        shelf_1_gap = 1;
+                    }
+                    if (i+3 == 4){
+                        ROS_WARN_STREAM("GAP AISLE : 1, GAP : 2");
+                        shelf_1_gap = 2;
+                    }
+                    if (i+3 == 6){
+                        ROS_WARN_STREAM("GAP AISLE : 2, GAP : 1");
+                        shelf_2_gap = 1;
+                    }
+                    if (i+3 == 7){
+                        ROS_WARN_STREAM("GAP AISLE : 2, GAP : 2");
+                        shelf_2_gap = 2;
+                    }
+                    if (i+3 == 9){
+                        ROS_WARN_STREAM("GAP AISLE : 3, GAP : 1");
+                        shelf_3_gap = 1;
+                    }
+                    if (i+3 == 10){
+                        ROS_WARN_STREAM("GAP AISLE : 3, GAP : 2");
+                        shelf_3_gap = 2;
+                    }
+                }
+            }
+            break;
         }
         catch (tf::TransformException ex) {
             ROS_ERROR("%s", ex.what());
@@ -123,6 +149,7 @@ void GantryControl::shelf_callback(std::string shelf_name)
 }
 
 std::vector<std::vector<double>> GantryControl::get_shelf_vector(){
+
     return shelf_vector;
 }
 
@@ -132,11 +159,94 @@ void GantryControl::setRobotSpeed(double speed_factor, double acc_factor){
     ROS_INFO_STREAM("<<<<<<<<<<<MOVE VELOCITY CHANGED>>>>>>>>>>>>>>");
 }
 
+int GantryControl::get_shelf_1_gap(){
+    return shelf_1_gap;
+}
+int GantryControl::get_shelf_2_gap(){
+    return shelf_2_gap;
+}
+int GantryControl::get_shelf_3_gap(){
+    return shelf_3_gap;
+}
+void GantryControl::set_shelf_1_gap(int shelf_1){
+    shelf_1_gap = shelf_1;
+}
+void GantryControl::set_shelf_2_gap(int shelf_2){
+    shelf_2_gap = shelf_2;
+}
+void GantryControl::set_shelf_3_gap(int shelf_3){
+    shelf_3_gap = shelf_3;
+}
 void GantryControl::init() {
     double time_called = ros::Time::now().toSec();
     full_robot_group_.setMaxVelocityScalingFactor(0.6);
     full_robot_group_.setMaxAccelerationScalingFactor(0.1);
 
+    ROS_INFO_STREAM("SHELF GAPS FROM GANTRY.INIT : ");
+    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
+    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
+    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
+    ROS_INFO_STREAM("CUSTOMIZING WAYPOINTS");
+    aisle_1_choice = shelf_1_gap;
+    ROS_INFO_STREAM("X AXES OF ALL THE SHELVES");
+    ROS_INFO_STREAM("shelf_4_x"<<shelf_4_x);
+    ROS_INFO_STREAM("shelf_7_x"<<shelf_7_x);
+    ROS_INFO_STREAM("shelf_10_x"<<shelf_10_x);
+    if (abs(shelf_4_x)!=abs(shelf_7_x)){
+        if (shelf_2_gap == 2 && shelf_1_gap == 1){
+            aisle_2_choice = shelf_2_gap;
+            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
+        }
+        else if (shelf_1_gap == 2 && shelf_2_gap == 1) {
+            aisle_2_choice = shelf_1_gap;
+            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_1 GAP AS THE BEST CHOICE");
+        }
+    }
+    if (abs(shelf_4_x)==abs(shelf_7_x)){
+        aisle_2_choice = shelf_1_gap;
+        ROS_INFO_STREAM("AISLE 2 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
+    }
+
+    if (abs(shelf_7_x)!=abs(shelf_10_x)){
+        if (shelf_2_gap == 1 && shelf_3_gap == 2){
+            aisle_3_choice = shelf_3_gap;
+            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_3 GAP AS THE BEST CHOICE");
+        }
+        else if (shelf_2_gap == 2 && shelf_3_gap == 1) {
+            aisle_3_choice = shelf_2_gap;
+            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
+        }
+    }
+
+    if (abs(shelf_7_x)==abs(shelf_10_x)){
+        aisle_3_choice = shelf_2_gap;
+        ROS_INFO_STREAM("AISLE 3 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
+    }
+
+    aisle_4_choice = shelf_3_gap;
+
+    if (shelf_1_gap == 0){
+        ROS_INFO_STREAM("AISLES 1 AND 2 DOES NOT HAVE A PRIORITY!!");
+        aisle_1_choice = 0;
+        aisle_2_choice = 0;
+    }
+    if (shelf_2_gap == 0){
+        ROS_INFO_STREAM("AISLES 2 AND 3 DOES NOT HAVE A PRIORITY!!");
+        aisle_2_choice = 0;
+        aisle_3_choice = 0;
+    }
+    if (shelf_3_gap == 0){
+        ROS_INFO_STREAM("AISLES 3 AND 4 DOES NOT HAVE A PRIORITY!!");
+        aisle_3_choice = 0;
+        aisle_4_choice = 0;
+    }
+    ROS_INFO_STREAM("EACH AISLE HAS MADE ITS CHOICE : ");
+    ROS_INFO_STREAM("aisle_1_choice : "<< aisle_1_choice);
+    ROS_INFO_STREAM("aisle_2_choice : "<< aisle_2_choice);
+    ROS_INFO_STREAM("aisle_3_choice : "<< aisle_3_choice);
+    ROS_INFO_STREAM("aisle_4_choice : "<< aisle_4_choice);
+
+    ROS_INFO_STREAM("<<<<<<<<<<<<<< ALL CHOICES DONE!! >>>>>>>>>>>>>>>>>>");
     ROS_INFO_STREAM("MOVE VELOCITY CHANGED");
     ROS_INFO_NAMED("init", "Planning frame: %s", left_arm_group_.getPlanningFrame().c_str());
     ROS_INFO_NAMED("init", "Planning frame: %s", right_arm_group_.getPlanningFrame().c_str());

@@ -390,7 +390,7 @@ int main(int argc, char ** argv) {
     comp.getClock();
 
     GantryControl gantry(node);
-    gantry.init();
+//    gantry.init();
 
 
     std::vector <std::string> shelf_vector;
@@ -408,33 +408,9 @@ int main(int argc, char ** argv) {
         gantry.shelf_callback(c);
     }
 
-
-    shelf_vector_gantry = gantry.get_shelf_vector();
-    ROS_INFO_STREAM("Distance between the shelves");
-    for (int i = 0; i <=7 ; i++) {
-        if (5<=(abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0])) and (abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0]))<=7){
-            ROS_INFO_STREAM("Gaps between shelves"<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_gantry[i][0] - shelf_vector_gantry[i+1][0]));
-            if (i+3 == 3){
-                ROS_WARN_STREAM("GAP AISLE : 1, GAP : 1");
-            }
-            if (i+3 == 4){
-                ROS_WARN_STREAM("GAP AISLE : 1, GAP : 2");
-            }
-            if (i+3 == 6){
-                ROS_WARN_STREAM("GAP AISLE : 2, GAP : 1");
-            }
-            if (i+3 == 7){
-                ROS_WARN_STREAM("GAP AISLE : 2, GAP : 2");
-            }
-            if (i+3 == 9){
-                ROS_WARN_STREAM("GAP AISLE : 3, GAP : 1");
-            }
-            if (i+3 == 20){
-                ROS_WARN_STREAM("GAP AISLE : 3, GAP : 2");
-            }
-        }
-    }
-
+    int shelf_1_gap = gantry.get_shelf_1_gap();
+    int shelf_2_gap = gantry.get_shelf_2_gap();
+    int shelf_3_gap = gantry.get_shelf_3_gap();
 
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
@@ -462,6 +438,27 @@ int main(int argc, char ** argv) {
         human_4_existence = 1;
         ROS_INFO_STREAM("< --- HUMAN FOUND IN 4--- >");
     }
+
+    if (human_1_existence == 0 && human_2_existence  == 0){
+        shelf_1_gap = 0;
+    }
+    if (human_2_existence == 0 && human_3_existence == 0){
+        shelf_2_gap = 0;
+    }
+    if (human_3_existence == 0 && human_4_existence == 0){
+        shelf_3_gap = 0;
+    }
+
+    ROS_INFO_STREAM("SHELF gaos from main.cp : ");
+    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
+    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
+    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
+
+    gantry.set_shelf_1_gap(shelf_1_gap);
+    gantry.set_shelf_2_gap(shelf_2_gap);
+    gantry.set_shelf_3_gap(shelf_3_gap);
+
+    gantry.init();
 
     if (human_1_existence ==1  || human_2_existence == 1|| human_3_existence ==1  || human_4_existence == 1){
         human_exists = 1;
