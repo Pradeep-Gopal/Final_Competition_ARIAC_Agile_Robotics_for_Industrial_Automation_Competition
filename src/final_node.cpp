@@ -230,7 +230,6 @@ void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter, s
 
 void checkAndProceed(Competition &comp, GantryControl &gantry, auto waypoint_iter, std::string br_4,
                  std::string br_5, bool GENERAL_BREAKBEAM_4, bool GENERAL_BREAKBEAM_5){
-    ROS_INFO_STREAM("Waiting for the person to cross the gap so that we can safely cross");
     GENERAL_BREAKBEAM_4 = false;
     ros::Time TIME_4;
     GENERAL_BREAKBEAM_5 = false;
@@ -239,7 +238,7 @@ void checkAndProceed(Competition &comp, GantryControl &gantry, auto waypoint_ite
     double distance_between_sensors = 1.2;
     ros::Duration diff_speed_time;
     while (true){
-        ROS_INFO_STREAM("WAITING FOR A TRIGGER....");
+        ROS_INFO_STREAM("WAITING FOR THE HUMAN TO GO PAST THE GANTRY....");
         if (getBreakBeam5(comp, br_5) == true and  GENERAL_BREAKBEAM_5 == false){
             ROS_INFO_STREAM("FIFTH ONE TRIGGERED ");
             TIME_5 = ros::Time::now();
@@ -272,6 +271,52 @@ void checkAndProceed(Competition &comp, GantryControl &gantry, auto waypoint_ite
         }
     }
 }
+
+void checkAndProceedBackwards(Competition &comp, GantryControl &gantry, auto waypoint_iter, std::string br_4,
+                     std::string br_5, bool GENERAL_BREAKBEAM_4, bool GENERAL_BREAKBEAM_5){
+    GENERAL_BREAKBEAM_4 = false;
+    ros::Time TIME_4;
+    GENERAL_BREAKBEAM_5 = false;
+    ros::Time TIME_5;
+    double vel;
+    double distance_between_sensors = 1.2;
+    ros::Duration diff_speed_time;
+    while (true){
+        ROS_INFO_STREAM("WAITING FOR THE HUMAN TO GO PAST THE GANTRY....");
+        if (getBreakBeam5(comp, br_5) == true and  GENERAL_BREAKBEAM_5 == false){
+            ROS_INFO_STREAM("FIFTH ONE TRIGGERED ");
+            TIME_5 = ros::Time::now();
+            GENERAL_BREAKBEAM_5 = true;
+        }
+        if (getBreakBeam4(comp, br_4) == true and  GENERAL_BREAKBEAM_4 == false){
+            ROS_INFO_STREAM("FOURTH ONE TRIGGERED ");
+            TIME_4 = ros::Time::now();
+            GENERAL_BREAKBEAM_4 = true;
+        }
+        if(GENERAL_BREAKBEAM_4 == true and GENERAL_BREAKBEAM_5 == true){
+            ROS_INFO_STREAM("BOTH TRIGGERED");
+            ROS_INFO_STREAM(TIME_4);
+            ROS_INFO_STREAM(TIME_5);
+            ros::Duration diff = TIME_5 - TIME_4;
+            ROS_INFO_STREAM("diff in time between both is : "<<diff);
+            if(TIME_5 > TIME_4){
+                ROS_INFO_STREAM("ROBOT SHOULD BE EXITING NOW ...>>>>>");
+                double time_5 = TIME_5.toSec();
+                double time_4 = TIME_4.toSec();
+                vel = abs(distance_between_sensors/(time_4 - time_5));
+                ROS_INFO_STREAM("HUMAN SPEED ----- "<< vel);
+                gantry.goToPresetLocation(waypoint_iter);
+                break;
+            }
+            else{
+                GENERAL_BREAKBEAM_4 = false;
+                GENERAL_BREAKBEAM_5 = false;
+            }
+        }
+    }
+}
+
+
 void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryControl &gantry, part &part_in_tray) {
     double offset = 0.2;
     parts_from_camera_16 = comp.get_parts_from_16_camera();
@@ -881,8 +926,8 @@ int main(int argc, char ** argv) {
                                 gantry.goToPresetLocation(*it);
                                 if (return_waypoint_counter == 2 && human_exists == 1 ){
                                     ROS_INFO_STREAM("Re-checking for the human ...");
-//                                    checkAndProceed(comp, gantry, it, br_4, br_5, GENERAL_BREAKBEAM_4,
-//                                                    GENERAL_BREAKBEAM_5);
+                                    checkAndProceedBackwards(comp, gantry, *it, br_4, br_5, GENERAL_BREAKBEAM_4,
+                                                    GENERAL_BREAKBEAM_5);
                                 }
                                 return_waypoint_counter+=1;
                             }
