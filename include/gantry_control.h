@@ -57,12 +57,13 @@ class GantryControl {
     int aisle_2_choice;
     int aisle_3_choice;
     int aisle_4_choice;
+    void set_aisle_1_choice(int);
+    void set_aisle_2_choice(int);
+    void set_aisle_3_choice(int);
+    void set_aisle_4_choice(int);
     int get_shelf_1_gap();
     int get_shelf_2_gap();
     int get_shelf_3_gap();
-    void set_shelf_1_gap(int);
-    void set_shelf_2_gap(int);
-    void set_shelf_3_gap(int);
     std::vector<std::vector<double>> get_shelf_vector();
     void shelf_callback(std::string);
 

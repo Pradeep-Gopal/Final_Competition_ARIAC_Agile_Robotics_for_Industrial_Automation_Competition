@@ -144,6 +144,18 @@ bool getBreakBeam1(Competition &comp,std::string br_1){
     }
 }
 
+bool getBreakBeam5(Competition &comp,std::string br_5) {
+    if (br_5 == "15") {
+        return comp.breakbeam_part_status_15;
+    } else if (br_5 == "25") {
+        return comp.breakbeam_part_status_25;
+    } else if (br_5 == "35") {
+        return comp.breakbeam_part_status_35;
+    } else if (br_5 == "45") {
+        return comp.breakbeam_part_status_45;
+    }
+}
+
 bool getBreakBeam2(Competition &comp,std::string br_2){
     if (br_2=="12"){
     return comp.breakbeam_part_status_12;
@@ -156,9 +168,20 @@ bool getBreakBeam2(Competition &comp,std::string br_2){
     }
     else if (br_2=="42"){
     return comp.breakbeam_part_status_42;
-}
+    }
 }
 
+bool getBreakBeam4(Competition &comp,std::string br_4) {
+    if (br_4 == "14") {
+        return comp.breakbeam_part_status_14;
+    } else if (br_4 == "24") {
+        return comp.breakbeam_part_status_24;
+    } else if (br_4 == "34") {
+        return comp.breakbeam_part_status_34;
+    } else if (br_4 == "44") {
+        return comp.breakbeam_part_status_44;
+    }
+}
 
 void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter, std::string br_1,
                  std::string br_2, bool GENERAL_BREAKBEAM_1, bool GENERAL_BREAKBEAM_2){
@@ -205,7 +228,50 @@ void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter, s
     }
 }
 
-
+void checkAndProceed(Competition &comp, GantryControl &gantry, auto waypoint_iter, std::string br_4,
+                 std::string br_5, bool GENERAL_BREAKBEAM_4, bool GENERAL_BREAKBEAM_5){
+    ROS_INFO_STREAM("Waiting for the person to cross the gap so that we can safely cross");
+    GENERAL_BREAKBEAM_4 = false;
+    ros::Time TIME_4;
+    GENERAL_BREAKBEAM_5 = false;
+    ros::Time TIME_5;
+    double vel;
+    double distance_between_sensors = 1.2;
+    ros::Duration diff_speed_time;
+    while (true){
+        ROS_INFO_STREAM("WAITING FOR A TRIGGER....");
+        if (getBreakBeam5(comp, br_5) == true and  GENERAL_BREAKBEAM_5 == false){
+            ROS_INFO_STREAM("FIFTH ONE TRIGGERED ");
+            TIME_5 = ros::Time::now();
+            GENERAL_BREAKBEAM_5 = true;
+        }
+        if (getBreakBeam4(comp, br_4) == true and  GENERAL_BREAKBEAM_4 == false){
+            ROS_INFO_STREAM("FOURTH ONE TRIGGERED ");
+            TIME_4 = ros::Time::now();
+            GENERAL_BREAKBEAM_4 = true;
+        }
+        if(GENERAL_BREAKBEAM_4 == true and GENERAL_BREAKBEAM_5 == true){
+            ROS_INFO_STREAM("BOTH TRIGGERED");
+            ROS_INFO_STREAM(TIME_4);
+            ROS_INFO_STREAM(TIME_5);
+            ros::Duration diff = TIME_5 - TIME_4;
+            ROS_INFO_STREAM("diff in time between both is : "<<diff);
+            if(TIME_4 > TIME_5){
+                ROS_INFO_STREAM("ROBOT SHOULD BE EXITING NOW ...>>>>>");
+                double time_5 = TIME_5.toSec();
+                double time_4 = TIME_4.toSec();
+                vel = abs(distance_between_sensors/(time_4 - time_5));
+                ROS_INFO_STREAM("HUMAN SPEED ----- "<< vel);
+                gantry.goToPresetLocation(waypoint_iter);
+                break;
+            }
+            else{
+                GENERAL_BREAKBEAM_4 = false;
+                GENERAL_BREAKBEAM_5 = false;
+            }
+        }
+    }
+}
 void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryControl &gantry, part &part_in_tray) {
     double offset = 0.2;
     parts_from_camera_16 = comp.get_parts_from_16_camera();
@@ -579,10 +645,6 @@ int main(int argc, char ** argv) {
         gantry.shelf_callback(c);
     }
 
-    int shelf_1_gap = gantry.get_shelf_1_gap();
-    int shelf_2_gap = gantry.get_shelf_2_gap();
-    int shelf_3_gap = gantry.get_shelf_3_gap();
-
     parts_from_camera_main = comp.get_parts_from_camera();
     master_vector_main = comp.get_master_vector();
     //checks if a human was ever detected in an aisle
@@ -591,43 +653,48 @@ int main(int argc, char ** argv) {
     int human_3_existence;
     int human_4_existence;
     int human_exists;
+    int aisle_1_choice = 0;
+    int aisle_2_choice = 0;
+    int aisle_3_choice = 0;
+    int aisle_4_choice = 0;
+    int shelf_1_gap = gantry.get_shelf_1_gap();
+    int shelf_2_gap = gantry.get_shelf_2_gap();
+    int shelf_3_gap = gantry.get_shelf_3_gap();
+
     ROS_INFO_STREAM("CHECKING FOR HUMAN IN ALL AISLES....");
     if (comp.get_human_1_existence() == 1){
         human_1_existence = 1;
-
+        if (shelf_1_gap == 2) {
+            aisle_1_choice = 2;
+        }
         ROS_INFO_STREAM("< --- HUMAN FOUND IN 1--- >");
     }
     if (comp.get_human_2_existence()  == 1){
         human_2_existence = 1;
+        if (shelf_1_gap == 2 || shelf_2_gap == 2) {
+            aisle_2_choice = 2;
+        }
         ROS_INFO_STREAM("< --- HUMAN FOUND IN 2--- >");
     }
     if (comp.get_human_3_existence()  == 1){
         human_3_existence = 1;
+        if (shelf_2_gap == 2 || shelf_3_gap == 2) {
+            aisle_3_choice = 2;
+        }
         ROS_INFO_STREAM("< --- HUMAN FOUND IN 3--- >");
     }
     if (comp.get_human_4_existence()  == 1){
         human_4_existence = 1;
+        if (shelf_3_gap == 2) {
+            aisle_4_choice = 2;
+        }
         ROS_INFO_STREAM("< --- HUMAN FOUND IN 4--- >");
     }
 
-    if (human_1_existence == 0 && human_2_existence  == 0){
-        shelf_1_gap = 0;
-    }
-    if (human_2_existence == 0 && human_3_existence == 0){
-        shelf_2_gap = 0;
-    }
-    if (human_3_existence == 0 && human_4_existence == 0){
-        shelf_3_gap = 0;
-    }
-
-    ROS_INFO_STREAM("SHELF gaos from main.cp : ");
-    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
-    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
-    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
-
-    gantry.set_shelf_1_gap(shelf_1_gap);
-    gantry.set_shelf_2_gap(shelf_2_gap);
-    gantry.set_shelf_3_gap(shelf_3_gap);
+    gantry.set_aisle_1_choice(aisle_1_choice);
+    gantry.set_aisle_2_choice(aisle_2_choice);
+    gantry.set_aisle_3_choice(aisle_3_choice);
+    gantry.set_aisle_4_choice(aisle_4_choice);
 
     gantry.init();
 
@@ -718,40 +785,55 @@ int main(int argc, char ** argv) {
                             double y_coord = parts_from_camera_main[l][m].pose.position.y;
                             bool GENERAL_BREAKBEAM_1 = false;
                             bool GENERAL_BREAKBEAM_2 = false;
+                            bool GENERAL_BREAKBEAM_4 = false;
+                            bool GENERAL_BREAKBEAM_5 = false;
                             std::string br_1;
                             std::string br_2;
+                            std::string br_4;
+                            std::string br_5;
                             ROS_INFO_STREAM("Y coord OF THE part is : " << y_coord);
                             if (y_coord > 3.15) {
                                 ROS_INFO_STREAM("AISLE 1");
                                 br_1 = "11";
                                 br_2 = "12";
+                                br_4 = "14";
+                                br_5 = "15";
                             }
                             if (y_coord > 2.6 && y_coord < 3.1) {
                                 ROS_INFO_STREAM("AISLE 2 - SHELF 1");
                                 br_1 = "21";
                                 br_2 = "22";
+                                br_4 = "24";
+                                br_5 = "25";
                             }
                             if (y_coord > 0 && y_coord < 0.7) {
                                 ROS_INFO_STREAM("AISLE 2 - SHELF 2");
                                 br_1 = "21";
                                 br_2 = "22";
+                                br_4 = "24";
+                                br_5 = "25";
                             }
                             if (y_coord < 0 && y_coord > -0.7) {
                                 ROS_INFO_STREAM("AISLE 3 -  SHELF 2");
                                 br_1 = "31";
                                 br_2 = "32";
+                                br_4 = "34";
+                                br_5 = "35";
                             }
                             if (y_coord < -2.6 && y_coord > -3.1) {
                                 ROS_INFO_STREAM("AISLE 3 - SHELF 3");
                                 br_1 = "31";
                                 br_2 = "32";
+                                br_4 = "34";
+                                br_5 = "35";
                             }
                             if (y_coord < -3.15) {
                                 ROS_INFO_STREAM("AISLE 4");
                                 br_1 = "41";
                                 br_2 = "42";
+                                br_4 = "44";
+                                br_5 = "45";
                             }
-//                            auto q = gantry.pickup_locations.find(l);
                             ROS_INFO_STREAM("FOUND PICK UP LOCATION");
                             int waypoint_counter = 0;
                             ROS_INFO_STREAM("BEFORE FOR LOOP");
@@ -762,15 +844,25 @@ int main(int argc, char ** argv) {
                             auto q = gantry.pickup_locations.find(camera_id);
 
                             for (auto waypoint_iter: q->second) {
+                                ROS_INFO_STREAM("NOW EXECUTING WAYPOINT  : > "<<waypoint_counter);
+                                // TO FOLLOW THE HUMAN UPTO WAYPOINT 2
                                 if (waypoint_counter == 1 && human_exists == 1) {
+                                    ROS_INFO_STREAM(" --------- FOLLOW HUMAN LOOP --------- ");
                                     followHuman(comp, gantry, waypoint_iter, br_1, br_2, GENERAL_BREAKBEAM_1,
                                                 GENERAL_BREAKBEAM_2);
                                     waypoint_counter += 1;
-                                } else {
-                                    ROS_INFO_STREAM("NOW IN ELSE LOOP");
-                                    gantry.goToPresetLocation(waypoint_iter);
+                                }
+                                if (waypoint_counter == 4 && human_exists == 1 ){
+                                    ROS_INFO_STREAM(" --------- HUMAN AVOIDANCE LOOP --------- ");
+                                    checkAndProceed(comp, gantry, waypoint_iter, br_4, br_5, GENERAL_BREAKBEAM_4,
+                                                    GENERAL_BREAKBEAM_5);
                                     waypoint_counter += 1;
                                 }
+                                else {
+                                        ROS_INFO_STREAM("NOW IN ELSE LOOP");
+                                        gantry.goToPresetLocation(waypoint_iter);
+                                        waypoint_counter += 1;
+                                    }
                                 ros::Duration timeout(0.5);
                             }
 

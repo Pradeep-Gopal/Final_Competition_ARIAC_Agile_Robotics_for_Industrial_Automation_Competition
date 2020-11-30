@@ -159,6 +159,19 @@ void GantryControl::setRobotSpeed(double speed_factor, double acc_factor){
     ROS_INFO_STREAM("<<<<<<<<<<<MOVE VELOCITY CHANGED>>>>>>>>>>>>>>");
 }
 
+void GantryControl::set_aisle_1_choice(int new_choice){
+    aisle_1_choice = new_choice;
+}
+void GantryControl::set_aisle_2_choice(int new_choice){
+    aisle_2_choice = new_choice;
+}
+void GantryControl::set_aisle_3_choice(int new_choice){
+    aisle_3_choice = new_choice;
+}
+void GantryControl::set_aisle_4_choice(int new_choice){
+    aisle_4_choice = new_choice;
+}
+
 int GantryControl::get_shelf_1_gap(){
     return shelf_1_gap;
 }
@@ -168,78 +181,69 @@ int GantryControl::get_shelf_2_gap(){
 int GantryControl::get_shelf_3_gap(){
     return shelf_3_gap;
 }
-void GantryControl::set_shelf_1_gap(int shelf_1){
-    shelf_1_gap = shelf_1;
-}
-void GantryControl::set_shelf_2_gap(int shelf_2){
-    shelf_2_gap = shelf_2;
-}
-void GantryControl::set_shelf_3_gap(int shelf_3){
-    shelf_3_gap = shelf_3;
-}
 void GantryControl::init() {
     double time_called = ros::Time::now().toSec();
     full_robot_group_.setMaxVelocityScalingFactor(0.6);
     full_robot_group_.setMaxAccelerationScalingFactor(0.1);
 
-    ROS_INFO_STREAM("SHELF GAPS FROM GANTRY.INIT : ");
-    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
-    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
-    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
-    ROS_INFO_STREAM("CUSTOMIZING WAYPOINTS");
-    aisle_1_choice = shelf_1_gap;
-    ROS_INFO_STREAM("X AXES OF ALL THE SHELVES");
-    ROS_INFO_STREAM("shelf_4_x"<<shelf_4_x);
-    ROS_INFO_STREAM("shelf_7_x"<<shelf_7_x);
-    ROS_INFO_STREAM("shelf_10_x"<<shelf_10_x);
-    if (abs(shelf_4_x)!=abs(shelf_7_x)){
-        if (shelf_2_gap == 2 && shelf_1_gap == 1){
-            aisle_2_choice = shelf_2_gap;
-            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
-        }
-        else if (shelf_1_gap == 2 && shelf_2_gap == 1) {
-            aisle_2_choice = shelf_1_gap;
-            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_1 GAP AS THE BEST CHOICE");
-        }
-    }
-    if (abs(shelf_4_x)==abs(shelf_7_x)){
-        aisle_2_choice = shelf_1_gap;
-        ROS_INFO_STREAM("AISLE 2 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
-    }
-
-    if (abs(shelf_7_x)!=abs(shelf_10_x)){
-        if (shelf_2_gap == 1 && shelf_3_gap == 2){
-            aisle_3_choice = shelf_3_gap;
-            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_3 GAP AS THE BEST CHOICE");
-        }
-        else if (shelf_2_gap == 2 && shelf_3_gap == 1) {
-            aisle_3_choice = shelf_2_gap;
-            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
-        }
-    }
-
-    if (abs(shelf_7_x)==abs(shelf_10_x)){
-        aisle_3_choice = shelf_2_gap;
-        ROS_INFO_STREAM("AISLE 3 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
-    }
-
-    aisle_4_choice = shelf_3_gap;
-
-    if (shelf_1_gap == 0){
-        ROS_INFO_STREAM("AISLES 1 AND 2 DOES NOT HAVE A PRIORITY!!");
-        aisle_1_choice = 0;
-        aisle_2_choice = 0;
-    }
-    if (shelf_2_gap == 0){
-        ROS_INFO_STREAM("AISLES 2 AND 3 DOES NOT HAVE A PRIORITY!!");
-        aisle_2_choice = 0;
-        aisle_3_choice = 0;
-    }
-    if (shelf_3_gap == 0){
-        ROS_INFO_STREAM("AISLES 3 AND 4 DOES NOT HAVE A PRIORITY!!");
-        aisle_3_choice = 0;
-        aisle_4_choice = 0;
-    }
+//    ROS_INFO_STREAM("SHELF GAPS FROM GANTRY.INIT : ");
+//    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
+//    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
+//    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
+//    ROS_INFO_STREAM("CUSTOMIZING WAYPOINTS");
+//    aisle_1_choice = shelf_1_gap;
+//    ROS_INFO_STREAM("X AXES OF ALL THE SHELVES");
+//    ROS_INFO_STREAM("shelf_4_x"<<shelf_4_x);
+//    ROS_INFO_STREAM("shelf_7_x"<<shelf_7_x);
+//    ROS_INFO_STREAM("shelf_10_x"<<shelf_10_x);
+//    if (abs(shelf_4_x)!=abs(shelf_7_x)){
+//        if (shelf_2_gap == 2 && shelf_1_gap == 1){
+//            aisle_2_choice = shelf_2_gap;
+//            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
+//        }
+//        else if (shelf_1_gap == 2 && shelf_2_gap == 1) {
+//            aisle_2_choice = shelf_1_gap;
+//            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_1 GAP AS THE BEST CHOICE");
+//        }
+//    }
+//    if (abs(shelf_4_x)==abs(shelf_7_x)){
+//        aisle_2_choice = shelf_1_gap;
+//        ROS_INFO_STREAM("AISLE 2 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
+//    }
+//
+//    if (abs(shelf_7_x)!=abs(shelf_10_x)){
+//        if (shelf_2_gap == 1 && shelf_3_gap == 2){
+//            aisle_3_choice = shelf_3_gap;
+//            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_3 GAP AS THE BEST CHOICE");
+//        }
+//        else if (shelf_2_gap == 2 && shelf_3_gap == 1) {
+//            aisle_3_choice = shelf_2_gap;
+//            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
+//        }
+//    }
+//
+//    if (abs(shelf_7_x)==abs(shelf_10_x)){
+//        aisle_3_choice = shelf_2_gap;
+//        ROS_INFO_STREAM("AISLE 3 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
+//    }
+//
+//    aisle_4_choice = shelf_3_gap;
+//
+//    if (shelf_1_gap == 0){
+//        ROS_INFO_STREAM("AISLES 1 AND 2 DOES NOT HAVE A PRIORITY!!");
+//        aisle_1_choice = 0;
+//        aisle_2_choice = 0;
+//    }
+//    if (shelf_2_gap == 0){
+//        ROS_INFO_STREAM("AISLES 2 AND 3 DOES NOT HAVE A PRIORITY!!");
+//        aisle_2_choice = 0;
+//        aisle_3_choice = 0;
+//    }
+//    if (shelf_3_gap == 0){
+//        ROS_INFO_STREAM("AISLES 3 AND 4 DOES NOT HAVE A PRIORITY!!");
+//        aisle_3_choice = 0;
+//        aisle_4_choice = 0;
+//    }
     ROS_INFO_STREAM("EACH AISLE HAS MADE ITS CHOICE : ");
     ROS_INFO_STREAM("aisle_1_choice : "<< aisle_1_choice);
     ROS_INFO_STREAM("aisle_2_choice : "<< aisle_2_choice);
@@ -317,7 +321,7 @@ void GantryControl::init() {
 
     //GAP 3
 
-    GAP_3.gantry = {-11.4, 2.99, 3.45};
+    GAP_3.gantry = {-11.4, 2.99, 0.73};
     GAP_3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     GAP_3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -462,33 +466,6 @@ void GantryControl::init() {
     shelf2_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 8, Left Front, Camera 4
-//    shelf8_lf_w1.gantry = {0.0,-4.48,0.0};
-//    shelf8_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w2.gantry = {-11.58,-4.48,0};
-//    shelf8_lf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w3.gantry = {-11.58,-4.48,1.57};
-//    shelf8_lf_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w4.gantry = {-11.58, -2.99, 0.73};
-//    shelf8_lf_w4.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w5.gantry = {-11.47, -1.68, 0.0};
-//    shelf8_lf_w5.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lf_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w6.gantry = {-13.5, -1.6, 0.0};
-//    shelf8_lf_w6.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lf_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lf_w7.gantry = {-14, -1.2, 0.0};
-//    shelf8_lf_w7.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lf_w7.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8_lf_w1.gantry = {0.2, -1.68, 0.0};
     shelf8_lf_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
@@ -503,34 +480,6 @@ void GantryControl::init() {
     shelf8_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    //Shelf 8, Right Front, Camera 3
-//    shelf8_rf_w1.gantry = {0.0,-4.48,0.0};
-//    shelf8_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w2.gantry = {-11.58,-4.48,0};
-//    shelf8_rf_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w3.gantry = {-11.58,-4.48,1.57};
-//    shelf8_rf_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w4.gantry = {-11.58, -2.99, 0.73};
-//    shelf8_rf_w4.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rf_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w5.gantry = {-11.47, -1.68, 0.0};
-//    shelf8_rf_w5.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rf_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w6.gantry = {-15.4, -1.6, 0.0};
-//    shelf8_rf_w6.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rf_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rf_w7.gantry = {-15.4, -1.2, 0.0};
-//    shelf8_rf_w7.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rf_w7.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
     shelf8_rf_w1.gantry = {0.2, -1.68, 0.0};
     shelf8_rf_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
@@ -544,30 +493,6 @@ void GantryControl::init() {
     shelf8_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    //Shelf 8, Right Back, Camera 3
-//    shelf8_rb_w1.gantry = {0.0, 4.48, 3.14};
-//    shelf8_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rb_w2.gantry = {-11.40, 4.48,3.45};
-//    shelf8_rb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    //this is where the gantry waits
-//    shelf8_rb_w3.gantry = {-11.4, 2.99, 3.45};
-//    shelf8_rb_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rb_w4.gantry = {-11.40, 1.6, 3.14};
-//    shelf8_rb_w4.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_rb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rb_w5.gantry = {-14.7, 1.6, 3.14};
-//    shelf8_rb_w5.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rb_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_rb_w6.gantry = {-14.7, 1.3, 3.14};
-//    shelf8_rb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_rb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8_rb_w1.gantry = {0.2,1.68,3.14};
     shelf8_rb_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
@@ -582,30 +507,6 @@ void GantryControl::init() {
     shelf8_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    //Shelf 8, Left Back, Camera 4
-//    shelf8_lb_w1.gantry = {0.0, 4.48, 3.14};
-//    shelf8_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lb_w2.gantry = {-11.40, 4.48,3.45};
-//    shelf8_lb_w2.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lb_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-
-//    //this is where the gantry waits
-//    shelf8_lb_w3.gantry = {-11.4, 2.99, 3.45};
-//    shelf8_lb_w3.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lb_w4.gantry = {-11.40, 1.6, 3.14};
-//    shelf8_lb_w4.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
-//    shelf8_lb_w4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lb_w5.gantry = {-12.8, 1.6, 3.14};
-//    shelf8_lb_w5.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lb_w5.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
-//
-//    shelf8_lb_w6.gantry = {-12.8, 1.3, 3.14};
-//    shelf8_lb_w6.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
-//    shelf8_lb_w6.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     shelf8_lb_w1.gantry = {0.2,1.68,3.14};
     shelf8_lb_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
@@ -808,101 +709,251 @@ void GantryControl::init() {
     std::string cam;
     std::vector<PresetLocation> waypoints;
 
-    cam ="3b";
-    waypoints.clear();
-    waypoints.push_back(shelf8_rb_w1);
-//    waypoints.push_back(shelf8_rb_w2);//gap_2_3
-    waypoints.push_back(gap_2_3);
-    waypoints.push_back(shelf8_rb_w3);
-    pickup_locations[cam] = waypoints;
-
-    cam ="3f";
-    waypoints.clear();
-    waypoints.push_back(shelf8_rf_w1);
-//    waypoints.push_back(shelf8_rf_w2);//gap_2_2
-    waypoints.push_back(gap_2_2);
-    waypoints.push_back(shelf8_rf_w3);
-    pickup_locations[cam] = waypoints;
-
-    cam ="4b";
-    waypoints.clear();
-    waypoints.push_back(shelf8_lb_w1);
-//    waypoints.push_back(shelf8_lb_w2);//gap_2_3
-    waypoints.push_back(gap_2_3);
-    waypoints.push_back(shelf8_lb_w3);
-    pickup_locations[cam] = waypoints;
-
-    cam ="4f";
-    waypoints.clear();
-    waypoints.push_back(shelf8_lf_w1);
-//    waypoints.push_back(shelf8_lf_w2);//gap_2_2
-    waypoints.push_back(gap_2_2);
-    waypoints.push_back(shelf8_lf_w3);
-    pickup_locations[cam] = waypoints;
-
-    cam ="1b";
-    waypoints.clear();
-    waypoints.push_back(shelf5_rb_w1);
-//    waypoints.push_back(shelf5_rb_w2);//gap_2_2 or gap_1_2
-    waypoints.push_back(gap_1_2);
-    waypoints.push_back(shelf5_rb_w3);
-    pickup_locations[cam] = waypoints;
-
+    // AISLE 1
     cam ="1f";
     waypoints.clear();
-    waypoints.push_back(shelf5_rf_w1);
-//    waypoints.push_back(shelf5_rf_w2);//gap_1_1
-    waypoints.push_back(gap_1_1);
-    waypoints.push_back(shelf5_rf_w3);
-    pickup_locations[cam] = waypoints;
-
-    cam ="2b";
-    waypoints.clear();
-    waypoints.push_back(shelf5_lb_w1);
-//    waypoints.push_back(shelf5_lb_w2);//gap_2_2 or gap_1_2
-    waypoints.push_back(gap_1_2);
-    waypoints.push_back(shelf5_lb_w3);
-    pickup_locations[cam] = waypoints;
+    if (aisle_1_choice == 2){
+        waypoints.push_back(shelf5_rf_w1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(GAP_1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(shelf5_rf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+    else{
+        waypoints.push_back(shelf5_rf_w1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(shelf5_rf_w3);
+        pickup_locations[cam] = waypoints;
+    }
 
     cam ="2f";
     waypoints.clear();
-    waypoints.push_back(shelf5_lf_w1);
-//    waypoints.push_back(shelf5_lf_w2);//gap_1_1
-    waypoints.push_back(gap_1_1);
-    waypoints.push_back(shelf5_lf_w3);
-    pickup_locations[cam] = waypoints;
+    if (aisle_1_choice == 2) {
+        waypoints.push_back(shelf5_lf_w1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(GAP_1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(shelf5_lf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+    else{
+        waypoints.push_back(shelf5_lf_w1);
+        waypoints.push_back(gap_1_1);
+        waypoints.push_back(shelf5_lf_w3);
+        pickup_locations[cam] = waypoints;
+    }
 
-    cam ="5b";
-    waypoints.clear();
-    waypoints.push_back(shelf11_rb_w1);
-//    waypoints.push_back(shelf11_rb_w2);//gap_3_4
-    waypoints.push_back(gap_3_4);
-    waypoints.push_back(shelf11_rb_w3);
-    pickup_locations[cam] = waypoints;
+    // AISLE 1 COMPLETE ----
 
-    cam ="5f";
-    waypoints.clear();
-    waypoints.push_back(shelf11_rf_w1);
-//    waypoints.push_back(shelf11_rf_w2);//gap_3_3
-    waypoints.push_back(gap_3_3);
-    waypoints.push_back(shelf11_rf_w3);
-    pickup_locations[cam] = waypoints;
+    //AISLE 2
 
-    cam ="6b";
+    cam ="1b";
     waypoints.clear();
-    waypoints.push_back(shelf11_lb_w1);
-//    waypoints.push_back(shelf11_lb_w2);//gap_3_4
-    waypoints.push_back(gap_3_4);
-    waypoints.push_back(shelf11_lb_w3);
-    pickup_locations[cam] = waypoints;
+    if (aisle_2_choice == 2) {
+        waypoints.push_back(shelf5_rb_w1);
+        waypoints.push_back(gap_1_2);
+        if (shelf_1_gap == 2) {
+            waypoints.push_back(GAP_1);
+        } else {
+            waypoints.push_back(GAP_2);
+        }
+        waypoints.push_back(gap_1_2);
+        waypoints.push_back(shelf5_rb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+    else{
+        waypoints.push_back(shelf5_rb_w1);
+        waypoints.push_back(gap_1_2);
+        waypoints.push_back(shelf5_rb_w3);
+        pickup_locations[cam] = waypoints;
+    };
+
+
+    cam ="2b";
+    waypoints.clear();
+    if (aisle_2_choice == 2) {
+        waypoints.push_back(shelf5_lb_w1);
+        waypoints.push_back(gap_1_2);
+        if (shelf_1_gap == 2) {
+            waypoints.push_back(GAP_1);
+        } else {
+            waypoints.push_back(GAP_2);
+        }
+        waypoints.push_back(gap_1_2);
+        waypoints.push_back(shelf5_lb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+    else{
+        waypoints.push_back(shelf5_lb_w1);
+        waypoints.push_back(gap_1_2);
+        waypoints.push_back(shelf5_lb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+
+    cam ="3f";
+    waypoints.clear();
+    if (aisle_2_choice == 2) {
+        waypoints.push_back(shelf8_rf_w1);
+        waypoints.push_back(gap_2_2);
+        if (shelf_1_gap == 2) {
+            waypoints.push_back(GAP_1);
+        } else {
+            waypoints.push_back(GAP_2);
+        }
+        waypoints.push_back(gap_2_2);
+        waypoints.push_back(shelf8_rf_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf8_rf_w1);
+        waypoints.push_back(gap_2_2);
+        waypoints.push_back(shelf8_rf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    cam ="4f";
+    waypoints.clear();
+    if (aisle_2_choice == 2) {
+        waypoints.push_back(shelf8_lf_w1);
+        waypoints.push_back(gap_2_2);
+        if (shelf_1_gap == 2) {
+            waypoints.push_back(GAP_1);
+        } else {
+            waypoints.push_back(GAP_2);
+        }
+        waypoints.push_back(gap_2_2);
+        waypoints.push_back(shelf8_lf_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf8_lf_w1);
+        waypoints.push_back(gap_2_2);
+        waypoints.push_back(shelf8_lf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    // AISLE 2 COMPLETE ----
+
+    // AISLE 3
+
+    cam ="3b";
+    waypoints.clear();
+    if (aisle_3_choice == 2) {
+        waypoints.push_back(shelf8_rb_w1);
+        waypoints.push_back(gap_2_3);
+        if (shelf_2_gap == 2) {
+            waypoints.push_back(GAP_2);
+        } else {
+            waypoints.push_back(GAP_3);
+        }
+        waypoints.push_back(gap_2_3);
+        waypoints.push_back(shelf8_rb_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf8_rb_w1);
+        waypoints.push_back(gap_2_3);
+        waypoints.push_back(shelf8_rb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+
+    cam ="4b";
+    waypoints.clear();
+    if (aisle_3_choice == 2) {
+        waypoints.push_back(shelf8_lb_w1);
+        waypoints.push_back(gap_2_3);
+        if (shelf_2_gap == 2) {
+            waypoints.push_back(GAP_2);
+        } else {
+            waypoints.push_back(GAP_3);
+        }
+        waypoints.push_back(gap_2_3);
+        waypoints.push_back(shelf8_lb_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf8_lb_w1);
+        waypoints.push_back(gap_2_3);
+        waypoints.push_back(shelf8_lb_w3);
+        pickup_locations[cam] = waypoints;
+    }
 
     cam ="6f";
     waypoints.clear();
-    waypoints.push_back(shelf11_lf_w1);
-//    waypoints.push_back(shelf11_lf_w2);//gap_3_3
-    waypoints.push_back(gap_3_3);
-    waypoints.push_back(shelf11_lf_w3);
-    pickup_locations[cam] = waypoints;
+    if (aisle_3_choice == 2) {
+        waypoints.push_back(shelf11_lf_w1);
+        waypoints.push_back(gap_3_3);
+        if (shelf_2_gap == 2) {
+            waypoints.push_back(GAP_2);
+        } else {
+            waypoints.push_back(GAP_3);
+        }
+        waypoints.push_back(gap_3_3);
+        waypoints.push_back(shelf11_lf_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf11_lf_w1);
+        waypoints.push_back(gap_3_3);
+        waypoints.push_back(shelf11_lf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    cam ="5f";
+    waypoints.clear();
+    if (aisle_3_choice == 2) {
+        waypoints.push_back(shelf11_rf_w1);
+        waypoints.push_back(gap_3_3);
+        if (shelf_2_gap == 2) {
+            waypoints.push_back(GAP_2);
+        } else {
+            waypoints.push_back(GAP_3);
+        }
+        waypoints.push_back(gap_3_3);
+        waypoints.push_back(shelf11_rf_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf11_rf_w1);
+        waypoints.push_back(gap_3_3);
+        waypoints.push_back(shelf11_rf_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    // AISLE 3 COMPLETE ----
+
+    // AISLE 4
+
+    cam ="5b";
+    waypoints.clear();
+    if (aisle_4_choice == 2) {
+        waypoints.push_back(shelf11_rb_w1);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(GAP_3);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(shelf11_rb_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf11_rb_w1);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(shelf11_rb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    cam ="6b";
+    waypoints.clear();
+    if (aisle_4_choice == 2) {
+        waypoints.push_back(shelf11_lb_w1);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(GAP_3);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(shelf11_lb_w3);
+        pickup_locations[cam] = waypoints;
+    } else {
+        waypoints.push_back(shelf11_lb_w1);
+        waypoints.push_back(gap_3_4);
+        waypoints.push_back(shelf11_lb_w3);
+        pickup_locations[cam] = waypoints;
+    }
+
+    // AISLE 4 COMPLETE ----
 
     cam = "11";
     waypoints.clear();
