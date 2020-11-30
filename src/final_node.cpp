@@ -876,8 +876,15 @@ int main(int argc, char ** argv) {
                             gantry.setRobotSpeed(speed_factor, acc_factor);
                             ROS_INFO_STREAM("ROBOT SPED UP DOWN");
 
+                            int return_waypoint_counter = 0;
                             for (auto it = q->second.rbegin(); it != q->second.rend(); it++) {
                                 gantry.goToPresetLocation(*it);
+                                if (return_waypoint_counter == 2 && human_exists == 1 ){
+                                    ROS_INFO_STREAM("Re-checking for the human ...");
+//                                    checkAndProceed(comp, gantry, it, br_4, br_5, GENERAL_BREAKBEAM_4,
+//                                                    GENERAL_BREAKBEAM_5);
+                                }
+                                return_waypoint_counter+=1;
                             }
 
                             ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);
