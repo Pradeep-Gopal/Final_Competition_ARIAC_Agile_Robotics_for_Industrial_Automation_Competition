@@ -350,10 +350,8 @@ void Competition::pre_kitting()
     // Populating Orders vector
     for (p; p < received_orders_.size(); p++)
     {
-//        ROS_INFO_STREAM("ORDER NUMBER    =    " << p);
         order order_instance;
         order_instance.order_id = received_orders_[p].order_id;
-//        ROS_INFO_STREAM("Order ID = " << order_instance.order_id);
         order_instance.shipments = received_orders_[p].shipments;
         orders_vector.push_back(order_instance);
 
@@ -362,25 +360,14 @@ void Competition::pre_kitting()
         {
             shipment shipment_instance;
             shipment_instance.shipment_type = orders_vector[p].shipments[j].shipment_type;
-//            ROS_INFO_STREAM("Shipment ID = " << shipment_instance.shipment_type);
             shipment_instance.agv_id  = orders_vector[p].shipments[j].agv_id;
-//            ROS_INFO_STREAM("AGV ID = " << orders_vector[p].shipments[j].agv_id);
-//            ROS_INFO_STREAM("PRODUCT  = " << orders_vector[p].shipments[j].products.size());
             shipment_instance.products  = orders_vector[p].shipments[j].products;
             shipment_vector.push_back(shipment_instance);
-//            ROS_INFO_STREAM("Size of the order = " << orders_vector[p].shipments[j].products.size());
-//            ROS_INFO_STREAM("Product type = " << orders_vector[p].shipments[j].products[0].type);
-
-
 
 //            ROS_INFO_STREAM("==========================PARTS TO BE PICKED==============================");
             for (int k = 0; k < orders_vector[p].shipments[j].products.size(); k++)
             {
                 if(shipment_vector[j].products[k].type == ("pulley_part_red") || ("pulley_part_blue") || ("pulley_part_green") || ("piston_part_red") || ("piston_part_green") || ("piston_part_blue") || ("disk_part_red") || ("disk_part_green") || ("disk_part_blue") || ("gasket_part_red") || ("gasket_part_green") || ("gasket_part_blue") ) {
-//                    ROS_INFO_STREAM("Part from prekitting function");
-//                    ROS_INFO_STREAM(orders_vector[p].shipments[j].products[k].type);
-//                    ROS_INFO_STREAM(orders_vector[p].shipments[j].products[k].pose);
-
                     part part_to_be_placed;
                     part_to_be_placed.type = orders_vector[p].shipments[j].products[k].type;
                     part_to_be_placed.pose.position.x = orders_vector[p].shipments[j].products[k].pose.position.x;
@@ -446,14 +433,6 @@ void Competition::delete_completed_order(int i) {
     ROS_INFO_STREAM("Deleting Order = " << i);
 }
 
-
-//void Competition::print_parts_detected(){
-//    ROS_INFO_STREAM("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//
-//    for( auto &row : parts_from_camera)
-//        for(auto &col : row)
-//            ROS_INFO_STREAM(col.type);,
-//}
 
 part Competition::get_quality_sensor_status_agv2(){
     return faulty_part_agv2;
@@ -556,20 +535,8 @@ void Competition::logical_camera_callback(const nist_gear::LogicalCameraImage::C
                     parts_from_15_camera_new.push_back(part_under_camera15);
                     parts_from_15_camera = parts_from_15_camera_new;
 
-//                    parts_from_15_camera[i].type = msg->models[i].type;
-//                    parts_from_15_camera[i].pose.position.x = tx;
-//                    parts_from_15_camera[i].pose.position.y = ty;
-//                    parts_from_15_camera[i].pose.position.z = tz;
-//                    parts_from_15_camera[i].pose.orientation.x = pose_target.pose.orientation.x;
-//                    parts_from_15_camera[i].pose.orientation.y = pose_target.pose.orientation.y;
-//                    parts_from_15_camera[i].pose.orientation.z = pose_target.pose.orientation.z;
-//                    parts_from_15_camera[i].pose.orientation.w = pose_target.pose.orientation.w;
-//                    parts_from_15_camera[i].faulty = false;
-//                    parts_from_15_camera[i].picked = false;
-
                     if(msg->models.size() > 0)
                     {
-//                        ROS_INFO_STREAM("Camera Matrix loaded with conveyor belt part");
                         conveyor_belt_part_status = true;
                     }
 
@@ -697,7 +664,6 @@ void Competition::quality_control_sensor_2_subscriber_callback(const nist_gear::
 void Competition::competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr & msg) {
   competition_clock_ = msg->clock;
 }
-
 
 void Competition::startCompetition() {
   // Create a Service client for the correct service, i.e. '/ariac/start_competition'.

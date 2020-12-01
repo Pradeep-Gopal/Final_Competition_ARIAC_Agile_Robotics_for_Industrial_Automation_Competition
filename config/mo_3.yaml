@@ -39,18 +39,18 @@ shelf_layout:
   row_2: ['pipe','base',0,'base']   #shelves: 6, 7, 8
   row_3: ['base',0,'collar','collar'] #shelves: 9, 10, 11
 
-#aisle_layout:
-#  person_1:
-#    location: -1.57
-#    start_time: 0.
-#    move_time: 9.
-#    wait_time: 7.
-#  #Aisle 3
-#  person_2:
-#    location: 1.57
-#    start_time: 16.
-#    move_time: 9.
-#    wait_time: 7.
+aisle_layout:
+  person_1:
+    location: -1.57
+    start_time: 0.
+    move_time: 9.
+    wait_time: 7.
+  #Aisle 3
+  person_2:
+    location: 1.57
+    start_time: 16.
+    move_time: 9.
+    wait_time: 7.
 
 
 orders:
@@ -70,11 +70,11 @@ orders:
 #        pose:
 #          xyz: [0.15, 0.2, 0]
 #          rpy: [0, 0, '-pi/4']
-#      part_2:
-#        type: gasket_part_red
-#        pose:
-#          xyz: [-0.15, -0.2, 0]
-#          rpy: [0, 0, 'pi/4']
+      part_2:
+        type: gasket_part_red
+        pose:
+          xyz: [-0.15, -0.2, 0]
+          rpy: [0, 0, 'pi/4']
   order_1:
     announcement_condition: wanted_products
     announcement_condition_value: 1
@@ -86,19 +86,19 @@ orders:
         pose:
           xyz: [0.0, 0.0, 0]
           rpy: ['pi', 0, 0]
-#      part_1:
-#        type: gasket_part_green
-#        pose:
-#          xyz: [-0.15, -0.2, 0]
-#          rpy: [0, 0, '-pi/4']
+      part_1:
+        type: gasket_part_green
+        pose:
+          xyz: [-0.15, -0.2, 0]
+          rpy: [0, 0, '-pi/4']
 
 
-#belt_models:
-#  piston_rod_part_blue:
-#    15.0:
-#      pose:
-#        xyz: [0.0, 4.3, 0.92]
-#        rpy: [0, 0, 'pi/2']
+belt_models:
+  piston_rod_part_blue:
+    15.0:
+      pose:
+        xyz: [0.0, 4.3, 0.92]
+        rpy: [0, 0, 'pi/2']
 
 # models_over_bins:
 #   bin3:

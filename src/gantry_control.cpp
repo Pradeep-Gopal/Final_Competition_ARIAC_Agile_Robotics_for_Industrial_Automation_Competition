@@ -467,7 +467,7 @@ void GantryControl::init() {
 
     //Shelf 8, Left Front, Camera 4
 
-    shelf8_lf_w1.gantry = {0.2, -1.68, 0.0};
+    shelf8_lf_w1.gantry = {0.4, -1.68, 0.0};
     shelf8_lf_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -480,7 +480,7 @@ void GantryControl::init() {
     shelf8_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
 //    //Shelf 8, Right Front, Camera 3
-    shelf8_rf_w1.gantry = {0.2, -1.68, 0.0};
+    shelf8_rf_w1.gantry = {0.4, -1.68, 0.0};
     shelf8_rf_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -494,7 +494,7 @@ void GantryControl::init() {
 
 //    //Shelf 8, Right Back, Camera 3
 
-    shelf8_rb_w1.gantry = {0.2,1.68,3.14};
+    shelf8_rb_w1.gantry = {0.4,1.68,3.14};
     shelf8_rb_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -508,7 +508,7 @@ void GantryControl::init() {
 
 //    //Shelf 8, Left Back, Camera 4
 
-    shelf8_lb_w1.gantry = {0.2,1.68,3.14};
+    shelf8_lb_w1.gantry = {0.4,1.68,3.14};
     shelf8_lb_w1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf8_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -521,7 +521,7 @@ void GantryControl::init() {
     shelf8_lb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 5, Left Front, Camera 2
-    shelf5_lf_w1.gantry = {0.0,-4.48,0.0};
+    shelf5_lf_w1.gantry = {0.4,-4.48,0.0};
     shelf5_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf5_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -529,12 +529,12 @@ void GantryControl::init() {
     shelf5_lf_w2.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf5_lf_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
-    shelf5_lf_w3.gantry = {-14, -4.2973, 0.0};
+    shelf5_lf_w3.gantry = {-14.7, -4.2973, 0.0};
     shelf5_lf_w3.left_arm = {-1.78, -PI/4, PI/2, -PI/4, -0.2, 0};
     shelf5_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 5, Right Front, Camera 1
-    shelf5_rf_w1.gantry = {0.0,-4.48,0.0};
+    shelf5_rf_w1.gantry = {0.4,-4.48,0.0};
     shelf5_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf5_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -547,7 +547,7 @@ void GantryControl::init() {
     shelf5_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 5, Right Back, Camera 1
-    shelf5_rb_w1.gantry = {0.0, -1.3827, 3.14};
+    shelf5_rb_w1.gantry = {0.4, -1.3827, 3.14};
     shelf5_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf5_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -560,7 +560,7 @@ void GantryControl::init() {
     shelf5_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 5, Left Back, Camera 2
-    shelf5_lb_w1.gantry = {0.0, -1.3827, 3.14};
+    shelf5_lb_w1.gantry = {0.4, -1.3827, 3.14};
     shelf5_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf5_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -574,7 +574,7 @@ void GantryControl::init() {
 
 
     //Shelf 11, Left Front, Camera 6
-    shelf11_lf_w1.gantry = {0.0,1.628,0.0};
+    shelf11_lf_w1.gantry = {0.4,1.628,0.0};
     shelf11_lf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf11_lf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -587,7 +587,7 @@ void GantryControl::init() {
     shelf11_lf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 11, Right Front, Camera 5
-    shelf11_rf_w1.gantry = {0.0,1.628,0.0};
+    shelf11_rf_w1.gantry = {0.4,1.628,0.0};
     shelf11_rf_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf11_rf_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -600,7 +600,7 @@ void GantryControl::init() {
     shelf11_rf_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 11, Right Back, Camera 5
-    shelf11_rb_w1.gantry = {0.0, 4.7253, 3.14};
+    shelf11_rb_w1.gantry = {0.4, 4.7253, 3.14};
     shelf11_rb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf11_rb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -613,7 +613,7 @@ void GantryControl::init() {
     shelf11_rb_w3.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //Shelf 11, Left Back, Camera 6
-    shelf11_lb_w1.gantry = {0.0, 4.7253, 3.14};
+    shelf11_lb_w1.gantry = {0.4, 4.7253, 3.14};
     shelf11_lb_w1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     shelf11_lb_w1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -1253,7 +1253,7 @@ void GantryControl::init() {
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
-    bin1_drop_.gantry = {2.6, - 0.87, PI/2};
+    bin1_drop_.gantry = {2.7, - 0.87, PI/2};
     bin1_drop_.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
     bin1_drop_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 

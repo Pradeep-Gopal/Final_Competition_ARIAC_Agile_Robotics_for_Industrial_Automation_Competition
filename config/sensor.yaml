@@ -170,7 +170,7 @@ sensors:
   logical_camera_1: # left_topshelf_1
     type: logical_camera
     pose:
-      xyz: [-3.25 - 6*2.04, 3.020797, 2.49]
+      xyz: [-3.25- 6*2.04, 3.020797, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_2: # left_topshelf_2
@@ -182,25 +182,25 @@ sensors:
   logical_camera_3: 
     type: logical_camera
     pose:
-      xyz: [-15.49, 0, 2.49]
+      xyz: [-3.25 - 6*2.04, 0, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_4: 
     type: logical_camera
     pose:
-      xyz: [-13.434241, 0, 2.49]
+      xyz: [-13.332640, 0, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_5: # left_bottomshelf_1
     type: logical_camera
     pose:
-      xyz: [-3.25 - 6*2.04, -3.020797, 2.49]
+      xyz: [-3.25-6*2.04, -3.020797, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_6: # left_bottomshelf_2
     type: logical_camera
     pose:
-      xyz: [-13.434241, -3.020797, 2.49]
+      xyz: [-13.332640, -3.020797, 2.49]
       rpy: [0, 'pi/2', 'pi/2']
 
   logical_camera_7: # right_topshelf_1

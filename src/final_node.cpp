@@ -409,15 +409,14 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 }
 
 void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
+    double y_offset_est = 0;
+    double z_offset_est = 0;
+    int no_of_parts{3}, count{0};
+
     ROS_INFO_STREAM("Picking up part from conveyor belt");
     gantry.goToPresetLocation(gantry.start_);
     ROS_INFO_STREAM("Start location reached");
-    // move above pick location above belt
-//    gantry.goToPresetLocation(gantry.belt_pickup_);
-//    ROS_INFO_STREAM("belt pick up location reached");
 
-    double offset_est = 0.292;
-    int no_of_parts{2}, count{0};
     while(count < no_of_parts) {
         // move above pick location above belt
         gantry.goToPresetLocation(gantry.belt_pickup_);
@@ -425,14 +424,36 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
         ROS_INFO_STREAM("Picking up part number " << count + 1);
         while ((comp.breakbeam_conveyor_belt_part_status_0 == true) || (comp.breakbeam_conveyor_belt_part_status_1 == true)){
-//            ROS_INFO_STREAM("Breakbeam sensor triggered, waiting to turn off");
         }
         ROS_INFO_STREAM("Attempting to pickup part on belt");
+
+
         if (!comp.get_parts_from_15_camera().empty()) { // if no part detected in camera 15
+            ROS_INFO_STREAM(comp.get_parts_from_15_camera().back().type);
+            if((comp.get_parts_from_15_camera().back().type == "piston_rod_part_red") || (comp.get_parts_from_15_camera().back().type =="piston_rod_part_blue") || (comp.get_parts_from_15_camera().back().type =="piston_rod_part_green")) {
+                ROS_INFO_STREAM("piston part");
+                y_offset_est = 0.292;
+                z_offset_est = 0.009;
+            }
+            else if((comp.get_parts_from_15_camera().back().type == "gasket_part_green") || (comp.get_parts_from_15_camera().back().type =="gasket_part_blue") || (comp.get_parts_from_15_camera().back().type =="gasket_part_red")) {
+                ROS_INFO_STREAM("gasket part");
+                y_offset_est = 0.295;
+                z_offset_est = 0.009;
+            }
+            else if((comp.get_parts_from_15_camera().back().type == "disk_part_green") || (comp.get_parts_from_15_camera().back().type =="disk_part_blue") || (comp.get_parts_from_15_camera().back().type =="disk_part_red")) {
+                ROS_INFO_STREAM("disk part");
+                y_offset_est = 0.295;
+                z_offset_est = 0.009;
+            }
+            else if((comp.get_parts_from_15_camera().back().type == "pulley_part_green") || (comp.get_parts_from_15_camera().back().type =="pulley_part_blue") || (comp.get_parts_from_15_camera().back().type =="pulley_part_red")) {
+                ROS_INFO_STREAM("pulley part");
+                y_offset_est = 0.265;
+                z_offset_est = 0.009;
+            }
+
             part part_picking = comp.get_parts_from_15_camera().back();
-//            ROS_INFO_STREAM("Attempting to pick " << part_picking.type << " from " << part_picking.pose);
-            part_picking.pose.position.z += 0.009;
-            part_picking.pose.position.y -= offset_est;
+            part_picking.pose.position.z += z_offset_est;
+            part_picking.pose.position.y -= y_offset_est;
 
             if (gantry.pickMovingPart(part_picking)) {    // if part picked up
                 ROS_INFO_STREAM("Part picked");
@@ -440,8 +461,11 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
                 ROS_INFO_STREAM("belt pick up location reached");
 
                 //// drop part at desired location on bin1
-                PresetLocation bin1_drop = gantry.bin1_;
-                bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
+                PresetLocation bin1_drop = gantry.bin1_drop_;
+                if(count == 1)
+                    bin1_drop.gantry[0] += (count)*0.25;    // offset the next drop off location by 0.25
+                if(count == 2)
+                    bin1_drop.gantry[1] += (count)*0.1;    // offset the next drop off location by 0.25
                 gantry.goToPresetLocation(bin1_drop);
                 ROS_INFO_STREAM("bin 1 location reached");
                 gantry.deactivateGripper("left_arm");
@@ -470,6 +494,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 }
 
+
 std::string part_location(geometry_msgs::Pose pose, int camera_index){
     if ((camera_index == 7) || (camera_index == 10)) // Shelf 1
     {
@@ -477,8 +502,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         {
             ROS_INFO_STREAM("Part found in front of shelf 1");
             return "f";
-        }
-        else {
+        } else {
             ROS_INFO_STREAM("Part found in back of shelf 1");
             return "b";
         }
@@ -490,8 +514,7 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index){
         {
             ROS_INFO_STREAM("Part found in front of shelf 8");
             return "f";
-        }
-        else {
+        } else {
             ROS_INFO_STREAM("Part found in back of shelf 8");
             return "b";
         }
@@ -747,10 +770,14 @@ int main(int argc, char ** argv) {
         human_exists = 1;
     }
     else {
-        human_exists ==0;
+        human_exists =0;
         ROS_INFO_STREAM(" -x-x-x-THERE IS A NO HUMAN AT ALL!-x-x-x- ");
     }
     ROS_INFO_STREAM("CHECKING FOR HUMANS COMPLETE....");
+
+    ROS_INFO_STREAM("CALLING THE CONVEYOR BELT....");
+
+//    pick_part_from_conveyor(comp, gantry);
 
     LOOP3:for(i; i < comp.get_received_order_vector().size();  i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size(); j++) {
@@ -801,12 +828,6 @@ int main(int argc, char ** argv) {
                             ROS_INFO_STREAM("Part found in environment");
                             ROS_INFO_STREAM(parts_from_camera_main[l][m].type);
 
-                            double speed_factor = 0.6;
-                            double acc_factor = 0.6;
-                            ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
-                            ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
-                            gantry.setRobotSpeed(speed_factor, acc_factor);
-                            ROS_INFO_STREAM("ROBOT SLOWED DOWN");
 
                             ROS_INFO_STREAM("Part to be picked = " << master_vector_main[i][j][k].type);
                             part part_in_tray;
@@ -886,24 +907,75 @@ int main(int argc, char ** argv) {
                             std::string location = part_location(parts_from_camera_main[l][m].pose, l);
                             std::string camera_id = std::to_string(l) + location;
                             ROS_INFO_STREAM("Camera  Id" << camera_id);
+
+                            int human_exists_in_aisle = 0;
+
+                            if ((camera_id == "1f" || camera_id == "2f") && (human_1_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 1 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+                            if ((camera_id == "1b" || camera_id == "2b") && (human_2_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 2 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+                            if ((camera_id == "4f" || camera_id == "3f") && (human_2_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 2 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+                            if ((camera_id == "4b" || camera_id == "3b") && (human_3_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 3 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+                            if ((camera_id == "5f" || camera_id == "6f") && (human_3_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 3 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+                            if ((camera_id == "5b" || camera_id == "6b") && (human_4_existence == 1)){
+                                ROS_WARN_STREAM("AISLE 4 HAS THE PART AND THE HUMAN AS WELL");
+                                human_exists_in_aisle = 1;
+                            }
+
                             auto q = gantry.pickup_locations.find(camera_id);
 
                             for (auto waypoint_iter: q->second) {
                                 ROS_INFO_STREAM("NOW EXECUTING WAYPOINT  : > "<<waypoint_counter);
                                 // TO FOLLOW THE HUMAN UPTO WAYPOINT 2
-                                if (waypoint_counter == 1 && human_exists == 1) {
+                                if (waypoint_counter == 1 && human_exists_in_aisle == 1) {
+                                    double speed_factor = 0.6;
+                                    double acc_factor = 0.6;
+                                    ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
+                                    ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
+                                    gantry.setRobotSpeed(speed_factor, acc_factor);
+                                    ROS_INFO_STREAM("ROBOT SLOWED DOWN");
+
                                     ROS_INFO_STREAM(" --------- FOLLOW HUMAN LOOP --------- ");
                                     followHuman(comp, gantry, waypoint_iter, br_1, br_2, GENERAL_BREAKBEAM_1,
                                                 GENERAL_BREAKBEAM_2);
                                     waypoint_counter += 1;
                                 }
-                                if (waypoint_counter == 4 && human_exists == 1 ){
+                                if (waypoint_counter == 4 && human_exists_in_aisle == 1 ){
+
+                                    double speed_factor = 0.6;
+                                    double acc_factor = 0.6;
+                                    ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
+                                    ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
+                                    gantry.setRobotSpeed(speed_factor, acc_factor);
+                                    ROS_INFO_STREAM("ROBOT SLOWED DOWN");
+
                                     ROS_INFO_STREAM(" --------- HUMAN AVOIDANCE LOOP --------- ");
                                     checkAndProceed(comp, gantry, waypoint_iter, br_4, br_5, GENERAL_BREAKBEAM_4,
                                                     GENERAL_BREAKBEAM_5);
                                     waypoint_counter += 1;
                                 }
                                 else {
+
+                                        double speed_factor = 2;
+                                        double acc_factor = 2;
+                                        ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
+                                        ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
+                                        gantry.setRobotSpeed(speed_factor, acc_factor);
+                                        ROS_INFO_STREAM("ROBOT SPED UP");
+
                                         ROS_INFO_STREAM("NOW IN ELSE LOOP");
                                         gantry.goToPresetLocation(waypoint_iter);
                                         waypoint_counter += 1;
@@ -913,25 +985,25 @@ int main(int argc, char ** argv) {
 
                             gantry.pickPart(parts_from_camera_main[l][m]);
                             ROS_INFO_STREAM("Part picked");
-
-                            speed_factor = 1.3;
-                            acc_factor = 1.0;
-                            ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
-                            ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
-                            gantry.setRobotSpeed(speed_factor, acc_factor);
-                            ROS_INFO_STREAM("ROBOT SPED UP DOWN");
+//
 
                             int return_waypoint_counter = 0;
                             for (auto it = q->second.rbegin(); it != q->second.rend(); it++) {
                                 gantry.goToPresetLocation(*it);
-                                if (return_waypoint_counter == 2 && human_exists == 1 ){
+                                if (return_waypoint_counter == 2 && human_exists_in_aisle == 1 ){
                                     ROS_INFO_STREAM("Re-checking for the human ...");
+                                    double speed_factor = 2;
+                                    double acc_factor = 2;
+                                    ROS_INFO_STREAM("CHANGING ROBOT SPEED BY :"<< speed_factor);
+                                    ROS_INFO_STREAM("CHANGING ROBOT ACCELERATION BY :"<< acc_factor);
+                                    gantry.setRobotSpeed(speed_factor, acc_factor);
                                     checkAndProceedBackwards(comp, gantry, *it, br_4, br_5, GENERAL_BREAKBEAM_4,
                                                     GENERAL_BREAKBEAM_5);
                                 }
                                 return_waypoint_counter+=1;
                             }
-
+                            ROS_INFO_STREAM("Going to start after part is picked");
+                            gantry.goToPresetLocation(gantry.start_);
                             ROS_INFO_STREAM(master_vector_main[i][j][k].agv_id);
 
                             if (part_in_tray.pose.orientation.x == 1) {
@@ -979,7 +1051,7 @@ int main(int argc, char ** argv) {
                             } else {
                                 gantry.placePart(part_in_tray, master_vector_main[i][j][k].agv_id);
                                 ROS_INFO_STREAM("Part placed");
-
+//                                gantry.goToPresetLocation(gantry.start_);
                                 if (master_vector_main[i][j][k].agv_id == "agv2") {
                                     gantry.goToPresetLocation(gantry.agv2_);
                                     ROS_INFO_STREAM("AGV2 location reached");
@@ -988,6 +1060,8 @@ int main(int argc, char ** argv) {
                                     ROS_INFO_STREAM("AGV1 location reached");
                                 }
                             }
+                            ROS_INFO_STREAM("Coming to start location to check for new orders");
+                            gantry.goToPresetLocation(gantry.start_);
 
 
                             faulty_part = comp.get_quality_sensor_status_agv2();
@@ -1013,6 +1087,7 @@ int main(int argc, char ** argv) {
                                 ROS_INFO_STREAM("Go to Loop2 triggered");
                                 goto LOOP2;
                             } else {
+
                                 ROS_INFO_STREAM("Checking if vector size increased");
                                 ROS_INFO_STREAM("Go to Loop Triggered");
                                 master_vector_main[i][j][k].delivered = true;
@@ -1071,8 +1146,8 @@ int main(int argc, char ** argv) {
         temp = i;
         goto LOOP3;
     }
-    submitOrder("agv1", "order_0_shipment_0");
-    submitOrder("agv2", "order_0_shipment_1");
+//    submitOrder("agv1", "order_0_shipment_0");
+//    submitOrder("agv2", "order_0_shipment_1");
 
     comp.endCompetition();
     spinner.stop();
