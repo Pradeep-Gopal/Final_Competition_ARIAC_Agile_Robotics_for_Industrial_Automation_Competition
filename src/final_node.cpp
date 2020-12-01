@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+#include <cmath>
 #include <algorithm>
 #include <vector>
 #include <ros/ros.h>
@@ -130,7 +130,7 @@ double get_offset_to_pickup_part_on_tray(const std::string& part_name) {
     } else if (part_name == "piston_rod_part_red" || part_name == "piston_rod_part_blue" || part_name == "pisy""ton_rod_part_green") {
         return 0.0195;   // check
     } else if (part_name == "gear_part_red" || part_name == "gear_part_blue" || part_name == "gear_part_green") {
-        return 0.015;    // check
+        return 0.01;    // check
     } else if (part_name == "disk_part_red" || part_name == "disk_part_blue" || part_name =="disk_part_green") {
         return 0.02;    // check
     } else {
@@ -145,7 +145,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
     parts_from_camera_17 = comp.get_parts_from_17_camera();
 
     if(master_vector_main.agv_id == "agv1") {
-//        ROS_INFO_STREAM("Parts present in AGV1, checking to see if part needs to repicked up");
+        ROS_INFO_STREAM("Parts present in AGV1, checking to see if part needs to repicked up");
         for (int part_idx = 0; part_idx < parts_from_camera_16.size(); part_idx++) {
 
             if (master_vector_main.type == parts_from_camera_16[part_idx].type) {
@@ -156,24 +156,24 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
                 ROS_INFO_STREAM(gantry.getTargetWorldPose(master_vector_main.place_part_pose,
                                                           master_vector_main.agv_id));
 
-                ROS_INFO_STREAM("The part is placed at an offset of : " << abs(comp.parts_from_16_camera[part_idx].pose.position.x -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.x)
-                <<" ," << abs(comp.parts_from_16_camera[part_idx].pose.position.y -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.y)
-                <<" ," << abs(comp.parts_from_16_camera[part_idx].pose.position.z -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.z)
-                <<" ," <<abs(comp.parts_from_16_camera[part_idx].pose.orientation.x - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.x)
-                <<" ," <<abs(comp.parts_from_16_camera[part_idx].pose.orientation.y - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.y)
-                <<" ," <<abs(comp.parts_from_16_camera[part_idx].pose.orientation.z - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.z)
-                <<" ," <<abs(comp.parts_from_16_camera[part_idx].pose.orientation.w - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.w));
+                ROS_INFO_STREAM("The part is placed at an offset of : " << std::abs(comp.parts_from_16_camera[part_idx].pose.position.x -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.x)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.position.y -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.y)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.position.z -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.z)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.orientation.x - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.x)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.orientation.y - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.y)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.orientation.z - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.z)
+                <<" ," << std::abs(comp.parts_from_16_camera[part_idx].pose.orientation.w - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.w));
 
-                if ((abs(comp.parts_from_16_camera[part_idx].pose.position.x -
+                if ((std::abs(comp.parts_from_16_camera[part_idx].pose.position.x -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.x) >
-                     offset) || (abs(comp.parts_from_16_camera[part_idx].pose.position.y -
+                     offset) || (std::abs(comp.parts_from_16_camera[part_idx].pose.position.y -
                                      gantry.getTargetWorldPose(
                                              master_vector_main.place_part_pose,
                                              master_vector_main.agv_id).position.y) >
                                  offset) ||
-                    (abs(comp.parts_from_16_camera[part_idx].pose.position.z -
+                    (std::abs(comp.parts_from_16_camera[part_idx].pose.position.z -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.z) >
@@ -188,7 +188,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 
                     part part_re_pick;
                     part_re_pick = comp.parts_from_16_camera[part_idx];
-                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);
+                    part_re_pick.pose.position.z += get_offset_to_pickup_part_on_tray(part_re_pick.type);
 
                     gantry.pickPart(part_re_pick);
 //                    ROS_INFO_STREAM("Part Picked again");
@@ -221,34 +221,34 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
         }
     }
     else{
-        ROS_INFO_STREAM("Parts present in AGV1, checking to see if part needs to re-picked up");
+        ROS_INFO_STREAM("Parts present in AGV2, checking to see if part needs to re-picked up");
         for (int part_idx = 0; part_idx < parts_from_camera_17.size(); part_idx++) {
             if (master_vector_main.type == parts_from_camera_17[part_idx].type) {
-//                ROS_INFO_STREAM("PART THAT IS IN THE 17TH CAMERA IS : ");
-//                ROS_INFO_STREAM("Current status of the " <<  master_vector_main.type << " part As read from the camera!");
-//                ROS_INFO_STREAM(comp.parts_from_17_camera[part_idx].pose);
-//                ROS_INFO_STREAM(master_vector_main.type << " part was supposed to be at: ");
-//                ROS_INFO_STREAM(gantry.getTargetWorldPose(master_vector_main.place_part_pose,
-//                                                          master_vector_main.agv_id));
-//                ROS_INFO_STREAM("The part is placed at an offset of : ");
-//                ROS_INFO_STREAM(abs(comp.parts_from_17_camera[part_idx].pose.position.x -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.x)
-//                                        <<" ," << abs(comp.parts_from_17_camera[part_idx].pose.position.y -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.y)
-//                                        <<" ," << abs(comp.parts_from_17_camera[part_idx].pose.position.z -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.z)
-//                                        <<" ," <<abs(comp.parts_from_17_camera[part_idx].pose.orientation.x - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.x)
-//                                        <<" ," <<abs(comp.parts_from_17_camera[part_idx].pose.orientation.y - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.y)
-//                                        <<" ," <<abs(comp.parts_from_17_camera[part_idx].pose.orientation.z - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.z)
-//                                        <<" ," <<abs(comp.parts_from_17_camera[part_idx].pose.orientation.w - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.w));
+                ROS_INFO_STREAM("PART THAT IS IN THE 17TH CAMERA IS : ");
+                ROS_INFO_STREAM("Current status of the " <<  master_vector_main.type << " part As read from the camera!");
+                ROS_INFO_STREAM(comp.parts_from_17_camera[part_idx].pose);
+                ROS_INFO_STREAM(master_vector_main.type << " part was supposed to be at: ");
+                ROS_INFO_STREAM(gantry.getTargetWorldPose(master_vector_main.place_part_pose,
+                                                          master_vector_main.agv_id));
+                ROS_INFO_STREAM("The part is placed at an offset of : ");
+                ROS_INFO_STREAM(std::abs(comp.parts_from_17_camera[part_idx].pose.position.x -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.x)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.position.y -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.y)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.position.z -gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).position.z)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.orientation.x - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.x)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.orientation.y - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.y)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.orientation.z - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.z)
+                                        <<" ," << std::abs(comp.parts_from_17_camera[part_idx].pose.orientation.w - gantry.getTargetWorldPose(master_vector_main.place_part_pose,master_vector_main.agv_id).orientation.w));
 
-                if ((abs(comp.parts_from_17_camera[part_idx].pose.position.x -
+                if ((std::abs(comp.parts_from_17_camera[part_idx].pose.position.x -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.x) >
-                     offset) || (abs(comp.parts_from_17_camera[part_idx].pose.position.y -
+                     offset) || (std::abs(comp.parts_from_17_camera[part_idx].pose.position.y -
                                      gantry.getTargetWorldPose(
                                              master_vector_main.place_part_pose,
                                              master_vector_main.agv_id).position.y) >
                                  offset) ||
-                    (abs(comp.parts_from_17_camera[part_idx].pose.position.z -
+                    (std::abs(comp.parts_from_17_camera[part_idx].pose.position.z -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.z) >
@@ -263,7 +263,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 
                     part part_re_pick;
                     part_re_pick = comp.parts_from_17_camera[part_idx];
-                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);;
+                    part_re_pick.pose.position.z += get_offset_to_pickup_part_on_tray(part_re_pick.type);;
 
                     gantry.pickPart(part_re_pick);
                     ROS_INFO_STREAM("Part Picked again");
@@ -728,7 +728,7 @@ int main(int argc, char ** argv) {
                                 }
                             }
 
-                            else if (master_vector_main[i][j][k].type == "gear_part_red") {   // piston_rod_part_red, gear_part_red
+                            else if (master_vector_main[i][j][k].type == "gear_part_red") {   // pulley_part_red, disk_part_green, piston_rod_part_red, gear_part_red
                                 ROS_INFO_STREAM(master_vector_main[i][j][k].place_part_pose);
                                 ROS_INFO_STREAM(parts_from_camera_main[l][m].pose);
                                 part part_in_tray;
@@ -772,30 +772,55 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv1_);
                                     ROS_INFO_STREAM("AGV1 location reached green disk");
                                 }
-                                ROS_INFO_STREAM("check pose after placing");
-                                fix_part_pose(comp, master_vector_main[i][j][k], gantry, part_in_tray);
 
                                 faulty_part = comp.get_quality_sensor_status_agv2();
+
                                 ROS_INFO_STREAM("Status of faulty part = ");
                                 ROS_INFO_STREAM(faulty_part.faulty);
 
-                                master_vector_main[i][j][k].delivered = true;
-                                parts_delivered[i]++;
-                                comp.setter_delivered(i, j, k);
-                                ROS_INFO_STREAM(" i j k" << i << j << k);
-                                ROS_INFO_STREAM(parts_from_camera_main[l][m].type << "  successfully delivered");
-                                ROS_INFO_STREAM("Go to Loop triggered");
-                                k++;
-                                if (comp.get_received_order_vector().size() > i + 1) {
-                                    ROS_INFO_STREAM("NEW ORDER RECEIVED");
-                                    i++;
-                                    master_vector_main = comp.get_master_vector();
-                                    goto LOOP3;
+                                if (faulty_part.faulty == true) // If placed part is faulty
+                                {
+                                    part faulty_part;
+                                    faulty_part.pose = gantry.getTargetWorldPose_dummy(faulty_part.pose,
+                                                                                       master_vector_main[i][j][k].agv_id);
+                                    ROS_INFO_STREAM("Black sheep location");
+                                    ROS_INFO_STREAM(faulty_part.pose);
+                                    faulty_part.type = parts_from_camera_main[l][m].type;
+//                                    faulty_part.pose.position.x = faulty_part.pose.position.x;
+//                                    faulty_part.pose.position.y = faulty_part.pose.position.y;
+                                    faulty_part.pose.position.z += get_offset_to_pickup_part_on_tray(faulty_part.type);
+//                                    faulty_part.pose.orientation.x = faulty_part.pose.orientation.x;
+//                                    faulty_part.pose.orientation.y = faulty_part.pose.orientation.y;
+//                                    faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;
+//                                    faulty_part.pose.orientation.w = faulty_part.pose.orientation.w;
+                                    gantry.pickPart(faulty_part);
+                                    gantry.goToPresetLocation(gantry.agv2_drop_);
+                                    gantry.deactivateGripper("left_arm");
+                                    ROS_INFO_STREAM(
+                                            "BLack Sheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHH");
+                                    ROS_INFO_STREAM("Go to Loop2 triggered");
+                                    //                                        parts_from_camera_main = comp.get_parts_from_camera();
+                                    goto LOOP2;
+                                } else { //Part successfully placed, increment K to go to next part in vector
+                                    //                                    comp.print_parts_to_pick();
+                                    ROS_INFO_STREAM("check pose after placing");
+                                    fix_part_pose(comp, master_vector_main[i][j][k], gantry, part_in_tray);
+                                    ROS_INFO_STREAM("Go to Loop Triggered");
+                                    master_vector_main[i][j][k].delivered = true;
+                                    parts_delivered[i]++;
+                                    comp.setter_delivered(i, j, k);
+                                    ROS_INFO_STREAM(" i j k" << i << j << k);
+                                    ROS_INFO_STREAM(parts_from_camera_main[l][m].type << "  successfully delivered");
+                                    k++;
+                                    if (comp.get_received_order_vector().size() > i + 1) {
+                                        ROS_INFO_STREAM("NEW ORDER RECEIVED");
+                                        i++;
+                                        master_vector_main = comp.get_master_vector();
+                                        goto LOOP3;
+                                    }
+                                    goto LOOP;
                                 }
-                                goto LOOP;
-
                             }
-
                         }
                     }
                 }

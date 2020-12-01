@@ -23,7 +23,7 @@ options:
   gazebo_state_logging: true
   insert_models_over_bins: true
   insert_models_over_shelves: true
-  belt_population_cycles: 10
+#  belt_population_cycles: 10
 #  spawn_extra_models: true
 
 shelf_layout:
@@ -37,15 +37,15 @@ orders:
     announcement_condition: time
     announcement_condition_value: 0.0
     shipment_count: 1
-    destinations: [agv1]
+    destinations: [agv2]
     products:
       part_0:
         type: gear_part_red
         pose:
           xyz: [0.0, 0.0, 0]
-          rpy: [0, 0, 0]
+          rpy: [0, 0, 'pi/4']
 
-#        type: disk_part_green, piston_rod_part_red, gear_part_red
+#        type: pulley_part_red, disk_part_green, piston_rod_part_red, gear_part_red
 
 models_over_bins:
   bin1:
@@ -53,9 +53,9 @@ models_over_bins:
       gear_part_red:
         xyz_start: [0.175, 0.175, 0.0]
         xyz_end: [0.45, 0.45, 0.0]
-        rpy: [0, 0, 0]
-        num_models_x: 2
-        num_models_y: 2
+        rpy: [0, 0, 'pi/4']
+        num_models_x: 1
+        num_models_y: 1
 
 #models_over_shelves:
 #  shelf8:
@@ -68,24 +68,18 @@ models_over_bins:
 #        num_models_y: 1
 
 #Faulty gripper
-drops:
-  drop_regions:
-    shipping_box_0_impeding:
-      frame: agv1::kit_tray_1
-      min:
-        xyz: [-0.3, -0.3, 0.0]
-      max:
-        xyz: [0.3, 0.3, 0.5]
-
+#drops:
+#  drop_regions:
+#    shipping_box_0_impeding:
+#      frame: agv1::kit_tray_1
 #      min:
-#        xyz: [ -0.1, -0.1, 0.0 ]
+#        xyz: [-0.3, -0.3, 0.0]
 #      max:
-#        xyz: [ 0.1, 0.1, 0.0 ]
-
-      destination:
-        xyz: [0.2, 0.3, 0.05]
-        rpy: [0, 0, 0.2]
-      product_type_to_drop: gear_part_red
+#        xyz: [0.3, 0.3, 0.5]
+#      destination:
+#        xyz: [0.2, 0.3, 0.05]
+#        rpy: [0, 0, 0.2]
+#      product_type_to_drop: gear_part_red
 #    shipping_box_1_impeding:
 #      frame: agv2::kit_tray_2
 #      min:
@@ -95,13 +89,13 @@ drops:
 #      destination:
 #        xyz: [0.15, 0.15, 0.05]
 #        rpy: [0, 0, 0.2]
-#      product_type_to_drop: disk_part_green
+#      product_type_to_drop: piston_rod_part_red
 
-#Faulty products
 faulty_products:
 #  - disk_part_green_2
 #  - disk_part_green_1
 #  - gasket_part_blue_3
 #  - gasket_part_blue_1
 #  - gasket_part_green_1
-  - gasket_part_green_15
+  - gear_part_red_1
+  - piston_rod_part_red_2
