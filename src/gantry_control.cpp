@@ -65,6 +65,15 @@ Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw)  // yaw 
 }
 
 /**
+ * @brief method to reachout for faulty part in tray
+ * @param pose_end_effector
+ */
+void GantryControl::reachOut(geometry_msgs::Pose pose_end_effector) {
+    left_arm_group_.setPoseTarget(pose_end_effector);
+    left_arm_group_.move();
+}
+
+/**
  * @brief Constructor for the class
  * @param ROS node
  */
@@ -340,8 +349,8 @@ void GantryControl::init() {
 
   //GAP 3 AISLE 3
 
-  gap_3_3.gantry = { -11.4, 1.1, 0.0 };
-  gap_3_3.left_arm = { -PI / 2, -PI / 4, PI / 2, -PI / 4, -0.2, 0 };
+  gap_3_3.gantry = { -11.4, 1.0, 0.0 };
+  gap_3_3.left_arm = { -PI / 2, -PI / 4, 2.2, -PI / 4, -0.2, 0 };
   gap_3_3.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
   //GAP 3 AISLE 4
@@ -913,17 +922,21 @@ void GantryControl::init() {
   cam = "6f";
   waypoints.clear();
   if (aisle_3_choice == 2) {
+      ROS_INFO_STREAM("shelf11_lf_w1");
     waypoints.push_back(shelf11_lf_w1);
     waypoints.push_back(gap_3_3);
     if (shelf_2_gap == 2) {
+        ROS_INFO_STREAM("GAP_2");
       waypoints.push_back(GAP_2);
     } else {
+        ROS_INFO_STREAM("GAP_3");
       waypoints.push_back(GAP_3);
     }
     waypoints.push_back(gap_3_3);
     waypoints.push_back(shelf11_lf_w3);
     pickup_locations[cam] = waypoints;
   } else {
+      ROS_INFO_STREAM("else loop");
     waypoints.push_back(shelf11_lf_w1);
     waypoints.push_back(gap_3_3);
     waypoints.push_back(shelf11_lf_w3);

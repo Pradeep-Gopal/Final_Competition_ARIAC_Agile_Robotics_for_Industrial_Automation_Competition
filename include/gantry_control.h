@@ -90,6 +90,8 @@ class GantryControl {
   int aisle_3_choice;
   int aisle_4_choice;
 
+
+
   //--preset locations;
   start start_, belt_pickup_, belt_pickup_1;
   bin3 bin1_, bin2_, bin5_, bin6_, bin3_, bin4_, bin7_, bin8_, bin15_, bin16_,
@@ -143,6 +145,12 @@ class GantryControl {
   std::unordered_map<int, char>::iterator itr;
 
   //--Method prototypes
+
+  /**
+   * @brief method to reachout for faulty part in tray
+   * @param pose_end_effector
+   */
+  void reachOut(geometry_msgs::Pose pose_end_effector);
   /**
    * @brief method to set the aisle 1 as the choice
    * @param integer to choose the corresponding aisle

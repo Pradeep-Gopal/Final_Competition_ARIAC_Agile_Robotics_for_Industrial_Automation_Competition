@@ -1143,7 +1143,7 @@ int main(int argc, char **argv) {
 
   ROS_INFO_STREAM("CALLING THE CONVEYOR BELT....");
 
-  pick_part_from_conveyor(comp, gantry);
+//  pick_part_from_conveyor(comp, gantry);
 
   LOOP3: for (i; i < comp.get_received_order_vector().size(); i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size();
@@ -1519,7 +1519,15 @@ int main(int argc, char **argv) {
                         .orientation.z;
                     faulty_part.pose.orientation.w = faulty_part.pose
                         .orientation.w;
+
                     gantry.pickPart(faulty_part);
+
+//                  geometry_msgs::Pose pose_above_part = faulty_part.pose;
+//                  pose_above_part.position.z = pose_above_part.position.z + 0.5;
+//                  gantry.reachOut(pose_above_part);   // reach out above part first
+//                  gantry.pickPart(faulty_part);   // pick up part
+//                  gantry.reachOut(pose_above_part);   // reach out above part first
+
                     if (master_vector_main[i][j][k].agv_id == "agv1") {
                       gantry.goToPresetLocation(gantry.agv1_drop_);
                     } else if (master_vector_main[i][j][k].agv_id == "agv2") {

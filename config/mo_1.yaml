@@ -59,16 +59,16 @@ orders:
 #        pose:
 #          xyz: [0.15, 0.2, 0]
 #          rpy: [0, 0, 'pi/4']
-      part_1:
-        type: gasket_part_red
-        pose:
-          xyz: [0.15, 0.2, 0]
-          rpy: [0, 0, '-pi/4']
-#      part_2:
-#        type: gasket_part_green
+#      part_1:
+#        type: gasket_part_red
 #        pose:
-#          xyz: [-0.15, -0.2, 0]
+#          xyz: [0.15, 0.2, 0]
 #          rpy: [0, 0, '-pi/4']
+      part_2:
+        type: gasket_part_green
+        pose:
+          xyz: [-0.15, -0.2, 0]
+          rpy: [0, 0, '-pi/4']
 
 #2 arms advantageous
 models_over_shelves:
