@@ -685,132 +685,132 @@ class Competition {
   std::vector<nist_gear::Order> received_orders_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-0 feedback
+   * Subscribes to the Breakbeam Sensor-0 feedback
    */
   ros::Subscriber breakbeam_sensor_0_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-1 feedback
+   * Subscribes to the Breakbeam Sensor-1 feedback
    */
   ros::Subscriber breakbeam_sensor_1_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-11 feedback
+   * Subscribes to the Breakbeam Sensor-11 feedback
    */
   ros::Subscriber breakbeam_sensor_11_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-12 feedback
+   * Subscribes to the Breakbeam Sensor-12 feedback
    */
   ros::Subscriber breakbeam_sensor_12_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-13 feedback
+   * Subscribes to the Breakbeam Sensor-13 feedback
    */
   ros::Subscriber breakbeam_sensor_13_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-14 feedback
+   * Subscribes to the Breakbeam Sensor-14 feedback
    */
   ros::Subscriber breakbeam_sensor_14_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-15 feedback
+   * Subscribes to the Breakbeam Sensor-15 feedback
    */
   ros::Subscriber breakbeam_sensor_15_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-16 feedback
+   * Subscribes to the Breakbeam Sensor-16 feedback
    */
   ros::Subscriber breakbeam_sensor_16_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-21 feedback
+   * Subscribes to the Breakbeam Sensor-21 feedback
    */
   ros::Subscriber breakbeam_sensor_21_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-22 feedback
+   * Subscribes to the Breakbeam Sensor-22 feedback
    */
   ros::Subscriber breakbeam_sensor_22_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-23 feedback
+   * Subscribes to the Breakbeam Sensor-23 feedback
    */
   ros::Subscriber breakbeam_sensor_23_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-24 feedback
+   * Subscribes to the Breakbeam Sensor-24 feedback
    */
   ros::Subscriber breakbeam_sensor_24_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-25 feedback
+   * Subscribes to the Breakbeam Sensor-25 feedback
    */
   ros::Subscriber breakbeam_sensor_25_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-26 feedback
+   * Subscribes to the Breakbeam Sensor-26 feedback
    */
   ros::Subscriber breakbeam_sensor_26_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-31 feedback
+   * Subscribes to the Breakbeam Sensor-31 feedback
    */
   ros::Subscriber breakbeam_sensor_31_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-32 feedback
+   * Subscribes to the Breakbeam Sensor-32 feedback
    */
   ros::Subscriber breakbeam_sensor_32_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-33 feedback
+   * Subscribes to the Breakbeam Sensor-33 feedback
    */
   ros::Subscriber breakbeam_sensor_33_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-34 feedback
+   * Subscribes to the Breakbeam Sensor-34 feedback
    */
   ros::Subscriber breakbeam_sensor_34_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-35 feedback
+   * Subscribes to the Breakbeam Sensor-35 feedback
    */
   ros::Subscriber breakbeam_sensor_35_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-36 feedback
+   * Subscribes to the Breakbeam Sensor-36 feedback
    */
   ros::Subscriber breakbeam_sensor_36_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-41 feedback
+   * Subscribes to the Breakbeam Sensor-41 feedback
    */
   ros::Subscriber breakbeam_sensor_41_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-42 feedback
+   * Subscribes to the Breakbeam Sensor-42 feedback
    */
   ros::Subscriber breakbeam_sensor_42_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-43 feedback
+   * Subscribes to the Breakbeam Sensor-43 feedback
    */
   ros::Subscriber breakbeam_sensor_43_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-44 feedback
+   * Subscribes to the Breakbeam Sensor-44 feedback
    */
   ros::Subscriber breakbeam_sensor_44_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-45 feedback
+   * Subscribes to the Breakbeam Sensor-45 feedback
    */
   ros::Subscriber breakbeam_sensor_45_subscriber_;
 
   /**
-   * Subscribes to the Brekbeam Sensor-46 feedback
+   * Subscribes to the Breakbeam Sensor-46 feedback
    */
   ros::Subscriber breakbeam_sensor_46_subscriber_;
 
