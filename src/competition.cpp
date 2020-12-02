@@ -54,16 +54,50 @@ limitations under the License.
 #include <string>
 #include <vector>
 
-int p = 0;
-int camera_no = 0;
+/**
+ * General iterator variables
+ */
+int p = 0, camera_no = 0;
+
+/**
+ * Faulty_parts on agv2 declaration as an object of part struct
+ */
 part faulty_part_agv2;
+
+/**
+ * Faulty_parts on agv1 declaration as an object of part struct
+ */
 part faulty_part_agv1;
 
+/**
+ * Vector of orders and order type
+ */
 std::vector<order> orders_vector;
+
+/**
+ * Vector of shipments and shipment type
+ */
 std::vector<shipment> shipment_vector;
+
+/**
+ * Vector of products and product type
+ */
 std::vector<product> product_vector;
+
+/**
+ * Vector to record the pick and place of objects by the gantry
+ */
 std::vector<pick_and_place> pick_and_place_poses_vector;
+
+/**
+ * 2 dimensional vector for the parts from the camera
+ */
 std::array<std::array<part, 20>, 20> parts_from_camera;
+
+/**
+ * @brief      Main 3 dimensional vector for all products in
+ * all the shipments in every order
+ */
 std::vector<std::vector<std::vector<master_struct> > > master_vector(
     10,
     std::vector < std::vector<master_struct>
@@ -74,6 +108,9 @@ Competition::Competition(ros::NodeHandle &node)
   node_ = node;
 }
 
+/**
+ * @brief      Initializes the competition function, subscribers and callbacks
+ */
 void Competition::init() {
   // Subscribe to the '/ariac/current_score' topic.
   double time_called = ros::Time::now().toSec();
@@ -219,16 +256,31 @@ void Competition::init() {
 
 }
 
+/**
+ * @brief      Callback from breakbeam-0
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_0_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_conveyor_belt_part_status_0 = msg->object_detected;
 }
 
+/**
+ * @brief      Callback from breakbeam-1
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_1_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_conveyor_belt_part_status_1 = msg->object_detected;
 }
 
+/**
+ * @brief      Callback from breakbeam-11
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_11_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_11 = msg->object_detected;
@@ -236,6 +288,12 @@ void Competition::breakbeam_sensor_11_callback(
     human_1_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-12
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_12_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_12 = msg->object_detected;
@@ -243,6 +301,12 @@ void Competition::breakbeam_sensor_12_callback(
     human_1_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-13
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_13_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_13 = msg->object_detected;
@@ -250,6 +314,12 @@ void Competition::breakbeam_sensor_13_callback(
     human_1_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-14
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_14_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_14 = msg->object_detected;
@@ -257,6 +327,12 @@ void Competition::breakbeam_sensor_14_callback(
     human_1_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-15
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_15_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_15 = msg->object_detected;
@@ -264,6 +340,12 @@ void Competition::breakbeam_sensor_15_callback(
     human_1_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-16
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_16_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_16 = msg->object_detected;
@@ -272,6 +354,11 @@ void Competition::breakbeam_sensor_16_callback(
   }
 }
 
+/**
+ * @brief      Callback from breakbeam-21
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_21_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_21 = msg->object_detected;
@@ -279,6 +366,12 @@ void Competition::breakbeam_sensor_21_callback(
     human_2_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-22
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_22_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_22 = msg->object_detected;
@@ -286,6 +379,12 @@ void Competition::breakbeam_sensor_22_callback(
     human_2_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-23
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_23_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_23 = msg->object_detected;
@@ -293,6 +392,12 @@ void Competition::breakbeam_sensor_23_callback(
     human_2_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-24
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_24_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_24 = msg->object_detected;
@@ -300,6 +405,12 @@ void Competition::breakbeam_sensor_24_callback(
     human_2_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-25
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_25_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_25 = msg->object_detected;
@@ -307,6 +418,12 @@ void Competition::breakbeam_sensor_25_callback(
     human_2_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-26
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_26_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_26 = msg->object_detected;
@@ -315,6 +432,11 @@ void Competition::breakbeam_sensor_26_callback(
   }
 }
 
+/**
+ * @brief      Callback from breakbeam-31
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_31_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_31 = msg->object_detected;
@@ -322,6 +444,12 @@ void Competition::breakbeam_sensor_31_callback(
     human_3_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-32
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_32_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_32 = msg->object_detected;
@@ -329,6 +457,12 @@ void Competition::breakbeam_sensor_32_callback(
     human_3_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-33
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_33_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_33 = msg->object_detected;
@@ -336,6 +470,12 @@ void Competition::breakbeam_sensor_33_callback(
     human_3_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-34
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_34_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_34 = msg->object_detected;
@@ -343,6 +483,12 @@ void Competition::breakbeam_sensor_34_callback(
     human_3_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-35
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_35_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_35 = msg->object_detected;
@@ -350,6 +496,12 @@ void Competition::breakbeam_sensor_35_callback(
     human_3_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-36
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_36_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_36 = msg->object_detected;
@@ -358,6 +510,11 @@ void Competition::breakbeam_sensor_36_callback(
   }
 }
 
+/**
+ * @brief      Callback from breakbeam-41
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_41_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_41 = msg->object_detected;
@@ -365,6 +522,12 @@ void Competition::breakbeam_sensor_41_callback(
     human_4_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-42
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_42_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_42 = msg->object_detected;
@@ -372,6 +535,12 @@ void Competition::breakbeam_sensor_42_callback(
     human_4_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-43
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_43_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_43 = msg->object_detected;
@@ -379,6 +548,12 @@ void Competition::breakbeam_sensor_43_callback(
     human_4_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-44
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_44_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_44 = msg->object_detected;
@@ -386,6 +561,12 @@ void Competition::breakbeam_sensor_44_callback(
     human_4_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-45
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_45_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_45 = msg->object_detected;
@@ -393,6 +574,12 @@ void Competition::breakbeam_sensor_45_callback(
     human_4_detected = 1;
   }
 }
+
+/**
+ * @brief      Callback from breakbeam-46
+ *
+ * @param[in]  msg   Proximity sensor message
+ */
 void Competition::breakbeam_sensor_46_callback(
     const nist_gear::Proximity::ConstPtr &msg) {
   breakbeam_part_status_46 = msg->object_detected;
@@ -401,25 +588,59 @@ void Competition::breakbeam_sensor_46_callback(
   }
 }
 
-//checks if a human was EVER detected
-// can include functionality for which aisle as well
+
+/**
+* @brief      Gets the existence of a human in Aisle-1
+*
+* @return     The human  existence.
+*/
 int Competition::get_human_1_existence() {
   return human_1_detected;
 }
+
+/**
+* @brief      Gets the existence of a human in Aisle-2
+*
+* @return     The human 2 existence.
+*/
 int Competition::get_human_2_existence() {
   return human_2_detected;
 }
+
+/**
+ * @brief      Gets the existence of a human in Aisle-3
+ *
+ * @return     The human 3 existence.
+ */
 int Competition::get_human_3_existence() {
   return human_3_detected;
 }
+
+/**
+ * @brief      Gets the existence of a human in Aisle-4
+ *
+ * @return     The human 4 existence.
+ */
 int Competition::get_human_4_existence() {
   return human_4_detected;
 }
 
+/**
+ * @brief      Gets the status of deliver for every part in 
+ * every shipment in every order
+ * 
+ * @param[in]  i     order
+ * @param[in]  j    shipment
+ * @param[in]  k    product
+ */
 void Competition::setter_delivered(int i, int j, int k) {
   master_vector[i][j][k].delivered = true;
 }
 
+
+/**
+ * @brief      Prints all the parts detected parts by every camera
+ */
 void Competition::print_parts_detected() {
   for (int i = 0; i < parts_from_camera.size(); i++) {
     std::cout << "parts from camera = " << i << std::endl;
@@ -432,10 +653,18 @@ void Competition::print_parts_detected() {
   }
 }
 
+/**
+ * @brief      Gets the received order vector.
+ *
+ * @return     The received order vector.
+*/
 std::vector<nist_gear::Order> Competition::get_received_order_vector() {
   return received_orders_;
 }
 
+  /**
+   * @brief      Executes the pre-kitting
+   */
 void Competition::pre_kitting() {
   // Populating Orders vector
   for (p; p < received_orders_.size(); p++) {
@@ -453,7 +682,6 @@ void Competition::pre_kitting() {
       shipment_instance.products = orders_vector[p].shipments[j].products;
       shipment_vector.push_back(shipment_instance);
 
-//            ROS_INFO_STREAM("==========================PARTS TO BE PICKED==============================");
       for (int k = 0; k < orders_vector[p].shipments[j].products.size(); k++) {
         if (shipment_vector[j].products[k].type == ("pulley_part_red")
             || ("pulley_part_blue") || ("pulley_part_green")
@@ -504,18 +732,16 @@ void Competition::pre_kitting() {
       }
     }
   }
-
-//    ROS_INFO_STREAM(" P = " << p);
-//    Competition::print_parts_to_pick();
-//    ROS_INFO_STREAM("===================Thats all folks!!!!======================");
 }
 
+  /**
+   * @brief      Prints parts to be picked.
+   */
 void Competition::print_parts_to_pick() {
   ROS_INFO_STREAM("Parts in master vector");
   for (int i = 0; i < 10; i++) {
     ROS_INFO_STREAM("ORder No = " << i);
     for (int j = 0; j < 10; j++) {
-//            ROS_INFO_STREAM("SHipment NO = " << j);
       for (int k = 0; k < 20; k++) {
         if ((master_vector[i][j][k].type == "pulley_part_red")
             || (master_vector[i][j][k].type == "pulley_part_blue")
@@ -536,27 +762,59 @@ void Competition::print_parts_to_pick() {
   }
 }
 
+  /**
+   * @brief      Master array that contains the parts from 
+   * all the logical cameras
+   *
+   * @return     The parts from camera.
+   */
 std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera() {
   return parts_from_camera;
 }
 
+
+  /**
+   * @brief      Master vector that keeps track of every order, shipment
+   * and product.
+   *
+   * @return     The master vector.
+  */
 std::vector<std::vector<std::vector<master_struct> > > Competition::get_master_vector() {
   return master_vector;
 }
 
+  /**
+   * @brief      deletes an order when done
+   */
 void Competition::delete_completed_order(int i) {
   received_orders_.erase(received_orders_.begin() + i);
   ROS_INFO_STREAM("Deleting Order = " << i);
 }
 
+  /**
+   * @brief      Gets the quality sensor status agv 2.
+   *
+   * @return     The quality sensor status agv 2.
+   */
 part Competition::get_quality_sensor_status_agv2() {
   return faulty_part_agv2;
 }
 
+  /**
+   * @brief      Gets the quality sensor status agv 1.
+   *
+   * @return     The quality sensor status agv 1.
+   */
 part Competition::get_quality_sensor_status_agv1() {
   return faulty_part_agv1;
 }
 
+  /**
+   * @brief      Callback for the logical camera subscribers
+   *
+   * @param[in]  msg      The message
+   * @param[in]  cam_idx  The camera index
+   */
 void Competition::logical_camera_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg, int cam_idx) {
   std::vector < part > parts_from_15_camera_new;
@@ -578,7 +836,6 @@ void Competition::logical_camera_callback(
       otopic << "logical_camera_" << cam_idx << "_" << msg->models[i].type
           << "_frame";
       topic = otopic.str();
-      // ROS_INFO_STREAM(topic);
       ros::Duration timeout(5.0);
 
       geometry_msgs::TransformStamped transformStamped;
@@ -620,7 +877,6 @@ void Competition::logical_camera_callback(
       topic_part = otopic_part.str();
 
       if (cam_idx == 15) {
-//                ROS_INFO_STREAM("Parts detected by 15 camera = " << msg->models.size());
         if ((msg->models[i].type == "pulley_part_red")
             || (msg->models[i].type == "pulley_part_blue")
             || (msg->models[i].type == "pulley_part_green")
@@ -633,7 +889,6 @@ void Competition::logical_camera_callback(
             || (msg->models[i].type == "gasket_part_blue")
             || (msg->models[i].type == "gasket_part_red")
             || (msg->models[i].type == "gasket_part_green")) {
-//                    ROS_INFO_STREAM(msg->models[i].type << " found on belt");
           part part_under_camera15;
           part_under_camera15.type = msg->models[i].type;
           part_under_camera15.pose.position.x = tx;
@@ -733,7 +988,11 @@ void Competition::logical_camera_callback(
   }
 }
 
-/// Called when a new message is received.
+  /**
+   * @brief      Checks the status of the competition
+   *
+   * @param[in]  msg   The message
+   */
 void Competition::competition_state_callback(
     const std_msgs::String::ConstPtr &msg) {
   if (msg->data == "done" && competition_state_ != "done") {
@@ -742,6 +1001,11 @@ void Competition::competition_state_callback(
   competition_state_ = msg->data;
 }
 
+  /**
+   * @brief      To subscribe to the order topic
+   *
+   * @param[in]  msg   The message
+   */
 void Competition::order_callback(const nist_gear::Order::ConstPtr &msg) {
   ROS_INFO_STREAM("New High Priority ordered received");
   ROS_INFO_STREAM("Received order:\n" << *msg);
@@ -749,23 +1013,41 @@ void Competition::order_callback(const nist_gear::Order::ConstPtr &msg) {
   Competition::pre_kitting();
 }
 
+  /**
+   * @brief      Gets the parts from camera-16.
+   *
+   * @return     The parts from camera-16.
+   */
 std::array<part, 20> Competition::get_parts_from_16_camera() {
   return parts_from_16_camera;
 }
 
+  /**
+   * @brief      Gets the parts from camera-17.
+   *
+   * @return     The parts from camera-17.
+   */
 std::array<part, 20> Competition::get_parts_from_17_camera() {
   return parts_from_17_camera;
 }
 
+  /**
+   * @brief      Gets the parts from camera-15.
+   *
+   * @return     The parts from camera-15.
+   */
 std::vector<part> Competition::get_parts_from_15_camera() {
   return parts_from_15_camera;
 }
 
+  /**
+   * @brief      Callback for the first quality sensor camera
+   * @param[in]  msg   The message
+   */
 void Competition::quality_control_sensor_1_subscriber_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg) {
   if (msg->models.size() != 0) {
     for (int i = 0; i < msg->models.size(); i++) {
-//            ROS_INFO_STREAM("Faulty Part Detected from Callback");
       faulty_part_agv2.pose = msg->models[i].pose;
       faulty_part_agv2.faulty = true;
     }
@@ -773,11 +1055,14 @@ void Competition::quality_control_sensor_1_subscriber_callback(
     faulty_part_agv2.faulty = false;
 }
 
+    /**
+   * @brief      Callback for the second quality sensor camera
+   * @param[in]  msg   The message
+   */
 void Competition::quality_control_sensor_2_subscriber_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg) {
   if (msg->models.size() != 0) {
     for (int i = 0; i < msg->models.size(); i++) {
-//            ROS_INFO_STREAM("Faulty Part Detected from Callback");
       faulty_part_agv1.pose = msg->models[i].pose;
       faulty_part_agv1.faulty = true;
     }
@@ -785,18 +1070,23 @@ void Competition::quality_control_sensor_2_subscriber_callback(
     faulty_part_agv1.faulty = false;
 }
 
-/// Called when a new message is received.
+  /**
+   * @brief      Callback function for competition callback 
+   * subscribers
+   *
+   * @param[in]  msg   The Clock type ROS message
+   */
 void Competition::competition_clock_callback(
     const rosgraph_msgs::Clock::ConstPtr &msg) {
   competition_clock_ = msg->clock;
 }
 
+  /**
+   * @brief      Starts a competition.
+   */
 void Competition::startCompetition() {
-  // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
   ros::ServiceClient start_client = node_.serviceClient < std_srvs::Trigger
       > ("/ariac/start_competition");
-  // If it's not already ready, wait for it to be ready.
-  // Calling the Service using the client before the server is ready would fail.
   if (!start_client.exists()) {
     ROS_INFO(
         "[competition][startCompetition] Waiting for the competition to be ready...");
@@ -806,7 +1096,7 @@ void Competition::startCompetition() {
   ROS_INFO("[competition][startCompetition] Requesting competition start...");
   std_srvs::Trigger srv;
   start_client.call(srv);
-  if (!srv.response.success) {  // If not successful, print out why.
+  if (!srv.response.success) {
     ROS_ERROR_STREAM(
         "[competition][startCompetition] Failed to start the competition: "
             << srv.response.message);
@@ -815,12 +1105,12 @@ void Competition::startCompetition() {
   }
 }
 
+  /**
+   * @brief      Ends a competition.
+   */
 void Competition::endCompetition() {
-  // Create a Service client for the correct service, i.e. '/ariac/start_competition'.
   ros::ServiceClient end_client = node_.serviceClient < std_srvs::Trigger
       > ("/ariac/end_competition");
-  // If it's not already ready, wait for it to be ready.
-  // Calling the Service using the client before the server is ready would fail.
   if (!end_client.exists()) {
     ROS_INFO(
         "[competition][endCompetition] Waiting for the end_competition to be ready...");
@@ -830,7 +1120,7 @@ void Competition::endCompetition() {
   ROS_INFO("[competition][endCompetition] Requesting competition end...");
   std_srvs::Trigger srv;
   end_client.call(srv);
-  if (!srv.response.success) {  // If not successful, print out why.
+  if (!srv.response.success) {
     ROS_ERROR_STREAM(
         "[competition][endCompetition] Failed to end the competition: "
             << srv.response.message);
@@ -839,16 +1129,31 @@ void Competition::endCompetition() {
   }
 }
 
+  /**
+   * @brief      Gets information regarding comp.init().
+   *
+   * @return     The statistics.
+   */
 stats Competition::getStats(std::string function) {
   if (function == "init")
     return init_;
 
 }
 
+  /**
+   * @brief      Gets the start time.
+   *
+   * @return     The start time.
+   */
 double Competition::getStartTime() {
   return competition_start_time_;
 }
 
+  /**
+   * @brief      Gets clock information
+   *
+   * @return     The time spent in the competition.
+   */
 double Competition::getClock() {
   double time_spent = competition_clock_.toSec();
   ROS_INFO_STREAM(
@@ -857,6 +1162,11 @@ double Competition::getClock() {
   return time_spent;
 }
 
+  /**
+   * @brief      Gets the competition state.
+   *
+   * @return     The competition state.
+   */
 std::string Competition::getCompetitionState() {
   return competition_state_;
 }

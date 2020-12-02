@@ -150,7 +150,7 @@ class Competition {
 
 
   /**
-   * @brief      Prints a detected part.
+   * @brief      Prints all the parts detected parts by every camera
    */
   void print_parts_detected();
 
@@ -173,7 +173,7 @@ class Competition {
    * @brief      Callback function for competition callback 
    * subscribers
    *
-   * @param[in]  msg   The message
+   * @param[in]  msg   The Clock type ROS message
    */
   void competition_clock_callback(const rosgraph_msgs::Clock::ConstPtr &msg);
 
@@ -187,7 +187,7 @@ class Competition {
   /**
    * @brief      Gets clock information
    *
-   * @return     The clock.
+   * @return     The time spent in the competition.
    */
   double getClock();
 
