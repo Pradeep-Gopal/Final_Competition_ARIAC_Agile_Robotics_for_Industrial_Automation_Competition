@@ -1828,7 +1828,7 @@ void GantryControl::placePart(part part, std::string agv){
     if(agv == "agv2") {
         goToPresetLocation(agv2_);
     }
-    else{
+    else {
         goToPresetLocation(agv1_);
         ROS_INFO_STREAM("AGV Location Reached");
     }

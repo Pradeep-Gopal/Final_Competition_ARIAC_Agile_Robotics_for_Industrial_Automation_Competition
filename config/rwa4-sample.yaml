@@ -69,32 +69,32 @@ models_over_bins:
 #        num_models_y: 1
 
 #Faulty gripper
-drops:
-  drop_regions:
-    shipping_box_0_impeding:
-      frame: agv1::kit_tray_1
-      min:
-        xyz: [-0.3, -0.3, 0.0]
-      max:
-        xyz: [0.3, 0.3, 0.5]
-      destination:
-        xyz: [0.2, 0.3, 0.05]
-        rpy: [0, 0, 0.2]
-      product_type_to_drop: pulley_part_red
-    shipping_box_1_impeding:
-      frame: agv2::kit_tray_2
-      min:
-        xyz: [-0.3, -0.3, 0.0]
-      max:
-        xyz: [0.3, 0.3, 0.5]
-      destination:
-        xyz: [0.15, 0.15, 0.05]
-        rpy: [0, 0, 0.2]
-      product_type_to_drop: pulley_part_red
+#drops:
+#  drop_regions:
+#    shipping_box_0_impeding:
+#      frame: agv1::kit_tray_1
+#      min:
+#        xyz: [-0.3, -0.3, 0.0]
+#      max:
+#        xyz: [0.3, 0.3, 0.5]
+#      destination:
+#        xyz: [0.2, 0.3, 0.05]
+#        rpy: [0, 0, 0.2]
+#      product_type_to_drop: pulley_part_red
+#    shipping_box_1_impeding:
+#      frame: agv2::kit_tray_2
+#      min:
+#        xyz: [-0.3, -0.3, 0.0]
+#      max:
+#        xyz: [0.3, 0.3, 0.5]
+#      destination:
+#        xyz: [0.15, 0.15, 0.05]
+#        rpy: [0, 0, 0.2]
+#      product_type_to_drop: pulley_part_red
 
 faulty_products:
-#  - pulley_part_red_1
-#  - pulley_part_red_2
+  - pulley_part_red_1
+  - pulley_part_red_2
   - disk_part_green_2
   - disk_part_green_1
   - gear_part_red_1

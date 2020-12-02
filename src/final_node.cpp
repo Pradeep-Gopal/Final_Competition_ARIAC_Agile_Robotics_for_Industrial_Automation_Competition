@@ -1003,7 +1003,6 @@ int main(int argc, char ** argv) {
 
                             gantry.pickPart(parts_from_camera_main[l][m]);
                             ROS_INFO_STREAM("Part picked");
-//
 
                             int return_waypoint_counter = 0;
                             for (auto it = q->second.rbegin(); it != q->second.rend(); it++) {
