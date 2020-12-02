@@ -55,6 +55,12 @@ bool conveyor_part_picked = false;
 // AVG id(= 1,2) to identify what AVG to submit to
 // shipment_type is the order type
 
+/**
+ * @brief Sends signal to AVG to submit the order
+ * @param AVG_id Which AVG to send
+ * @param shipment_type The order type/name
+ * @return If AVG was submitted successfully
+ */
 bool submitOrder(std::string AVG_id, std::string shipment_type){
 
     ROS_INFO_STREAM("Delivering " << AVG_id << " with shipment = " << shipment_type);
@@ -122,6 +128,14 @@ bool submitOrder(std::string AVG_id, std::string shipment_type){
 
 }
 
+/**
+ * @brief Fixes the part pose of a given part in the tray
+ * @param comp Competition reference
+ * @param master_vector_main
+ * @param gantry The robots gantry reference
+ * @param part_in_tray The part to fix
+ * @return None
+ */
 void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryControl &gantry, part &part_in_tray) {
     double offset = 0.2;
     parts_from_camera_16 = comp.get_parts_from_16_camera();
@@ -280,6 +294,12 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
     }
 }
 
+/**
+ * @brief Picks up parts form the conveyor belt. Gets parts needed from competition. End position by conveyor belt.
+ * @param comp Competition reference 
+ * @param gantry Gantry control reference 
+ * @return None
+ */
 void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
     double y_offset_est = 0;
     double z_offset_est = 0;
@@ -366,6 +386,12 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
 }
 
+/**
+ * @brief Returns if the given pose under a given camera is in the front(f) or back(b) of a shelf
+ * @param pose Pose being checked
+ * @param camera_index camera number in the gazebo world 
+ * @return f for pose in fron of shelf, b for in back
+ */
 std::string part_location(geometry_msgs::Pose pose, int camera_index){
     if ((camera_index == 7) || (camera_index == 10)) // Shelf 1
     {
@@ -701,7 +727,7 @@ int main(int argc, char ** argv) {
                                     gantry.goToPresetLocation(gantry.agv2_drop_);
                                     gantry.deactivateGripper("left_arm");
                                     ROS_INFO_STREAM(
-                                            "BLack Sheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHH");
+                                            "BLack Sheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEHHHHHHHHHHHHHHHHHHHHH");//please give me, oh give me some sheeep
                                     ROS_INFO_STREAM("Go to Loop2 triggered");
                                     //                                        parts_from_camera_main = comp.get_parts_from_camera();
                                     goto LOOP2;
