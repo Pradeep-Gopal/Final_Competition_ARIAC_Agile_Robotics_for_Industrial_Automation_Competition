@@ -54,21 +54,21 @@ orders:
     shipment_count: 1
     destinations: [agv1]
     products:
-      part_0:
-        type: piston_rod_part_blue
-        pose:
-          xyz: [0.15, 0.2, 0]
-          rpy: [0, 0, 'pi/4']
+#      part_0:
+#        type: piston_rod_part_blue
+#        pose:
+#          xyz: [0.15, 0.2, 0]
+#          rpy: [0, 0, 'pi/4']
       part_1:
         type: gasket_part_red
         pose:
-          xyz: [0.15, -0.2, 0]
+          xyz: [0.15, 0.2, 0]
           rpy: [0, 0, '-pi/4']
-      part_2:
-        type: gasket_part_green
-        pose:
-          xyz: [-0.15, -0.2, 0]
-          rpy: [0, 0, '-pi/4']
+#      part_2:
+#        type: gasket_part_green
+#        pose:
+#          xyz: [-0.15, -0.2, 0]
+#          rpy: [0, 0, '-pi/4']
 
 #2 arms advantageous
 models_over_shelves:
@@ -104,5 +104,5 @@ faulty_products:
   - gasket_part_red_1
   - gasket_part_green_1
   - piston_rod_part_blue_3
-  - gasket_part_red_3
+  - gasket_part_red_2
   - gasket_part_green_3

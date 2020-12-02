@@ -472,7 +472,7 @@ void pick_part_from_conveyor(Competition& comp, GantryControl& gantry){
 
             if (gantry.pickMovingPart(part_picking)) {    // if part picked up
                 ROS_INFO_STREAM("Part picked");
-                gantry.goToPresetLocation(gantry.belt_pickup_);
+                gantry.goToPresetLocation(gantry.belt_pickup_1);
                 ROS_INFO_STREAM("belt pick up location reached");
 
                 //// drop part at desired location on bin1
@@ -793,8 +793,6 @@ int main(int argc, char ** argv) {
     comp.getClock();
 
     GantryControl gantry(node);
-//    gantry.init();
-
 
     std::vector <std::string> shelf_vector;
     shelf_vector.push_back("/shelf3_frame");
@@ -1187,6 +1185,9 @@ int main(int argc, char ** argv) {
 
 
                             faulty_part = comp.get_quality_sensor_status_agv2();
+                            if (faulty_part.faulty != true) {
+                                faulty_part = comp.get_quality_sensor_status_agv1();
+                            }
                             ROS_INFO_STREAM("Status of faulty part = ");
                             ROS_INFO_STREAM(faulty_part.faulty);
                             if (faulty_part.faulty == true) {
@@ -1204,7 +1205,14 @@ int main(int argc, char ** argv) {
                                 faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;
                                 faulty_part.pose.orientation.w = faulty_part.pose.orientation.w;
                                 gantry.pickPart(faulty_part);
-                                gantry.goToPresetLocation(gantry.agv2_drop_);
+                                if(master_vector_main[i][j][k].agv_id == "agv2")
+                                {
+                                    gantry.goToPresetLocation(gantry.agv2_drop_);
+                                }
+                                else
+                                {
+                                    gantry.goToPresetLocation(gantry.agv1_drop_);
+                                }
                                 gantry.deactivateGripper("left_arm");
                                 ROS_INFO_STREAM("Go to Loop2 triggered");
                                 goto LOOP2;

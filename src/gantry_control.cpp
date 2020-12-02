@@ -274,7 +274,7 @@ void GantryControl::init() {
     bin1_w2.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     //GAP 1 AISLE 1
-    gap_1_1.gantry = {-11.4, -4.7,0.0};
+    gap_1_1.gantry = {-11.4, -5.1,0.0};
     gap_1_1.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     gap_1_1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -303,7 +303,7 @@ void GantryControl::init() {
 
     //GAP 3 AISLE 4
 
-    gap_3_4.gantry = {-11.4, 4.7, 3.14};
+    gap_3_4.gantry = {-11.4, 4.9, 3.14};
     gap_3_4.left_arm = {-PI/2, -PI/4, PI/2, -PI/4, -0.2, 0};
     gap_3_4.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
@@ -1252,6 +1252,11 @@ void GantryControl::init() {
     belt_pickup_.gantry = {0.52, -3.27, PI/2};
     belt_pickup_.left_arm = {0.38, -0.41, 1.05, -0.63, 1.94, 0.0};
     belt_pickup_.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
+
+    // initial arm position
+    belt_pickup_1.gantry = {0.52, -3.27, PI/2};
+    belt_pickup_1.left_arm = {0.0, -PI/4, PI/2, -PI/4, PI/2, 0};
+    belt_pickup_1.right_arm = {PI, -PI/4, PI/2, -PI/4, PI/2, 0};
 
     // location where gantry hover to pick up part at belt
     bin1_drop_.gantry = {2.7, - 0.87, PI/2};
