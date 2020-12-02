@@ -1593,7 +1593,7 @@ void GantryControl::placePart_right_arm(part part, std::string agv){
 
 
 geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(geometry_msgs::Pose target,
-                                                      std::string agv){
+                                                      std::string agv) {
     geometry_msgs::TransformStamped transformStamped;
     std::string kit_tray;
     if (agv.compare("agv1")==0)
