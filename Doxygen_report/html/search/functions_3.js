@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['main',['main',['../final__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'final_node.cpp']]],
-  ['master_5fvector',['master_vector',['../competition_8cpp.html#a7c89d7599816f860fb12610bc7adb008',1,'competition.cpp']]],
-  ['master_5fvector_5fmain',['master_vector_main',['../final__node_8cpp.html#ad2ea89bbc0d4b8b2716435bee7dcd98d',1,'final_node.cpp']]]
+  ['deactivategripper',['deactivateGripper',['../class_gantry_control.html#a1485577d4e29baf708a4c5c028a47798',1,'GantryControl']]],
+  ['delete_5fcompleted_5forder',['delete_completed_order',['../class_competition.html#a32ebbca8dd0b9f6abee2f99d29809d8c',1,'Competition']]],
+  ['during_5fkitting',['during_kitting',['../class_competition.html#a71d017f7a070c68719d325909f908014',1,'Competition']]]
 ];
