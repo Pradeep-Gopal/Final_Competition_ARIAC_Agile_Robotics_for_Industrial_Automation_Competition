@@ -7,6 +7,13 @@
 #include <tf/LinearMath/Vector3.h>
 #include "competition.h"
 
+/**
+ * @brief Transform roll pitch and yaw of a pose to a quaternion
+ * @param roll Roll of pose
+ * @param pitch Pitch of of pose
+ * @param yaw Yaw of pose
+ * @return Quaternion of pose
+ */
 Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw) // yaw (Z), pitch (Y), roll (X)
 {
     // Abbreviations for the various angular functions
@@ -43,7 +50,10 @@ GantryControl::GantryControl(ros::NodeHandle & node):
     ROS_INFO_STREAM("[GantryControl::GantryControl] constructor called... ");
 }
 
-
+/**
+ * @briefInitiates the gantry
+ * @return None
+ */
 void GantryControl::init() {
     ROS_INFO_STREAM("[GantryControl::init] init... ");
     double time_called = ros::Time::now().toSec();
@@ -1044,7 +1054,11 @@ void GantryControl::init() {
     ROS_INFO("[GantryControl::init] Init position ready)...");
 }
 
-
+/**
+ * @brief Get states of given function
+ * @param function What state to return
+ * @return State of given function
+ */
 stats GantryControl::getStats(std::string function) {
     if (function == "init") return init_;
     if (function == "moveJ") return moveJ_;
@@ -1058,6 +1072,11 @@ stats GantryControl::getStats(std::string function) {
     if (function == "grip") return grip_;
 }
 
+/**
+ * @brief Pick up a moving part
+ * @param part Part ot be picked up
+ * @return If pick up worked
+ */
 bool GantryControl::pickMovingPart(part part) {
     //--Activate gripper
     activateGripper("left_arm");
@@ -1153,19 +1172,12 @@ bool GantryControl::pickMovingPart(part part) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * @brief Turn AVG pose to world pose
+ * @param target Part we want to know pose of
+ * @param agv What AVG the current pose is in
+ * @return The pose in the world frame
+ */
 geometry_msgs::Pose GantryControl::getTargetWorldPose(geometry_msgs::Pose target,
                                                       std::string agv){
     static tf2_ros::StaticTransformBroadcaster br;
@@ -1303,6 +1315,12 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose_right_arm(geometry_msgs::P
     return world_target;
 }
 
+/**
+ * @brief Places part held in right hand onto AVG
+ * @param part Part to place
+ * @param agv AVG to be places on
+ * @return None
+ */
 void GantryControl::placePart_right_arm(part part, std::string agv){
     auto target_pose_in_tray = getTargetWorldPose_right_arm(part.pose, agv);
 //    ros::Duration(3.0).sleep();
@@ -1317,7 +1335,12 @@ void GantryControl::placePart_right_arm(part part, std::string agv){
 //        goToPresetLocation(start_);
 }
 
-
+/**
+ * @brief Puts pose form AVG frame to world frame
+ * @param target Target pose you want to know world frame 
+ * @param agv AVG frame the pose is currently in
+ * @return Pose in world frame
+ */
 geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(geometry_msgs::Pose target,
                                                       std::string agv){
     geometry_msgs::TransformStamped transformStamped;
@@ -1380,6 +1403,11 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(geometry_msgs::Pose 
     return world_target;
 }
 
+/**
+ * @brief Pick up given part with left hand
+ * @param part Part ot be picked up
+ * @return Success status 
+ */
 bool GantryControl::pickPart(part part){
     //--Activate gripper
     activateGripper("left_arm");
@@ -1491,6 +1519,12 @@ bool GantryControl::pickPart(part part){
 ////        goToPresetLocation(start_);
 //}
 
+/**
+ * @brief Places part held in left hand onto given AVG. Includes navigation to AVG and target pose
+ * @param part Part to place
+ * @param agv AVG to place part on
+ * @return None
+ */
 void GantryControl::placePart(part part, std::string agv){
     geometry_msgs::Pose initial_pose, final_pose;
 
@@ -1592,6 +1626,11 @@ void GantryControl::goToPresetLocation(PresetLocation location) {
 }
 
 /// Turn on vacuum gripper
+/**
+ * @brief Activates gripper
+ * @param arm_name Arm to activate
+ * @return None
+ */
 void GantryControl::activateGripper(std::string arm_name) {
     nist_gear::VacuumGripperControl srv;
     srv.request.enable = true;
@@ -1605,6 +1644,11 @@ void GantryControl::activateGripper(std::string arm_name) {
 }
 
 /// Turn off vacuum gripper
+/**
+ * @brief Deactivates gripper hand
+ * @param arm_name Arm to deactivate gripper on
+ * @return None
+ */
 void GantryControl::deactivateGripper(std::string arm_name) {
     nist_gear::VacuumGripperControl srv;
     srv.request.enable = false;
@@ -1618,6 +1662,11 @@ void GantryControl::deactivateGripper(std::string arm_name) {
 }
 
 /// Retrieve gripper state
+/**
+ * @brief Get status of the gripper
+ * @param arm_name Arm to get status of
+ * @return If the gripper on the arm is active
+ */
 nist_gear::VacuumGripperState GantryControl::getGripperState(std::string arm_name) {
     if (arm_name == "left_arm") {
         return current_left_gripper_state_;
@@ -1627,12 +1676,22 @@ nist_gear::VacuumGripperState GantryControl::getGripperState(std::string arm_nam
 }
 
 /// Called when a new VacuumGripperState message is received
+/**
+ * @brief Callback for left gripper
+ * @param gripper_state_msg Message for callback
+ * @return None
+ */
 void GantryControl::left_gripper_state_callback(const nist_gear::VacuumGripperState::ConstPtr & gripper_state_msg) {
     // ROS_INFO_STREAM_THROTTLE(10,
     //   "Gripper States (throttled to 0.1 Hz):\n" << *gripper_state_msg);
     current_left_gripper_state_ = *gripper_state_msg;
 }
 
+/**
+ * @brief Callback for right gripper
+ * @param gripper_state_msg Message for callback
+ * @return None
+ */
 void GantryControl::right_gripper_state_callback(const nist_gear::VacuumGripperState::ConstPtr & gripper_state_msg) {
     // ROS_INFO_STREAM_THROTTLE(10,
     //   "Gripper States (throttled to 0.1 Hz):\n" << *gripper_state_msg);
@@ -1647,26 +1706,44 @@ void GantryControl::joint_states_callback(const sensor_msgs::JointState::ConstPt
     current_joint_states_ = *joint_state_msg;
 }
 
-
+/**
+ * @brief Callback for gantry controller
+ * @param msg Message for callback
+ * @return None
+ */
 void GantryControl::gantry_controller_state_callback(const control_msgs::JointTrajectoryControllerState::ConstPtr & msg) {
     // ROS_INFO_STREAM_THROTTLE(10,
     //   "Gantry controller states (throttled to 0.1 Hz):\n" << *msg);
     current_gantry_controller_state_ = *msg;
 }
 
+/**
+ * @brief Callback for gantry controller
+ * @param msg Message for callback
+ * @return None
+ */
 void GantryControl::left_arm_controller_state_callback(const control_msgs::JointTrajectoryControllerState::ConstPtr & msg) {
     // ROS_INFO_STREAM_THROTTLE(10,
     //   "Left arm controller states (throttled to 0.1 Hz):\n" << *msg);
     current_left_arm_controller_state_ = *msg;
 }
 
+/**
+ * @brief Callback for right arm
+ * @param msg Message for callback
+ * @return None
+ */
 void GantryControl::right_arm_controller_state_callback(const control_msgs::JointTrajectoryControllerState::ConstPtr & msg) {
     // ROS_INFO_STREAM_THROTTLE(10,
     //   "Right arm controller states (throttled to 0.1 Hz):\n" << *msg);
     current_right_arm_controller_state_ = *msg;
 }
 
-
+/**
+ * @brief Commands bot to get to target pose
+ * @param command_msg JointTrajectory to be targeted
+ * @return Success status
+ */
 bool GantryControl::send_command(trajectory_msgs::JointTrajectory command_msg) {
     // ROS_INFO_STREAM("[gantry_control][send_command] called.");
 
