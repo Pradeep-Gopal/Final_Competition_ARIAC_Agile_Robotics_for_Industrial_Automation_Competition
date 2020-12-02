@@ -698,7 +698,7 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
           if (count == 1)
             bin3_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
           if (count == 2)
-            bin3_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+            bin3_drop.gantry[1] += (count) * 0.15;  // offset the next drop off location by 0.25
           gantry.goToPresetLocation(gantry.start_);
           gantry.goToPresetLocation(bin3_drop);
           ROS_INFO_STREAM("bin 3 location reached");
@@ -1523,13 +1523,13 @@ int main(int argc, char **argv) {
                     faulty_part.pose.orientation.w = faulty_part.pose
                         .orientation.w;
 
-                    gantry.pickPart(faulty_part);
+//                    gantry.pickPart(faulty_part);
 
-//                  geometry_msgs::Pose pose_above_part = faulty_part.pose;
-//                  pose_above_part.position.z = pose_above_part.position.z + 0.5;
-//                  gantry.reachOut(pose_above_part);   // reach out above part first
-//                  gantry.pickPart(faulty_part);   // pick up part
-//                  gantry.reachOut(pose_above_part);   // reach out above part first
+                  geometry_msgs::Pose pose_above_part = faulty_part.pose;
+                  pose_above_part.position.z = pose_above_part.position.z + 0.2;
+                  gantry.reachOut(pose_above_part);   // reach out above part first
+                  gantry.pickPart(faulty_part);   // pick up part
+                  gantry.reachOut(pose_above_part);   // reach out above part first
 
                     if (master_vector_main[i][j][k].agv_id == "agv1") {
                       gantry.goToPresetLocation(gantry.agv1_drop_);
