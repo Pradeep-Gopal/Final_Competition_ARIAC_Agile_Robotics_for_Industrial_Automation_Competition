@@ -613,6 +613,19 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main,
  * @param      gantry  Gantry Control node
  */
 void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
+
+    ROS_INFO_STREAM("Checking if conveyor belt has started");
+    if(comp.conveyor_belt_part_status == false)
+    {
+        ROS_INFO_STREAM("Conveyor belt not started, waiting for 5 seconds");
+        ros::Duration(5).sleep();
+        if(comp.conveyor_belt_part_status == false)
+        {
+            ROS_INFO_STREAM("Returning since conveyor belt is turned off");
+            return;
+        }
+    }
+    ROS_INFO_STREAM("Conveyor belt started, attempting to pick parts");
   double y_offset_est = 0;
   double z_offset_est = 0;
   int no_of_parts { 3 }, count { 0 };
@@ -1086,7 +1099,7 @@ int main(int argc, char **argv) {
 
   ROS_INFO_STREAM("CALLING THE CONVEYOR BELT....");
 
-//    pick_part_from_conveyor(comp, gantry);
+  pick_part_from_conveyor(comp, gantry);
 
   LOOP3: for (i; i < comp.get_received_order_vector().size(); i++) {
     for (int j = 0; j < comp.get_received_order_vector()[i].shipments.size();

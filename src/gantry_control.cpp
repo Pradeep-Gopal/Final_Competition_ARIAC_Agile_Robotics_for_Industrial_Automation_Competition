@@ -1,31 +1,14 @@
 /**
-Copyright 2016 Open Source Robotics Foundation, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
-
-
-/**
  * @file gantry_control.cpp
- * @author Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ * @author Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  * @copyright MIT License
- * @brief Implementing the publisher
- * This is the talker file for ROS subscriber-publisher example.
+ * @brief Implementing the gantry control class
+ * This class takes care all the robot related operations in the environment
  */
 
 /**
  *MIT License
- *Copyright (c) 2020 Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ *Copyright (c) 2020 Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
  *in the Software without restriction, including without limitation the rights
@@ -55,6 +38,13 @@ limitations under the License.
 //shelf vector
 std::vector<std::vector<double>> shelf_vector(9, std::vector<double>(3));
 
+/**
+ * @brief Function which converts RPY to Quaternion
+ * @param roll
+ * @param pitch
+ * @param yaw
+ * @return Quaternion
+ */
 Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw)  // yaw (Z), pitch (Y), roll (X)
                                  {
   // Abbreviations for the various angular functions
@@ -74,6 +64,10 @@ Quat GantryControl::ToQuaternion(double roll, double pitch, double yaw)  // yaw 
   return q;
 }
 
+/**
+ * @brief Constructor for the class
+ * @param ROS node
+ */
 GantryControl::GantryControl(ros::NodeHandle &node)
     :
     node_("/ariac/gantry"),
@@ -92,6 +86,11 @@ GantryControl::GantryControl(ros::NodeHandle &node)
   ROS_INFO_STREAM("[GantryControl::GantryControl] constructor called... ");
 }
 
+/**
+ * @brief callback for the shelf subscriber
+ * @param string
+ * @return None
+ */
 void GantryControl::shelf_callback(std::string shelf_name) {
   tf::TransformListener listener;
   ros::Rate rate(10.0);
@@ -191,102 +190,96 @@ void GantryControl::shelf_callback(std::string shelf_name) {
   }
 }
 
+/**
+ * @brief method which returns the shelf vector containing the shelf gap information
+ * @return vector containing the shelf gap information
+ */
 std::vector<std::vector<double>> GantryControl::get_shelf_vector() {
 
   return shelf_vector;
 }
 
+/**
+ * @brief Sets the Robot movement speed
+ * @param speed_factor
+ * @param acc_factor
+ * @return None
+ */
 void GantryControl::setRobotSpeed(double speed_factor, double acc_factor) {
   full_robot_group_.setMaxVelocityScalingFactor(speed_factor);
   full_robot_group_.setMaxAccelerationScalingFactor(acc_factor);
   ROS_INFO_STREAM("<<<<<<<<<<<MOVE VELOCITY CHANGED>>>>>>>>>>>>>>");
 }
 
+/**
+* @brief method to set the aisle 1 as the choise
+* @param integer to choose the corresponding aisle
+* @return None
+* */
 void GantryControl::set_aisle_1_choice(int new_choice) {
   aisle_1_choice = new_choice;
 }
+
+/**
+* @brief method to set the aisle 2 as the choise
+* @param integer to choose the corresponding aisle
+* @return None
+* */
 void GantryControl::set_aisle_2_choice(int new_choice) {
   aisle_2_choice = new_choice;
 }
+
+/**
+* @brief method to set the aisle 3 as the choise
+* @param integer to choose the corresponding aisle
+* @return None
+* */
 void GantryControl::set_aisle_3_choice(int new_choice) {
   aisle_3_choice = new_choice;
 }
+
+/**
+* @brief method to set the aisle 4 as the choise
+* @param integer to choose the corresponding aisle
+* @return None
+* */
 void GantryControl::set_aisle_4_choice(int new_choice) {
   aisle_4_choice = new_choice;
 }
 
+/**
+* @brief method which returns the gap information of shelf 1
+* @return shelf 1 gap
+* */
 int GantryControl::get_shelf_1_gap() {
   return shelf_1_gap;
 }
+
+/**
+* @brief method which returns the gap information of shelf 2
+* @return shelf 2 gap
+* */
 int GantryControl::get_shelf_2_gap() {
   return shelf_2_gap;
 }
+
+/**
+* @brief method which returns the gap information of shelf 3
+* @return shelf 3 gap
+* */
 int GantryControl::get_shelf_3_gap() {
   return shelf_3_gap;
 }
+
+/**
+ * @brief Initializes all the gantry related subscribers and callbacks
+ * @return None
+ */
 void GantryControl::init() {
   double time_called = ros::Time::now().toSec();
   full_robot_group_.setMaxVelocityScalingFactor(0.6);
   full_robot_group_.setMaxAccelerationScalingFactor(0.1);
 
-//    ROS_INFO_STREAM("SHELF GAPS FROM GANTRY.INIT : ");
-//    ROS_INFO_STREAM("shelf_1_gap : "<<shelf_1_gap);
-//    ROS_INFO_STREAM("shelf_2_gap : "<<shelf_2_gap);
-//    ROS_INFO_STREAM("shelf_3_gap : "<<shelf_3_gap);
-//    ROS_INFO_STREAM("CUSTOMIZING WAYPOINTS");
-//    aisle_1_choice = shelf_1_gap;
-//    ROS_INFO_STREAM("X AXES OF ALL THE SHELVES");
-//    ROS_INFO_STREAM("shelf_4_x"<<shelf_4_x);
-//    ROS_INFO_STREAM("shelf_7_x"<<shelf_7_x);
-//    ROS_INFO_STREAM("shelf_10_x"<<shelf_10_x);
-//    if (abs(shelf_4_x)!=abs(shelf_7_x)){
-//        if (shelf_2_gap == 2 && shelf_1_gap == 1){
-//            aisle_2_choice = shelf_2_gap;
-//            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
-//        }
-//        else if (shelf_1_gap == 2 && shelf_2_gap == 1) {
-//            aisle_2_choice = shelf_1_gap;
-//            ROS_INFO_STREAM("AISLE 2 CHOOSES SHELF_1 GAP AS THE BEST CHOICE");
-//        }
-//    }
-//    if (abs(shelf_4_x)==abs(shelf_7_x)){
-//        aisle_2_choice = shelf_1_gap;
-//        ROS_INFO_STREAM("AISLE 2 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
-//    }
-//
-//    if (abs(shelf_7_x)!=abs(shelf_10_x)){
-//        if (shelf_2_gap == 1 && shelf_3_gap == 2){
-//            aisle_3_choice = shelf_3_gap;
-//            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_3 GAP AS THE BEST CHOICE");
-//        }
-//        else if (shelf_2_gap == 2 && shelf_3_gap == 1) {
-//            aisle_3_choice = shelf_2_gap;
-//            ROS_INFO_STREAM("AISLE 3 CHOOSES SHELF_2 GAP AS THE BEST CHOICE");
-//        }
-//    }
-//
-//    if (abs(shelf_7_x)==abs(shelf_10_x)){
-//        aisle_3_choice = shelf_2_gap;
-//        ROS_INFO_STREAM("AISLE 3 CAN CHOOSE ANYTHING. BOTH SIDES ARE EQUAL");
-//    }
-//
-//    aisle_4_choice = shelf_3_gap;
-//
-//    if (shelf_1_gap == 0){
-//        ROS_INFO_STREAM("AISLES 1 AND 2 DOES NOT HAVE A PRIORITY!!");
-//        aisle_1_choice = 0;
-//        aisle_2_choice = 0;
-//    }
-//    if (shelf_2_gap == 0){
-//        ROS_INFO_STREAM("AISLES 2 AND 3 DOES NOT HAVE A PRIORITY!!");
-//        aisle_2_choice = 0;
-//        aisle_3_choice = 0;
-//    }
-//    if (shelf_3_gap == 0){
-//        ROS_INFO_STREAM("AISLES 3 AND 4 DOES NOT HAVE A PRIORITY!!");
-//        aisle_3_choice = 0;
-//        aisle_4_choice = 0;
-//    }
   ROS_INFO_STREAM("EACH AISLE HAS MADE ITS CHOICE : ");
   ROS_INFO_STREAM("aisle_1_choice : " << aisle_1_choice);
   ROS_INFO_STREAM("aisle_2_choice : " << aisle_2_choice);
@@ -1369,6 +1362,11 @@ void GantryControl::init() {
   ROS_INFO("[GantryControl::init] Init position ready)...");
 }
 
+/**
+ * @brief Returns the Stats
+ * @param function
+ * @return stats
+ */
 stats GantryControl::getStats(std::string function) {
   if (function == "init")
     return init_;
@@ -1392,6 +1390,11 @@ stats GantryControl::getStats(std::string function) {
     return grip_;
 }
 
+/**
+ * @brief Function which attempts to pickup a moving part from the conveyor belt
+ * @param part
+ * @return bool value based on successful picking up of part
+ */
 bool GantryControl::pickMovingPart(part part) {
   //--Activate gripper
   activateGripper("left_arm");
@@ -1409,7 +1412,6 @@ bool GantryControl::pickMovingPart(part part) {
   part.pose.orientation.y = currentPose.orientation.y;
   part.pose.orientation.z = currentPose.orientation.z;
   part.pose.orientation.w = currentPose.orientation.w;
-//    ROS_INFO_STREAM("["<< part.type<<"]= " << part.pose.position.x << ", " << part.pose.position.y << "," << part.pose.position.z << "," << part.pose.orientation.x << "," << part.pose.orientation.y << "," << part.pose.orientation.z << "," << part.pose.orientation.w);
 
   auto state = getGripperState("left_arm");
   if (state.enabled) {
@@ -1498,6 +1500,12 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose(
   return world_target;
 }
 
+/**
+ * @brief Converts the pose from tray's coordinates to the world's coordinates and broadcasts a frame for tray
+ * @param target
+ * @param agv
+ * @return Pose in world coordinates for right arm
+ */
 geometry_msgs::Pose GantryControl::getTargetWorldPose_right_arm(
     geometry_msgs::Pose target, std::string agv) {
   static tf2_ros::StaticTransformBroadcaster br;
@@ -1562,21 +1570,28 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose_right_arm(
   return world_target;
 }
 
+/**
+ * @brief Places the part using the right arm on the tray of the agv
+ * @param part
+ * @param agv
+ * @return None
+ */
 void GantryControl::placePart_right_arm(part part, std::string agv) {
   auto target_pose_in_tray = getTargetWorldPose_right_arm(part.pose, agv);
-//    ros::Duration(3.0).sleep();
-//    goToPresetLocation(agv2_);
   target_pose_in_tray.position.z += (ABOVE_TARGET
       + 1.5 * model_height[part.type]);
 
   right_arm_group_.setPoseTarget(target_pose_in_tray);
   right_arm_group_.move();
   deactivateGripper("right_arm");
-//    auto state = getGripperState("left_arm");
-//    if (state.attached)
-//        goToPresetLocation(start_);
 }
 
+/**
+ * @brief Converts the pose from tray's coordinates to the world's coordinates and broadcasts a frame for tray
+ * @param target
+ * @param agv
+ * @return Pose in world coordinates
+ */
 geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(
     geometry_msgs::Pose target, std::string agv) {
   geometry_msgs::TransformStamped transformStamped;
@@ -1635,6 +1650,11 @@ geometry_msgs::Pose GantryControl::getTargetWorldPose_dummy(
   return world_target;
 }
 
+/**
+ * @brief Function which makes the robot to pickup a part
+ * @param part
+ * @return bool value based on successful picking up of part
+ */
 bool GantryControl::pickPart(part part) {
   //--Activate gripper
   activateGripper("left_arm");
@@ -1682,6 +1702,12 @@ bool GantryControl::pickPart(part part) {
   return false;
 }
 
+/**
+ * @brief Places the part using the left arm on the tray of the agv
+ * @param part
+ * @param agv
+ * @return None
+ */
 void GantryControl::placePart(part part, std::string agv) {
   geometry_msgs::Pose initial_pose, final_pose;
 
@@ -1735,9 +1761,13 @@ void GantryControl::placePart(part part, std::string agv) {
   left_arm_group_.setPoseTarget(target_pose_in_tray);
   left_arm_group_.move();
   deactivateGripper("left_arm");
-
 }
 
+/**
+ * @brief Moves the robot to a preset location
+ * @param location
+ * @return None
+ */
 void GantryControl::goToPresetLocation(PresetLocation location) {
   //--gantry
   joint_group_positions_.at(0) = location.gantry.at(0);
@@ -1767,7 +1797,11 @@ void GantryControl::goToPresetLocation(PresetLocation location) {
     full_robot_group_.move();
 }
 
-/// Turn on vacuum gripper
+/**
+ * @brief Activates the robot gripper
+ * @param gripper_id
+ * @return None
+ */
 void GantryControl::activateGripper(std::string arm_name) {
   nist_gear::VacuumGripperControl srv;
   srv.request.enable = true;
@@ -1781,7 +1815,11 @@ void GantryControl::activateGripper(std::string arm_name) {
       "[GantryControl][activateGripper] DEBUG: srv.response =" << srv.response);
 }
 
-/// Turn off vacuum gripper
+/**
+ * @brief Deactivates the robot gripper
+ * @param gripper_id
+ * @return None
+ */
 void GantryControl::deactivateGripper(std::string arm_name) {
   nist_gear::VacuumGripperControl srv;
   srv.request.enable = false;
@@ -1796,7 +1834,11 @@ void GantryControl::deactivateGripper(std::string arm_name) {
           << srv.response);
 }
 
-/// Retrieve gripper state
+/**
+ * @brief Function that returns the gripper attached status
+ * @param arm_name
+ * @return Returns the gripper attached status
+ */
 nist_gear::VacuumGripperState GantryControl::getGripperState(
     std::string arm_name) {
   if (arm_name == "left_arm") {
@@ -1806,7 +1848,10 @@ nist_gear::VacuumGripperState GantryControl::getGripperState(
   }
 }
 
-/// Called when a new VacuumGripperState message is received
+/**
+ * @brief Callback for the left gripper state
+ * @param msg
+ */
 void GantryControl::left_gripper_state_callback(
     const nist_gear::VacuumGripperState::ConstPtr &gripper_state_msg) {
   // ROS_INFO_STREAM_THROTTLE(10,
@@ -1814,6 +1859,10 @@ void GantryControl::left_gripper_state_callback(
   current_left_gripper_state_ = *gripper_state_msg;
 }
 
+/**
+ * @brief Callback for the right gripper state
+ * @param msg
+ */
 void GantryControl::right_gripper_state_callback(
     const nist_gear::VacuumGripperState::ConstPtr &gripper_state_msg) {
   // ROS_INFO_STREAM_THROTTLE(10,
@@ -1821,7 +1870,10 @@ void GantryControl::right_gripper_state_callback(
   current_right_gripper_state_ = *gripper_state_msg;
 }
 
-/// Called when a new JointState message is received
+/**
+ * @brief Callback for the different joint states of the robot
+ * @param joint_state_msg
+ */
 void GantryControl::joint_states_callback(
     const sensor_msgs::JointState::ConstPtr &joint_state_msg) {
   if (joint_state_msg->position.size() == 0) {
@@ -1831,6 +1883,10 @@ void GantryControl::joint_states_callback(
   current_joint_states_ = *joint_state_msg;
 }
 
+/**
+ * @brief Callback for the gantry's controller state
+ * @param msg
+ */
 void GantryControl::gantry_controller_state_callback(
     const control_msgs::JointTrajectoryControllerState::ConstPtr &msg) {
   // ROS_INFO_STREAM_THROTTLE(10,
@@ -1838,6 +1894,10 @@ void GantryControl::gantry_controller_state_callback(
   current_gantry_controller_state_ = *msg;
 }
 
+/**
+ * @brief Callback for the left arm's controller state
+ * @param msg
+ */
 void GantryControl::left_arm_controller_state_callback(
     const control_msgs::JointTrajectoryControllerState::ConstPtr &msg) {
   // ROS_INFO_STREAM_THROTTLE(10,
@@ -1845,6 +1905,10 @@ void GantryControl::left_arm_controller_state_callback(
   current_left_arm_controller_state_ = *msg;
 }
 
+/**
+ * @brief Callback for the right arm's controller state
+ * @param msg
+ */
 void GantryControl::right_arm_controller_state_callback(
     const control_msgs::JointTrajectoryControllerState::ConstPtr &msg) {
   // ROS_INFO_STREAM_THROTTLE(10,
@@ -1852,6 +1916,11 @@ void GantryControl::right_arm_controller_state_callback(
   current_right_arm_controller_state_ = *msg;
 }
 
+/**
+ * @brief Send command message to robot controller
+ * @param command_msg
+ * @return bool
+ */
 bool GantryControl::send_command(trajectory_msgs::JointTrajectory command_msg) {
   // ROS_INFO_STREAM("[gantry_control][send_command] called.");
 
