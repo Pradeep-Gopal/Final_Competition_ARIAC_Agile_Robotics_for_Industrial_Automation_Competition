@@ -1,31 +1,13 @@
 /**
-Copyright 2016 Open Source Robotics Foundation, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
-
-
-/**
  * @file final_node.cpp
- * @author Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ * @author Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  * @copyright MIT License
- * @brief Implementing the publisher
- * This is the talker file for ROS subscriber-publisher example.
+ * @brief Main file which runs the robot to pickup and deliver parts requested by the user
  */
 
 /**
  *MIT License
- *Copyright (c) 2020 Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ *Copyright (c) 2020 Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
  *in the Software without restriction, including without limitation the rights
@@ -608,7 +590,6 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main,
 
 /**
  * @brief      Picks the parts from the conveyor
- *
  * @param      comp    Competition node
  * @param      gantry  Gantry Control node
  */
@@ -626,6 +607,11 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
         }
     }
     ROS_INFO_STREAM("Conveyor belt started, attempting to pick parts");
+  int parts_in_logical_camera_11 = comp.parts_in_logical_camera_11;
+  int parts_in_logical_camera_12 = comp.parts_in_logical_camera_12;
+  int parts_in_logical_camera_13 = comp.parts_in_logical_camera_13;
+  int parts_in_logical_camera_14 = comp.parts_in_logical_camera_14;
+
   double y_offset_est = 0;
   double z_offset_est = 0;
   int no_of_parts { 3 }, count { 0 };
@@ -688,21 +674,83 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
         ROS_INFO_STREAM("belt pick up location reached");
 
         //// drop part at desired location on bin1
-        PresetLocation bin1_drop = gantry.bin1_drop_;
-        if (count == 1)
-          bin1_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
-        if (count == 2)
-          bin1_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
-        gantry.goToPresetLocation(bin1_drop);
-        ROS_INFO_STREAM("bin 1 location reached");
-        gantry.deactivateGripper("left_arm");
-        ROS_INFO_STREAM("Gripper Deactivated");
 
-        gantry.goToPresetLocation(gantry.start_);
-        ROS_INFO_STREAM("Start Location Reached");
+        if(parts_in_logical_camera_11 == 0) {
+          PresetLocation bin1_drop = gantry.bin1_drop_;
+          if (count == 1)
+            bin1_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
+          if (count == 2)
+            bin1_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
 
-        //// update parts in camera info (use camera 11 call back function)
-        parts_from_camera_main[11][count] = comp.parts_from_11_camera[count];  // update parts in camera above bin1
+          gantry.goToPresetLocation(gantry.start_);
+          gantry.goToPresetLocation(bin1_drop);
+          ROS_INFO_STREAM("bin 1 location reached");
+          gantry.deactivateGripper("left_arm");
+          ROS_INFO_STREAM("Gripper Deactivated");
+
+          gantry.goToPresetLocation(gantry.start_);
+          ROS_INFO_STREAM("Start Location Reached");
+
+          //// update parts in camera info (use camera 11 call back function)
+          parts_from_camera_main[11][count] = comp.parts_from_11_camera[count];  // update parts in camera above bin1
+        }
+
+        else if(parts_in_logical_camera_12 == 0) {
+          PresetLocation bin3_drop = gantry.bin3_drop_;
+          if (count == 1)
+            bin3_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
+          if (count == 2)
+            bin3_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+          gantry.goToPresetLocation(gantry.start_);
+          gantry.goToPresetLocation(bin3_drop);
+          ROS_INFO_STREAM("bin 3 location reached");
+          gantry.deactivateGripper("left_arm");
+          ROS_INFO_STREAM("Gripper Deactivated");
+
+          gantry.goToPresetLocation(gantry.start_);
+          ROS_INFO_STREAM("Start Location Reached");
+
+          //// update parts in camera info (use camera 12 call back function)
+          parts_from_camera_main[12][count] = comp.parts_from_12_camera[count];  // update parts in camera above bin1
+        }
+
+        else if(parts_in_logical_camera_13 == 0) {
+          PresetLocation bin9_drop = gantry.bin9_drop_;
+          if (count == 1)
+            bin9_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
+          if (count == 2)
+            bin9_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+          gantry.goToPresetLocation(gantry.start_);
+          gantry.goToPresetLocation(bin9_drop);
+          ROS_INFO_STREAM("bin 9 location reached");
+          gantry.deactivateGripper("left_arm");
+          ROS_INFO_STREAM("Gripper Deactivated");
+
+          gantry.goToPresetLocation(gantry.start_);
+          ROS_INFO_STREAM("Start Location Reached");
+
+          //// update parts in camera info (use camera 13 call back function)
+          parts_from_camera_main[13][count] = comp.parts_from_13_camera[count];  // update parts in camera above bin1
+        }
+
+        else if(parts_in_logical_camera_14 == 0) {
+          PresetLocation bin11_drop = gantry.bin11_drop_;
+          if (count == 1)
+            bin11_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
+          if (count == 2)
+            bin11_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+          gantry.goToPresetLocation(gantry.start_);
+          gantry.goToPresetLocation(bin11_drop);
+          ROS_INFO_STREAM("bin 11 location reached");
+          gantry.deactivateGripper("left_arm");
+          ROS_INFO_STREAM("Gripper Deactivated");
+
+          gantry.goToPresetLocation(gantry.start_);
+          ROS_INFO_STREAM("Start Location Reached");
+
+          //// update parts in camera info (use camera 14 call back function)
+          parts_from_camera_main[14][count] = comp.parts_from_14_camera[count];  // update parts in camera above bin1
+        }
 
         count += 1;
       } else {
@@ -723,10 +771,8 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
 
 /**
  * @brief      Returns the part location on the shelf (FRONT(f) OR BACK(b))
- *
  * @param[in]  pose          The pose of the part
  * @param[in]  camera_index  The camera index of the logical camera detecting the part
- *
  * @return     An identifier for the part location on the shelf
  */
 std::string part_location(geometry_msgs::Pose pose, int camera_index) {

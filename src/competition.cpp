@@ -1,31 +1,15 @@
 /**
-Copyright 2016 Open Source Robotics Foundation, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
-
-
-/**
  * @file competition.cpp
- * @author Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ * @author Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  * @copyright MIT License
- * @brief Implementing the publisher
- * This is the talker file for ROS subscriber-publisher example.
+ * @brief Implementation of the competition class
+ * This class contains all the functions which are required to control all the sensors
+ * in the environment and also to control the competition start and ending
  */
 
 /**
  *MIT License
- *Copyright (c) 2020 Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ *Copyright (c) 2020 Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
  *in the Software without restriction, including without limitation the rights
@@ -914,6 +898,7 @@ void Competition::logical_camera_callback(
         }
       }
       if (cam_idx == 11) {
+        parts_in_logical_camera_11 = msg->models.size();
         if (!((msg->models[i].type).empty())) {
           parts_from_11_camera[i].type = msg->models[i].type;
           parts_from_11_camera[i].pose.position.x = tx;
@@ -931,6 +916,67 @@ void Competition::logical_camera_callback(
           parts_from_11_camera[i].picked = false;
         }
       }
+
+      if (cam_idx == 12) {
+        parts_in_logical_camera_12 = msg->models.size();
+        if (!((msg->models[i].type).empty())) {
+          parts_from_12_camera[i].type = msg->models[i].type;
+          parts_from_12_camera[i].pose.position.x = tx;
+          parts_from_12_camera[i].pose.position.y = ty;
+          parts_from_12_camera[i].pose.position.z = tz;
+          parts_from_12_camera[i].pose.orientation.x = pose_target.pose
+                  .orientation.x;
+          parts_from_12_camera[i].pose.orientation.y = pose_target.pose
+                  .orientation.y;
+          parts_from_12_camera[i].pose.orientation.z = pose_target.pose
+                  .orientation.z;
+          parts_from_12_camera[i].pose.orientation.w = pose_target.pose
+                  .orientation.w;
+          parts_from_12_camera[i].faulty = false;
+          parts_from_12_camera[i].picked = false;
+        }
+      }
+
+      if (cam_idx == 13) {
+        parts_in_logical_camera_13 = msg->models.size();
+        if (!((msg->models[i].type).empty())) {
+          parts_from_13_camera[i].type = msg->models[i].type;
+          parts_from_13_camera[i].pose.position.x = tx;
+          parts_from_13_camera[i].pose.position.y = ty;
+          parts_from_13_camera[i].pose.position.z = tz;
+          parts_from_13_camera[i].pose.orientation.x = pose_target.pose
+                  .orientation.x;
+          parts_from_13_camera[i].pose.orientation.y = pose_target.pose
+                  .orientation.y;
+          parts_from_13_camera[i].pose.orientation.z = pose_target.pose
+                  .orientation.z;
+          parts_from_13_camera[i].pose.orientation.w = pose_target.pose
+                  .orientation.w;
+          parts_from_13_camera[i].faulty = false;
+          parts_from_13_camera[i].picked = false;
+        }
+      }
+
+      if (cam_idx == 14) {
+        parts_in_logical_camera_14 = msg->models.size();
+        if (!((msg->models[i].type).empty())) {
+          parts_from_14_camera[i].type = msg->models[i].type;
+          parts_from_14_camera[i].pose.position.x = tx;
+          parts_from_14_camera[i].pose.position.y = ty;
+          parts_from_14_camera[i].pose.position.z = tz;
+          parts_from_14_camera[i].pose.orientation.x = pose_target.pose
+                  .orientation.x;
+          parts_from_14_camera[i].pose.orientation.y = pose_target.pose
+                  .orientation.y;
+          parts_from_14_camera[i].pose.orientation.z = pose_target.pose
+                  .orientation.z;
+          parts_from_14_camera[i].pose.orientation.w = pose_target.pose
+                  .orientation.w;
+          parts_from_14_camera[i].faulty = false;
+          parts_from_14_camera[i].picked = false;
+        }
+      }
+
       if (cam_idx == 16) {
         if (!((msg->models[i].type).empty())) {
           parts_from_16_camera[i].type = msg->models[i].type;

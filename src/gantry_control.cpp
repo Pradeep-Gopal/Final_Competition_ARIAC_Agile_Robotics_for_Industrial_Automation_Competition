@@ -1285,10 +1285,25 @@ void GantryControl::init() {
   belt_pickup_1.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
   belt_pickup_1.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
-  // location where gantry hover to pick up part at belt
+  // bin1 drop location after picking part from conveyor belt
   bin1_drop_.gantry = { 2.7, -0.87, PI / 2 };
   bin1_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
   bin1_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+
+  // bin3 drop location after picking part from conveyor belt
+  bin3_drop_.gantry = {4.58, -0.87, PI / 2 };
+  bin3_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+  bin3_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+
+  // bin9 drop location after picking part from conveyor belt
+  bin9_drop_.gantry = { 2.7, 1.87, PI / 2 };
+  bin9_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+  bin9_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+
+  // bin11 drop location after picking part from conveyor belt
+  bin11_drop_.gantry = {4.58, 1.87, PI / 2 };
+  bin11_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
+  bin11_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
   //--Raw pointers are frequently used to refer to the planning group for improved performance.
   //--To start, we will create a pointer that references the current robot’s state.

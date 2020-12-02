@@ -1,31 +1,15 @@
 /**
-Copyright 2016 Open Source Robotics Foundation, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- */
-
-
-/**
- * @file competition.h
- * @author Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ * @file competition.cpp
+ * @author Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  * @copyright MIT License
- * @brief Implementing the publisher
- * This is the talker file for ROS subscriber-publisher example.
+ * @brief Header of the competition class
+ * This class contains all the functions which are required to control all the sensors
+ * in the environment and also to control the competition start and ending
  */
 
 /**
  *MIT License
- *Copyright (c) 2020 Govind Ajith Kumar, Pradeep Gopal, Rajesh NS, Cheng, Dakota Abernathy
+ *Copyright (c) 2020 Pradeep Gopal, Govind Ajith Kumar, Rajesh NS, Cheng, Dakota Abernathy
  *Permission is hereby granted, free of charge, to any person obtaining a copy
  *of this software and associated documentation files (the "Software"), to deal
  *in the Software without restriction, including without limitation the rights
@@ -42,6 +26,7 @@ limitations under the License.
  *OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *SOFTWARE.
  */
+
 
 #ifndef COMPETITION_H
 #define COMPETITION_H
@@ -645,9 +630,24 @@ class Competition {
   std::array<part, 20> get_parts_from_17_camera();
 
   /**
-   * Array to store parts from camera-11
-   */
+  * Array to store parts from camera-11
+  */
   std::array<part, 20> parts_from_11_camera;
+
+  /**
+  * Array to store parts from camera-14
+  */
+    std::array<part, 20> parts_from_14_camera;
+
+  /**
+  * Array to store parts from camera-11
+  */
+  std::array<part, 20> parts_from_12_camera;
+
+  /**
+  * Array to store parts from camera-11
+  */
+  std::array<part, 20> parts_from_13_camera;
 
     /**
    * Array to store parts from camera-16
@@ -667,7 +667,28 @@ class Competition {
   */
   std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
 
- private:
+  /**
+   * Stores the number of parts detected by logical camera 11
+   */
+  int parts_in_logical_camera_11;
+
+  /**
+   * Stores the number of parts detected by logical camera 12
+   */
+  int parts_in_logical_camera_12;
+
+  /**
+   * Stores the number of parts detected by logical camera 13
+   */
+  int parts_in_logical_camera_13;
+
+  /**
+  * Stores the number of parts detected by logical camera 13
+  */
+    int parts_in_logical_camera_14;
+
+
+private:
   /**
    * ROS Node handle
    */
