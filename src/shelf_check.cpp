@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #include <algorithm>
 #include <vector>
 #include <ros/ros.h>
@@ -51,36 +50,38 @@
 
 using namespace std;
 
+std::vector<std::vector<double>> shelf_vector_comp(9, std::vector<double>(3));
+int main(int argc, char **argv) {
 
-std::vector<std::vector<double>> shelf_vector_comp(9,std::vector<double>(3));
-int main(int argc, char** argv) {
+  ros::init(argc, argv, "rwa5_node");
+  ros::NodeHandle node;
+  ros::AsyncSpinner spinner(8);
+  spinner.start();
 
-    ros::init(argc, argv, "rwa5_node");
-    ros::NodeHandle node;
-    ros::AsyncSpinner spinner(8);
-    spinner.start();
-
-    std::vector <std::string> shelf_vector;
-    shelf_vector.push_back("/shelf3_frame");
-    shelf_vector.push_back("/shelf4_frame");
-    shelf_vector.push_back("/shelf5_frame");
-    shelf_vector.push_back("/shelf6_frame");
-    shelf_vector.push_back("/shelf7_frame");
-    shelf_vector.push_back("/shelf8_frame");
-    shelf_vector.push_back("/shelf9_frame");
-    shelf_vector.push_back("/shelf10_frame");
-    shelf_vector.push_back("/shelf11_frame");
-    Competition comp(node);
-    comp.init();
-    for (auto c: shelf_vector) {
+  std::vector < std::string > shelf_vector;
+  shelf_vector.push_back("/shelf3_frame");
+  shelf_vector.push_back("/shelf4_frame");
+  shelf_vector.push_back("/shelf5_frame");
+  shelf_vector.push_back("/shelf6_frame");
+  shelf_vector.push_back("/shelf7_frame");
+  shelf_vector.push_back("/shelf8_frame");
+  shelf_vector.push_back("/shelf9_frame");
+  shelf_vector.push_back("/shelf10_frame");
+  shelf_vector.push_back("/shelf11_frame");
+  Competition comp(node);
+  comp.init();
+  for (auto c : shelf_vector) {
     comp.shelf_callback(c);
+  }
+  shelf_vector_comp = comp.get_shelf_vector();
+  ROS_INFO_STREAM("Distance between the shelves");
+  for (int i = 0; i <= 7; i++) {
+    if (5 <= (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i + 1][0]))
+        and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i + 1][0])) <= 7) {
+      ROS_INFO_STREAM(
+          "Gaps between shelves" << i + 3 << " and " << i + 4 << " "
+              << abs(shelf_vector_comp[i][0] - shelf_vector_comp[i + 1][0]));
     }
-    shelf_vector_comp = comp.get_shelf_vector();
-    ROS_INFO_STREAM("Distance between the shelves");
-    for (int i = 0; i <=7 ; i++) {
-        if (5<=(abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0])) and (abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]))<=7){
-            ROS_INFO_STREAM("Gaps between shelves"<<i+3<<" and "<<i+4<<" "<<abs(shelf_vector_comp[i][0] - shelf_vector_comp[i+1][0]));
-        }
-    }
-    return 0;
+  }
+  return 0;
 }
