@@ -15,7 +15,6 @@ Install Ariac package in your workspace using the steps mentioned in the followi
 
 [Ariac Installation Instructions](https://github.com/usnistgov/ARIAC/blob/master/wiki/tutorials/installation.md)
 
-
 Follow these instructions to run the package after installing ARIAC
 
 1. Copy the package and paste it in /ariac_ws/src
@@ -31,5 +30,11 @@ Wait till the terminal says "you can start planning now"
 8. cd /ariac_ws
 9. source devel/setup.bash
 10. rosrun final-group1 final_node
+
+## Steps to view the Doxygen report
+
+Open the index.html file present in "/ariac_ws/src/final-group1/Doxygen_report/html/index.html"
+
+
 
 
