@@ -27,7 +27,6 @@
  *SOFTWARE.
  */
 
-
 #ifndef COMPETITION_H
 #define COMPETITION_H
 #include <vector>
@@ -55,7 +54,7 @@ class Competition {
    * @brief      User-defined constructor
    *
    * @param      node  The node
-  */
+   */
   explicit Competition(ros::NodeHandle &node);
 
   /**
@@ -97,7 +96,7 @@ class Competition {
   void quality_control_sensor_1_subscriber_callback(
       const nist_gear::LogicalCameraImage::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Callback for the second quality sensor camera
    * @param[in]  msg   The message
    */
@@ -116,7 +115,7 @@ class Competition {
    * @brief      Gets the received order vector.
    *
    * @return     The received order vector.
-  */
+   */
   std::vector<nist_gear::Order> get_received_order_vector();
 
   /**
@@ -132,7 +131,6 @@ class Competition {
    * @return     The quality sensor status agv 1.
    */
   part get_quality_sensor_status_agv1();
-
 
   /**
    * @brief      Prints all the parts detected parts by every camera
@@ -336,69 +334,68 @@ class Competition {
    */
   void breakbeam_sensor_33_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 34 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_34_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 35 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_35_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 36 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_36_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 41 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_41_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 42 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_42_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 43 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_43_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 44 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_44_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 45 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_45_callback(const nist_gear::Proximity::ConstPtr &msg);
 
-    /**
+  /**
    * @brief      Breakbeam sensor 46 callback
    *
    * @param[in]  msg   Sensor message
    */
   void breakbeam_sensor_46_callback(const nist_gear::Proximity::ConstPtr &msg);
-
 
   /**
    * Boolean to check the conveyor belt part status for Breakbeam-0
@@ -554,19 +551,18 @@ class Competition {
    */
   bool breakbeam_part_status_46 = false;
 
- /**
-  * @brief      Gets the existence of a human in Aisle-1
-  *
-  * @return     The human  existence.
-  */
+  /**
+   * @brief      Gets the existence of a human in Aisle-1
+   *
+   * @return     The human  existence.
+   */
   int get_human_1_existence();
 
-
- /**
-  * @brief      Gets the existence of a human in Aisle-2
-  *
-  * @return     The human 2 existence.
-  */
+  /**
+   * @brief      Gets the existence of a human in Aisle-2
+   *
+   * @return     The human 2 existence.
+   */
   int get_human_2_existence();
 
   /**
@@ -630,31 +626,31 @@ class Competition {
   std::array<part, 20> get_parts_from_17_camera();
 
   /**
-  * Array to store parts from camera-11
-  */
+   * Array to store parts from camera-11
+   */
   std::array<part, 20> parts_from_11_camera;
 
   /**
-  * Array to store parts from camera-14
-  */
-    std::array<part, 20> parts_from_14_camera;
+   * Array to store parts from camera-14
+   */
+  std::array<part, 20> parts_from_14_camera;
 
   /**
-  * Array to store parts from camera-11
-  */
+   * Array to store parts from camera-11
+   */
   std::array<part, 20> parts_from_12_camera;
 
   /**
-  * Array to store parts from camera-11
-  */
+   * Array to store parts from camera-11
+   */
   std::array<part, 20> parts_from_13_camera;
 
-    /**
+  /**
    * Array to store parts from camera-16
    */
   std::array<part, 20> parts_from_16_camera;
 
-    /**
+  /**
    * Array to store parts from camera-17
    */
   std::array<part, 20> parts_from_17_camera;
@@ -664,7 +660,7 @@ class Competition {
    * and product.
    *
    * @return     The master vector.
-  */
+   */
   std::vector<std::vector<std::vector<master_struct> > > get_master_vector();
 
   /**
@@ -683,12 +679,11 @@ class Competition {
   int parts_in_logical_camera_13;
 
   /**
-  * Stores the number of parts detected by logical camera 13
-  */
-    int parts_in_logical_camera_14;
+   * Stores the number of parts detected by logical camera 13
+   */
+  int parts_in_logical_camera_14;
 
-
-private:
+ private:
   /**
    * ROS Node handle
    */
@@ -743,7 +738,6 @@ private:
    * Subscribes to the Quality sensor-2
    */
   ros::Subscriber quality_control_sensor_2_subscriber_;
-
 
   /**
    * Vector of received orders

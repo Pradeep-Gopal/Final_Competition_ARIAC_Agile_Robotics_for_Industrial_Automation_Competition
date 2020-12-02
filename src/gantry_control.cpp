@@ -212,61 +212,61 @@ void GantryControl::setRobotSpeed(double speed_factor, double acc_factor) {
 }
 
 /**
-* @brief method to set the aisle 1 as the choise
-* @param integer to choose the corresponding aisle
-* @return None
-* */
+ * @brief method to set the aisle 1 as the choise
+ * @param integer to choose the corresponding aisle
+ * @return None
+ * */
 void GantryControl::set_aisle_1_choice(int new_choice) {
   aisle_1_choice = new_choice;
 }
 
 /**
-* @brief method to set the aisle 2 as the choise
-* @param integer to choose the corresponding aisle
-* @return None
-* */
+ * @brief method to set the aisle 2 as the choise
+ * @param integer to choose the corresponding aisle
+ * @return None
+ * */
 void GantryControl::set_aisle_2_choice(int new_choice) {
   aisle_2_choice = new_choice;
 }
 
 /**
-* @brief method to set the aisle 3 as the choise
-* @param integer to choose the corresponding aisle
-* @return None
-* */
+ * @brief method to set the aisle 3 as the choise
+ * @param integer to choose the corresponding aisle
+ * @return None
+ * */
 void GantryControl::set_aisle_3_choice(int new_choice) {
   aisle_3_choice = new_choice;
 }
 
 /**
-* @brief method to set the aisle 4 as the choise
-* @param integer to choose the corresponding aisle
-* @return None
-* */
+ * @brief method to set the aisle 4 as the choise
+ * @param integer to choose the corresponding aisle
+ * @return None
+ * */
 void GantryControl::set_aisle_4_choice(int new_choice) {
   aisle_4_choice = new_choice;
 }
 
 /**
-* @brief method which returns the gap information of shelf 1
-* @return shelf 1 gap
-* */
+ * @brief method which returns the gap information of shelf 1
+ * @return shelf 1 gap
+ * */
 int GantryControl::get_shelf_1_gap() {
   return shelf_1_gap;
 }
 
 /**
-* @brief method which returns the gap information of shelf 2
-* @return shelf 2 gap
-* */
+ * @brief method which returns the gap information of shelf 2
+ * @return shelf 2 gap
+ * */
 int GantryControl::get_shelf_2_gap() {
   return shelf_2_gap;
 }
 
 /**
-* @brief method which returns the gap information of shelf 3
-* @return shelf 3 gap
-* */
+ * @brief method which returns the gap information of shelf 3
+ * @return shelf 3 gap
+ * */
 int GantryControl::get_shelf_3_gap() {
   return shelf_3_gap;
 }
@@ -1291,7 +1291,7 @@ void GantryControl::init() {
   bin1_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
   // bin3 drop location after picking part from conveyor belt
-  bin3_drop_.gantry = {4.58, -0.87, PI / 2 };
+  bin3_drop_.gantry = { 4.58, -0.87, PI / 2 };
   bin3_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
   bin3_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
@@ -1301,7 +1301,7 @@ void GantryControl::init() {
   bin9_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
   // bin11 drop location after picking part from conveyor belt
-  bin11_drop_.gantry = {4.58, 1.87, PI / 2 };
+  bin11_drop_.gantry = { 4.58, 1.87, PI / 2 };
   bin11_drop_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
   bin11_drop_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 

@@ -27,7 +27,6 @@
  *SOFTWARE.
  */
 
-
 #include "competition.h"
 #include "utils.h"
 #include <nist_gear/LogicalCameraImage.h>
@@ -572,21 +571,20 @@ void Competition::breakbeam_sensor_46_callback(
   }
 }
 
-
 /**
-* @brief      Gets the existence of a human in Aisle-1
-*
-* @return     The human  existence.
-*/
+ * @brief      Gets the existence of a human in Aisle-1
+ *
+ * @return     The human  existence.
+ */
 int Competition::get_human_1_existence() {
   return human_1_detected;
 }
 
 /**
-* @brief      Gets the existence of a human in Aisle-2
-*
-* @return     The human 2 existence.
-*/
+ * @brief      Gets the existence of a human in Aisle-2
+ *
+ * @return     The human 2 existence.
+ */
 int Competition::get_human_2_existence() {
   return human_2_detected;
 }
@@ -621,7 +619,6 @@ void Competition::setter_delivered(int i, int j, int k) {
   master_vector[i][j][k].delivered = true;
 }
 
-
 /**
  * @brief      Prints all the parts detected parts by every camera
  */
@@ -641,14 +638,14 @@ void Competition::print_parts_detected() {
  * @brief      Gets the received order vector.
  *
  * @return     The received order vector.
-*/
+ */
 std::vector<nist_gear::Order> Competition::get_received_order_vector() {
   return received_orders_;
 }
 
-  /**
-   * @brief      Executes the pre-kitting
-   */
+/**
+ * @brief      Executes the pre-kitting
+ */
 void Competition::pre_kitting() {
   // Populating Orders vector
   for (p; p < received_orders_.size(); p++) {
@@ -718,9 +715,9 @@ void Competition::pre_kitting() {
   }
 }
 
-  /**
-   * @brief      Prints parts to be picked.
-   */
+/**
+ * @brief      Prints parts to be picked.
+ */
 void Competition::print_parts_to_pick() {
   ROS_INFO_STREAM("Parts in master vector");
   for (int i = 0; i < 10; i++) {
@@ -746,59 +743,58 @@ void Competition::print_parts_to_pick() {
   }
 }
 
-  /**
-   * @brief      Master array that contains the parts from 
-   * all the logical cameras
-   *
-   * @return     The parts from camera.
-   */
+/**
+ * @brief      Master array that contains the parts from
+ * all the logical cameras
+ *
+ * @return     The parts from camera.
+ */
 std::array<std::array<part, 20>, 20> Competition::get_parts_from_camera() {
   return parts_from_camera;
 }
 
-
-  /**
-   * @brief      Master vector that keeps track of every order, shipment
-   * and product.
-   *
-   * @return     The master vector.
-  */
+/**
+ * @brief      Master vector that keeps track of every order, shipment
+ * and product.
+ *
+ * @return     The master vector.
+ */
 std::vector<std::vector<std::vector<master_struct> > > Competition::get_master_vector() {
   return master_vector;
 }
 
-  /**
-   * @brief      deletes an order when done
-   */
+/**
+ * @brief      deletes an order when done
+ */
 void Competition::delete_completed_order(int i) {
   received_orders_.erase(received_orders_.begin() + i);
   ROS_INFO_STREAM("Deleting Order = " << i);
 }
 
-  /**
-   * @brief      Gets the quality sensor status agv 2.
-   *
-   * @return     The quality sensor status agv 2.
-   */
+/**
+ * @brief      Gets the quality sensor status agv 2.
+ *
+ * @return     The quality sensor status agv 2.
+ */
 part Competition::get_quality_sensor_status_agv2() {
   return faulty_part_agv2;
 }
 
-  /**
-   * @brief      Gets the quality sensor status agv 1.
-   *
-   * @return     The quality sensor status agv 1.
-   */
+/**
+ * @brief      Gets the quality sensor status agv 1.
+ *
+ * @return     The quality sensor status agv 1.
+ */
 part Competition::get_quality_sensor_status_agv1() {
   return faulty_part_agv1;
 }
 
-  /**
-   * @brief      Callback for the logical camera subscribers
-   *
-   * @param[in]  msg      The message
-   * @param[in]  cam_idx  The camera index
-   */
+/**
+ * @brief      Callback for the logical camera subscribers
+ *
+ * @param[in]  msg      The message
+ * @param[in]  cam_idx  The camera index
+ */
 void Competition::logical_camera_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg, int cam_idx) {
   std::vector < part > parts_from_15_camera_new;
@@ -925,13 +921,13 @@ void Competition::logical_camera_callback(
           parts_from_12_camera[i].pose.position.y = ty;
           parts_from_12_camera[i].pose.position.z = tz;
           parts_from_12_camera[i].pose.orientation.x = pose_target.pose
-                  .orientation.x;
+              .orientation.x;
           parts_from_12_camera[i].pose.orientation.y = pose_target.pose
-                  .orientation.y;
+              .orientation.y;
           parts_from_12_camera[i].pose.orientation.z = pose_target.pose
-                  .orientation.z;
+              .orientation.z;
           parts_from_12_camera[i].pose.orientation.w = pose_target.pose
-                  .orientation.w;
+              .orientation.w;
           parts_from_12_camera[i].faulty = false;
           parts_from_12_camera[i].picked = false;
         }
@@ -945,13 +941,13 @@ void Competition::logical_camera_callback(
           parts_from_13_camera[i].pose.position.y = ty;
           parts_from_13_camera[i].pose.position.z = tz;
           parts_from_13_camera[i].pose.orientation.x = pose_target.pose
-                  .orientation.x;
+              .orientation.x;
           parts_from_13_camera[i].pose.orientation.y = pose_target.pose
-                  .orientation.y;
+              .orientation.y;
           parts_from_13_camera[i].pose.orientation.z = pose_target.pose
-                  .orientation.z;
+              .orientation.z;
           parts_from_13_camera[i].pose.orientation.w = pose_target.pose
-                  .orientation.w;
+              .orientation.w;
           parts_from_13_camera[i].faulty = false;
           parts_from_13_camera[i].picked = false;
         }
@@ -965,13 +961,13 @@ void Competition::logical_camera_callback(
           parts_from_14_camera[i].pose.position.y = ty;
           parts_from_14_camera[i].pose.position.z = tz;
           parts_from_14_camera[i].pose.orientation.x = pose_target.pose
-                  .orientation.x;
+              .orientation.x;
           parts_from_14_camera[i].pose.orientation.y = pose_target.pose
-                  .orientation.y;
+              .orientation.y;
           parts_from_14_camera[i].pose.orientation.z = pose_target.pose
-                  .orientation.z;
+              .orientation.z;
           parts_from_14_camera[i].pose.orientation.w = pose_target.pose
-                  .orientation.w;
+              .orientation.w;
           parts_from_14_camera[i].faulty = false;
           parts_from_14_camera[i].picked = false;
         }
@@ -1034,11 +1030,11 @@ void Competition::logical_camera_callback(
   }
 }
 
-  /**
-   * @brief      Checks the status of the competition
-   *
-   * @param[in]  msg   The message
-   */
+/**
+ * @brief      Checks the status of the competition
+ *
+ * @param[in]  msg   The message
+ */
 void Competition::competition_state_callback(
     const std_msgs::String::ConstPtr &msg) {
   if (msg->data == "done" && competition_state_ != "done") {
@@ -1047,11 +1043,11 @@ void Competition::competition_state_callback(
   competition_state_ = msg->data;
 }
 
-  /**
-   * @brief      To subscribe to the order topic
-   *
-   * @param[in]  msg   The message
-   */
+/**
+ * @brief      To subscribe to the order topic
+ *
+ * @param[in]  msg   The message
+ */
 void Competition::order_callback(const nist_gear::Order::ConstPtr &msg) {
   ROS_INFO_STREAM("New High Priority ordered received");
   ROS_INFO_STREAM("Received order:\n" << *msg);
@@ -1059,37 +1055,37 @@ void Competition::order_callback(const nist_gear::Order::ConstPtr &msg) {
   Competition::pre_kitting();
 }
 
-  /**
-   * @brief      Gets the parts from camera-16.
-   *
-   * @return     The parts from camera-16.
-   */
+/**
+ * @brief      Gets the parts from camera-16.
+ *
+ * @return     The parts from camera-16.
+ */
 std::array<part, 20> Competition::get_parts_from_16_camera() {
   return parts_from_16_camera;
 }
 
-  /**
-   * @brief      Gets the parts from camera-17.
-   *
-   * @return     The parts from camera-17.
-   */
+/**
+ * @brief      Gets the parts from camera-17.
+ *
+ * @return     The parts from camera-17.
+ */
 std::array<part, 20> Competition::get_parts_from_17_camera() {
   return parts_from_17_camera;
 }
 
-  /**
-   * @brief      Gets the parts from camera-15.
-   *
-   * @return     The parts from camera-15.
-   */
+/**
+ * @brief      Gets the parts from camera-15.
+ *
+ * @return     The parts from camera-15.
+ */
 std::vector<part> Competition::get_parts_from_15_camera() {
   return parts_from_15_camera;
 }
 
-  /**
-   * @brief      Callback for the first quality sensor camera
-   * @param[in]  msg   The message
-   */
+/**
+ * @brief      Callback for the first quality sensor camera
+ * @param[in]  msg   The message
+ */
 void Competition::quality_control_sensor_1_subscriber_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg) {
   if (msg->models.size() != 0) {
@@ -1101,10 +1097,10 @@ void Competition::quality_control_sensor_1_subscriber_callback(
     faulty_part_agv2.faulty = false;
 }
 
-    /**
-   * @brief      Callback for the second quality sensor camera
-   * @param[in]  msg   The message
-   */
+/**
+ * @brief      Callback for the second quality sensor camera
+ * @param[in]  msg   The message
+ */
 void Competition::quality_control_sensor_2_subscriber_callback(
     const nist_gear::LogicalCameraImage::ConstPtr &msg) {
   if (msg->models.size() != 0) {
@@ -1116,20 +1112,20 @@ void Competition::quality_control_sensor_2_subscriber_callback(
     faulty_part_agv1.faulty = false;
 }
 
-  /**
-   * @brief      Callback function for competition callback 
-   * subscribers
-   *
-   * @param[in]  msg   The Clock type ROS message
-   */
+/**
+ * @brief      Callback function for competition callback
+ * subscribers
+ *
+ * @param[in]  msg   The Clock type ROS message
+ */
 void Competition::competition_clock_callback(
     const rosgraph_msgs::Clock::ConstPtr &msg) {
   competition_clock_ = msg->clock;
 }
 
-  /**
-   * @brief      Starts a competition.
-   */
+/**
+ * @brief      Starts a competition.
+ */
 void Competition::startCompetition() {
   ros::ServiceClient start_client = node_.serviceClient < std_srvs::Trigger
       > ("/ariac/start_competition");
@@ -1151,9 +1147,9 @@ void Competition::startCompetition() {
   }
 }
 
-  /**
-   * @brief      Ends a competition.
-   */
+/**
+ * @brief      Ends a competition.
+ */
 void Competition::endCompetition() {
   ros::ServiceClient end_client = node_.serviceClient < std_srvs::Trigger
       > ("/ariac/end_competition");
@@ -1175,31 +1171,31 @@ void Competition::endCompetition() {
   }
 }
 
-  /**
-   * @brief      Gets information regarding comp.init().
-   *
-   * @return     The statistics.
-   */
+/**
+ * @brief      Gets information regarding comp.init().
+ *
+ * @return     The statistics.
+ */
 stats Competition::getStats(std::string function) {
   if (function == "init")
     return init_;
 
 }
 
-  /**
-   * @brief      Gets the start time.
-   *
-   * @return     The start time.
-   */
+/**
+ * @brief      Gets the start time.
+ *
+ * @return     The start time.
+ */
 double Competition::getStartTime() {
   return competition_start_time_;
 }
 
-  /**
-   * @brief      Gets clock information
-   *
-   * @return     The time spent in the competition.
-   */
+/**
+ * @brief      Gets clock information
+ *
+ * @return     The time spent in the competition.
+ */
 double Competition::getClock() {
   double time_spent = competition_clock_.toSec();
   ROS_INFO_STREAM(
@@ -1208,11 +1204,11 @@ double Competition::getClock() {
   return time_spent;
 }
 
-  /**
-   * @brief      Gets the competition state.
-   *
-   * @return     The competition state.
-   */
+/**
+ * @brief      Gets the competition state.
+ *
+ * @return     The competition state.
+ */
 std::string Competition::getCompetitionState() {
   return competition_state_;
 }

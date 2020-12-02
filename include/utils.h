@@ -39,7 +39,6 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
-
 /**
  * Struct for Orders
  */
@@ -48,7 +47,7 @@ typedef struct Order order;
 /**
  * Struct for Shipments
  */
-typedef struct Shipment shipment; 
+typedef struct Shipment shipment;
 
 /**
  * Struct for Products
@@ -59,7 +58,6 @@ typedef struct Product product;
  * PI Constant for ease of application
  */
 const double PI = 3.141592;
-
 
 /**
  * Maximum number of cameras
@@ -120,7 +118,7 @@ const double RAIL_HEIGHT = 0.95;
 /**
  * Planning time declared for the move group
  */
-const double PLANNING_TIME = 20;  
+const double PLANNING_TIME = 20;
 
 /**
  * Maximum number of times the exchanges can be
@@ -241,7 +239,7 @@ typedef struct Shipment {
 typedef struct Product {
   std::string type;
   geometry_msgs::Pose pose;
-  part p;  
+  part p;
   geometry_msgs::Pose actual_pose;
   std::string actual_pose_frame;
   std::string agv_id;
