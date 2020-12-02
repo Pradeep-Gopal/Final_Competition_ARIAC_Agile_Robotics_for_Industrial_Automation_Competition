@@ -85,11 +85,19 @@ orders:
         pose:
           xyz: [0.1, 0.2, 0.2]
           rpy: ['pi', 0, 0]
+<<<<<<< HEAD
       part_1:
         type: gasket_part_red
         pose:
           xyz: [0.0, 0.0, 0.2]
           rpy: [0, 0, '-pi/4']
+=======
+#      part_1:
+#        type: gasket_part_red
+#        pose:
+#          xyz: [0.0, 0.0, 0.2]
+#          rpy: [0, 0, '-pi/4']
+>>>>>>> rajesh
       part_2:
         type: gasket_part_blue
         pose:

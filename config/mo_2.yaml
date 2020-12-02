@@ -43,11 +43,11 @@ aisle_layout:
     start_time: 0.
     move_time: 9.
     wait_time: 7.
-  # person_2:
-  #   location: 4.57
-  #   start_time: 16.
-  #   move_time: 9.
-  #   wait_time: 7.
+  person_2:
+    location: 4.57
+    start_time: 16.
+    move_time: 9.
+    wait_time: 7.
 
 #--Config 2
 #--Config 2

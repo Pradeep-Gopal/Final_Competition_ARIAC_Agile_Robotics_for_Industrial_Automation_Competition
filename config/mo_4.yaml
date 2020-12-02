@@ -83,7 +83,11 @@ orders:
 
 belt_models:
   gasket_part_blue:
+<<<<<<< HEAD
     10.0: #interval at which the object is spawned on the belt
+=======
+    8.0: #interval at which the object is spawned on the belt
+>>>>>>> rajesh
       pose:
         xyz: [0.0, 4.3, 0.92]
         rpy: [0, 0, 'pi/2']

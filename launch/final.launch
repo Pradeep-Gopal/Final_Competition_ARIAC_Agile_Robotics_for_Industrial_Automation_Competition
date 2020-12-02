@@ -33,7 +33,6 @@
           $(find final-group1)/config/sensor.yaml
           " required="true" output="screen" />
 
-
 <!--  <group ns='ariac/gantry'>-->
 <!--    <include file="$(find gantry_moveit_config)/launch/moveit_rviz.launch">-->
 <!--      <arg name="rviz_config" value="$(find gantry_moveit_config)/launch/moveit.rviz"/>-->
