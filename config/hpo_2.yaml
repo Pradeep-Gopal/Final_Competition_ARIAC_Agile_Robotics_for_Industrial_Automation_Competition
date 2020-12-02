@@ -71,32 +71,32 @@ orders:
         pose:
           xyz: [-0.12, -0.2, 0]
           rpy: [0, 0, 0]
-      part_1:
-        type: disk_part_blue
-        pose:
-          xyz: [0.12, 0.2, 0]
-          rpy: [0, 0, 0]
-      part_2:
-        type: piston_rod_part_red
-        pose:
-          xyz: [0.0, 0.0, 0]
-          rpy: [0, 0, '-pi/4']
-  order_1:
-    announcement_condition: unwanted_products
-    announcement_condition_value: 1
-    shipment_count: 1
-    destinations: [agv2]
-    products:
-      part_0:
-        type: pulley_part_blue
-        pose:
-          xyz: [-0.15, 0.2, 0]
-          rpy: ['pi', 0, 0]
-      part_1:
-        type: pulley_part_blue
-        pose:
-          xyz: [0.15, -0.2, 0]
-          rpy: ['pi', 0, 0]
+#      part_1:
+#        type: disk_part_blue
+#        pose:
+#          xyz: [0.12, 0.2, 0]
+#          rpy: [0, 0, 0]
+#      part_2:
+#        type: piston_rod_part_red
+#        pose:
+#          xyz: [0.0, 0.0, 0]
+#          rpy: [0, 0, '-pi/4']
+#  order_1:
+#    announcement_condition: unwanted_products
+#    announcement_condition_value: 1
+#    shipment_count: 1
+#    destinations: [agv2]
+#    products:
+#      part_0:
+#        type: pulley_part_blue
+#        pose:
+#          xyz: [-0.15, 0.2, 0]
+#          rpy: ['pi', 0, 0]
+#      part_1:
+#        type: pulley_part_blue
+#        pose:
+#          xyz: [0.15, -0.2, 0]
+#          rpy: ['pi', 0, 0]
 
 
 models_over_bins:
@@ -171,11 +171,11 @@ models_over_bins:
 
 
 #Faulty products
-faulty_products:
-  - pulley_part_blue_1
-  - pulley_part_blue_3
-  - disk_part_blue_3
-  - gear_part_green_1
-  - gear_part_green_2
-  - gear_part_green_3
-  - piston_rod_part_red_3
+#faulty_products:
+#  - pulley_part_blue_1
+#  - pulley_part_blue_3
+#  - disk_part_blue_3
+#  - gear_part_green_1
+#  - gear_part_green_2
+#  - gear_part_green_3
+#  - piston_rod_part_red_3
