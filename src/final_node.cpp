@@ -58,41 +58,92 @@ limitations under the License.
 #include <std_srvs/Trigger.h>
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/TransformStamped.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h> //--needed for tf2::Matrix3x3
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 #include "competition.h"
 #include "utils.h"
 #include "gantry_control.h"
 #include <nist_gear/AGVControl.h>
 #include <tf2/LinearMath/Quaternion.h>
-#include <tf/transform_listener.h> //for shelves gap
+#include <tf/transform_listener.h>
 #include <tf/LinearMath/Vector3.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PoseStamped.h>
 
+/**
+ * Defining the maximum number of cameras
+ */
 #define MAX_NUMBER_OF_CAMERAS 18
+
+/**
+ * @brief     Vector to detect the parts from the main camera
+ */
 std::array<std::array<part, 20>, 20> parts_from_camera_main;
-std::vector<std::vector<double>> shelf_vector_gantry(9, std::vector<double>(3));
+
+/**
+ * @brief      Main 3 dimensional vector for all products in
+ * all the shipments in every order
+ */
 
 std::vector<std::vector<std::vector<master_struct> > > master_vector_main(
     10,
     std::vector < std::vector<master_struct>
         > (10, std::vector < master_struct > (20)));
+
+/**
+ * checking if the part was placed or not
+ */
 bool part_placed = false;
-int k = 0, i = 0, temp = 45;
-const double flip = -3.14159;
-part faulty_part;
-int size_of_order = 0;
-std::string shipment_type, agv_id;
+
+/**
+ * Some necessary iterators
+ */
+int k = 0, i = 0, temp = 45, size_of_order = 0;
+
+/**
+ * Parts delivered
+ */
 int parts_delivered[5] { };
+
+/**
+ * For flipping of the part
+ */
+const double flip = -3.14159;
+
+/**
+ * Declaring faulty part as an object for part struct
+ */
+part faulty_part;
+
+/**
+ * Shipment types and AGV ID
+ */
+std::string shipment_type, agv_id;
+
+/**
+ * Array of parts detected by camera 16
+ */
 std::array<part, 20> parts_from_camera_16;
+
+/**
+ * Array of parts detected by camera 17
+ */
 std::array<part, 20> parts_from_camera_17;
+
+/**
+ * Checking if a part was picked or not
+ */
 bool conveyor_part_picked = false;
 
-// AVG id(= 1,2) to identify what AVG to submit to
-// shipment_type is the order type
-
+/**
+ * @brief      Function to govern Submission of order
+ *
+ * @param[in]  AVG_id         The avg identifier
+ * @param[in]  shipment_type  The shipment type
+ *
+ * @return     Boolean or True (1) or False(0)
+ */
 bool submitOrder(std::string AVG_id, std::string shipment_type) {
 
   ROS_INFO_STREAM(
@@ -166,6 +217,16 @@ bool submitOrder(std::string AVG_id, std::string shipment_type) {
 
 }
 
+/**
+ * @brief      Boolean function to get the breakbeam sensor status. This is
+ * essential for gantry control and decide when to follow the human towards the shelf
+ *
+ * @param      comp  Competition node
+ * @param[in]  br_1  Breakbeam identifier
+ *
+ * @return     Boolean of when the first breakbeam is triggered
+ */
+
 bool getBreakBeam1(Competition &comp, std::string br_1) {
   if (br_1 == "11") {
     return comp.breakbeam_part_status_11;
@@ -178,6 +239,15 @@ bool getBreakBeam1(Competition &comp, std::string br_1) {
   }
 }
 
+/**
+ * @brief      Boolean function to get the breakbeam sensor status. This is
+ * essential for gantry control and decide when to follow the human towards the shelf
+ *
+ * @param      comp  Competition node
+ * @param[in]  br_5  Breakbeam identifier
+ *
+ * @return     Boolean of when the second breakbeam is triggered
+ */
 bool getBreakBeam5(Competition &comp, std::string br_5) {
   if (br_5 == "15") {
     return comp.breakbeam_part_status_15;
@@ -190,6 +260,16 @@ bool getBreakBeam5(Competition &comp, std::string br_5) {
   }
 }
 
+/**
+ * @brief      Boolean function to get the breakbeam sensor status. This is
+ * essential for gantry control and decide when to exit the shelves and return towards
+ * the conveyor
+ *
+ * @param      comp  Competition node
+ * @param[in]  br_2  Breakbeam identifier
+ *
+ * @return     Boolean of when the second breakbeam is triggered
+ */
 bool getBreakBeam2(Competition &comp, std::string br_2) {
   if (br_2 == "12") {
     return comp.breakbeam_part_status_12;
@@ -202,6 +282,16 @@ bool getBreakBeam2(Competition &comp, std::string br_2) {
   }
 }
 
+/**
+ * @brief      Boolean function to get the breakbeam sensor status. This is
+ * essential for gantry control and decide when to exit the shelves and return towards
+ * the conveyor as well as when to go and pick up the part when the human leaves the area
+ *
+ * @param      comp  Competition node
+ * @param[in]  br_4  Breakbeam identifier
+ *
+ * @return     Boolean of when the second breakbeam is triggered
+ */
 bool getBreakBeam4(Competition &comp, std::string br_4) {
   if (br_4 == "14") {
     return comp.breakbeam_part_status_14;
@@ -214,6 +304,19 @@ bool getBreakBeam4(Competition &comp, std::string br_4) {
   }
 }
 
+/**
+ * @brief      Function to follow the human being.
+ * This function times its exit from the conveyor belt and heads behind the human
+ * before seeking shelter in between the shelf gaps
+ *
+ * @param      comp                 Competition node
+ * @param      gantry               Gantry node
+ * @param[in]  waypoint_iter        The waypoint iterator
+ * @param[in]  br_1                 Breakbeam 1 identifier
+ * @param[in]  br_2                 Breakbeam 2 identifier
+ * @param[in]  GENERAL_BREAKBEAM_1  Breakbeam 1 status
+ * @param[in]  GENERAL_BREAKBEAM_2  Breakbeam 2 status
+ */
 void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter,
                  std::string br_1, std::string br_2, bool GENERAL_BREAKBEAM_1,
                  bool GENERAL_BREAKBEAM_2) {
@@ -259,6 +362,17 @@ void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter,
   }
 }
 
+/**
+ * @brief      Function to exit the shelf gaps and go pick up the part before the human comes back again
+ *
+ * @param      comp                 Competition node
+ * @param      gantry               Gantry node
+ * @param[in]  waypoint_iter        The waypoint iterator
+ * @param[in]  br_4                 Breakbeam 4 identifier
+ * @param[in]  br_5                 Breakbeam 5 identifier
+ * @param[in]  GENERAL_BREAKBEAM_4  Breakbeam 4 status
+ * @param[in]  GENERAL_BREAKBEAM_5  Breakbeam 5 status
+ */
 void checkAndProceed(Competition &comp, GantryControl &gantry,
                      auto waypoint_iter, std::string br_4, std::string br_5,
                      bool GENERAL_BREAKBEAM_4, bool GENERAL_BREAKBEAM_5) {
@@ -303,6 +417,18 @@ void checkAndProceed(Competition &comp, GantryControl &gantry,
   }
 }
 
+/**
+ * @brief      Function to exit the shelf gaps and return towards the conveyor belt
+ * This function times its exit towards the conveyor belt and heads back from the shelf gaps
+ *
+ * @param      comp                 Competition node
+ * @param      gantry               Gantry node
+ * @param[in]  waypoint_iter        The waypoint iterator
+ * @param[in]  br_4                 Breakbeam 4 identifier
+ * @param[in]  br_5                 Breakbeam 5 identifier
+ * @param[in]  GENERAL_BREAKBEAM_4  Breakbeam 4 status
+ * @param[in]  GENERAL_BREAKBEAM_5  Breakbeam 5 status
+ */
 void checkAndProceedBackwards(Competition &comp, GantryControl &gantry,
                               auto waypoint_iter, std::string br_4,
                               std::string br_5, bool GENERAL_BREAKBEAM_4,
@@ -348,29 +474,44 @@ void checkAndProceedBackwards(Competition &comp, GantryControl &gantry,
   }
 }
 
+/**
+ * @brief      Returns a double value of the offset of various parts on the tray
+ *
+ * @param[in]  part_name  The part name
+ *
+ * @return     The offset to pickup part on tray.
+ */
 double get_offset_to_pickup_part_on_tray(const std::string &part_name) {
   if (part_name == "pulley_part_red" || part_name == "pulley_part_blue"
       || part_name == "pulley_part_green") {
-    return 0.02;    // check
+    return 0.02;
   } else if (part_name == "gasket_part_red" || part_name == "gasket_part_blue"
       || part_name == "gasket_part_green") {
-    return 0.03;   // check
+    return 0.03; 
   } else if (part_name == "piston_rod_part_red"
       || part_name == "piston_rod_part_blue"
       || part_name == "pisy" "ton_rod_part_green") {
-    return 0.0195;   // check
+    return 0.0195;
   } else if (part_name == "gear_part_red" || part_name == "gear_part_blue"
       || part_name == "gear_part_green") {
-    return 0.01;    // check
+    return 0.01;
   } else if (part_name == "disk_part_red" || part_name == "disk_part_blue"
       || part_name == "disk_part_green") {
-    return 0.02;    // check
+    return 0.02;
   } else {
     ROS_ERROR_STREAM(part_name << " is not a part in record");
     return 0.0;
   }
 }
 
+/**
+ * @brief      Fixes the pose of the parts for placing on the AGV Tray
+ *
+ * @param      comp                Competition node
+ * @param[in]  master_vector_main  The master vector containing the orders, shipments and products
+ * @param      gantry              Gantry node
+ * @param      part_in_tray        The part in tray
+ */
 void fix_part_pose(Competition &comp, master_struct master_vector_main,
                    GantryControl &gantry, part &part_in_tray) {
   double offset = 0.2;
@@ -465,6 +606,12 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main,
   }
 }
 
+/**
+ * @brief      Picks the parts from the conveyor
+ *
+ * @param      comp    Competition node
+ * @param      gantry  Gantry Control node
+ */
 void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
   double y_offset_est = 0;
   double z_offset_est = 0;
@@ -561,6 +708,14 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
 
 }
 
+/**
+ * @brief      Returns the part location on the shelf (FRONT(f) OR BACK(b))
+ *
+ * @param[in]  pose          The pose of the part
+ * @param[in]  camera_index  The camera index of the logical camera detecting the part
+ *
+ * @return     An identifier for the part location on the shelf
+ */
 std::string part_location(geometry_msgs::Pose pose, int camera_index) {
   if ((camera_index == 7) || (camera_index == 10))  // Shelf 1
       {
@@ -726,6 +881,13 @@ std::string part_location(geometry_msgs::Pose pose, int camera_index) {
   }
 }
 
+/**
+ * @brief      To safely exit the bins after the parts have been picked up. Assists in case
+ * of MOVEIT failure.
+ *
+ * @param[in]  camera_id  The camera identifier of the logical camera above the bin
+ * @param      gantry     Gantry control node
+ */
 void safelyexitBin(std::string camera_id, GantryControl &gantry) {
   if (camera_id == "11_1") {
     ROS_INFO_STREAM("SAFELY EXITING THE BIN");
@@ -809,6 +971,9 @@ void safelyexitBin(std::string camera_id, GantryControl &gantry) {
   }
 }
 
+/**
+ * @brief      Main function that reads the orders, plans the path, detecs obstacles and completes the order
+ */
 int main(int argc, char **argv) {
 
   ros::init(argc, argv, "final_node");
@@ -858,6 +1023,7 @@ int main(int argc, char **argv) {
 
   parts_from_camera_main = comp.get_parts_from_camera();
   master_vector_main = comp.get_master_vector();
+
   //checks if a human was ever detected in an aisle
   int human_1_existence;
   int human_2_existence;
@@ -1248,7 +1414,6 @@ int main(int argc, char **argv) {
                     gantry.placePart(part_in_tray,
                                      master_vector_main[i][j][k].agv_id);
                     ROS_INFO_STREAM("Part placed");
-//                                gantry.goToPresetLocation(gantry.start_);
                     if (master_vector_main[i][j][k].agv_id == "agv2") {
                       gantry.goToPresetLocation(gantry.agv2_);
                       ROS_INFO_STREAM("AGV2 location reached");
@@ -1257,9 +1422,6 @@ int main(int argc, char **argv) {
                       ROS_INFO_STREAM("AGV1 location reached");
                     }
                   }
-//                            ROS_INFO_STREAM("Coming to start location to check for new orders");
-//                            gantry.goToPresetLocation(gantry.start_);
-
                   faulty_part = comp.get_quality_sensor_status_agv2();
                   if (faulty_part.faulty != true) {
                     faulty_part = comp.get_quality_sensor_status_agv1();
@@ -1365,9 +1527,7 @@ int main(int argc, char **argv) {
     temp = i;
     goto LOOP3;
   }
-//    submitOrder("agv1", "order_0_shipment_0");
-//    submitOrder("agv2", "order_0_shipment_1");
-
+  
   comp.endCompetition();
   spinner.stop();
   ros::shutdown();
