@@ -69,11 +69,11 @@ orders:
         pose:
           xyz: [0.0, 0.0, 0.2]
           rpy: [0, 0, '-pi/4']
-#      part_2:
-#        type: gasket_part_red
-#        pose:
-#          xyz: [-0.15, 0.2, 0.2]
-#          rpy: [0, 0, '-pi/4']
+      part_2:
+        type: gasket_part_red
+        pose:
+          xyz: [-0.15, 0.2, 0.2]
+          rpy: [0, 0, '-pi/4']
   order_1:
     announcement_condition: time
     announcement_condition_value: 20.0
@@ -85,11 +85,11 @@ orders:
         pose:
           xyz: [0.1, 0.2, 0.2]
           rpy: ['pi', 0, 0]
-#      part_1:
-#        type: gasket_part_red
-#        pose:
-#          xyz: [0.0, 0.0, 0.2]
-#          rpy: [0, 0, '-pi/4']
+      part_1:
+        type: gasket_part_red
+        pose:
+          xyz: [0.0, 0.0, 0.2]
+          rpy: [0, 0, '-pi/4']
       part_2:
         type: gasket_part_blue
         pose:
@@ -103,34 +103,6 @@ belt_models:
       pose:
         xyz: [0.0, 4.3, 0.92]
         rpy: [0, 0, 'pi/2']
-
-
-# models_over_bins:
-#   bin3:
-#     models:
-#       disk_part_red:
-#         xyz_start: [0.1, 0.1, 0.0]
-#         xyz_end: [0.5, 0.5, 0.0]
-#         rpy: [0, 0, 0]
-#         num_models_x: 3
-#         num_models_y: 3
-
-  # bin2:
-  #   models:
-  #     piston_rod_part_blue:
-  #       xyz_start: [0.1, 0.1, 0.0]
-  #       xyz_end: [0.5, 0.5, 0.0]
-  #       rpy: [0, 0, 'pi/4']
-  #       num_models_x: 3
-  #       num_models_y: 3
-  # bin8:
-  #   models:
-  #     gasket_part_red:
-  #       xyz_start: [0.1, 0.1, 0.0]
-  #       xyz_end: [0.5, 0.5, 0.0]
-  #       rpy: [0, 0, 'pi/4']
-  #       num_models_x: 3
-  #       num_models_y: 3
 
 
 models_over_shelves:

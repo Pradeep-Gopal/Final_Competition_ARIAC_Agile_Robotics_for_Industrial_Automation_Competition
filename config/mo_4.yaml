@@ -25,7 +25,7 @@ options:
   gazebo_state_logging: true
   insert_models_over_bins: true
   insert_models_over_shelves: true
-  belt_population_cycles: 10 #How many objects to spawn in total
+  belt_population_cycles: 15 #How many objects to spawn in total
   spawn_extra_models: true
   model_type_aliases:
     order_part1: gasket_part_green
@@ -83,20 +83,11 @@ orders:
 
 belt_models:
   gasket_part_blue:
-    8.0: #interval at which the object is spawned on the belt
+    10.0: #interval at which the object is spawned on the belt
       pose:
         xyz: [0.0, 4.3, 0.92]
         rpy: [0, 0, 'pi/2']
 
-# models_over_bins:
-#   bin3:
-#     models:
-#       disk_part_red:
-#         xyz_start: [0.1, 0.1, 0.0]
-#         xyz_end: [0.5, 0.5, 0.0]
-#         rpy: [0, 0, 0]
-#         num_models_x: 3
-#         num_models_y: 3
 
 models_over_bins:
   bin1:
@@ -107,23 +98,6 @@ models_over_bins:
         rpy: [0, 0, 0]
         num_models_x: 2
         num_models_y: 2
-  # bin2:
-  #   models:
-  #     piston_rod_part_blue:
-  #       xyz_start: [0.1, 0.1, 0.0]
-  #       xyz_end: [0.5, 0.5, 0.0]
-  #       rpy: [0, 0, 'pi/4']
-  #       num_models_x: 3
-  #       num_models_y: 3
-  # bin8:
-  #   models:
-  #     gasket_part_red:
-  #       xyz_start: [0.1, 0.1, 0.0]
-  #       xyz_end: [0.5, 0.5, 0.0]
-  #       rpy: [0, 0, 'pi/4']
-  #       num_models_x: 3
-  #       num_models_y: 3
-
 
 models_over_shelves:
   shelf5:
@@ -165,10 +139,6 @@ drops:
         xyz: [0.2, 0.3, 0.05]
         rpy: [0, 0, 0.2]
       product_type_to_drop: gear_part_blue
-
-# sensor_blackout:
-#   product_count: 4 #sensor blackout triggered after 4th product is placed
-#   duration: 50
 
 
 #Faulty products
