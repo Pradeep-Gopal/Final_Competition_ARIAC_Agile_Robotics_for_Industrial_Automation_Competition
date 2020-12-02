@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
+#include <cmath>
 #include <algorithm>
 #include <vector>
 #include <ros/ros.h>
@@ -51,7 +50,7 @@ std::vector<std::vector<std::vector<master_struct> > > master_vector_main (10,st
 bool part_placed = false;
 int k = 0, i = 0, temp = 45;
 const double flip = -3.14159;
-part faulty_part;
+part faulty_part_from_sensor;
 int size_of_order = 0;
 std::string shipment_type, agv_id;
 int parts_delivered[5]{};
@@ -215,7 +214,7 @@ void followHuman(Competition &comp, GantryControl &gantry, auto waypoint_iter, s
             ROS_INFO_STREAM("Waiting for human's response");
             double time_1 = TIME_1.toSec();
             double time_2 = TIME_2.toSec();
-            vel = abs(distance_between_sensors/(time_2 - time_1));
+            vel = std::abs(distance_between_sensors/(time_2 - time_1));
             ROS_INFO_STREAM("HUMAN SPEED ----- "<< vel);
             gantry.goToPresetLocation(waypoint_iter);
             break;
@@ -259,7 +258,7 @@ void checkAndProceed(Competition &comp, GantryControl &gantry, auto waypoint_ite
                 ROS_INFO_STREAM("ROBOT SHOULD BE EXITING NOW ...>>>>>");
                 double time_5 = TIME_5.toSec();
                 double time_4 = TIME_4.toSec();
-                vel = abs(distance_between_sensors/(time_4 - time_5));
+                vel = std::abs(distance_between_sensors/(time_4 - time_5));
                 ROS_INFO_STREAM("HUMAN SPEED ----- "<< vel);
                 gantry.goToPresetLocation(waypoint_iter);
                 break;
@@ -303,7 +302,7 @@ void checkAndProceedBackwards(Competition &comp, GantryControl &gantry, auto way
                 ROS_INFO_STREAM("ROBOT SHOULD BE EXITING NOW ...>>>>>");
                 double time_5 = TIME_5.toSec();
                 double time_4 = TIME_4.toSec();
-                vel = abs(distance_between_sensors/(time_4 - time_5));
+                vel = std::abs(distance_between_sensors/(time_4 - time_5));
                 ROS_INFO_STREAM("HUMAN SPEED ----- "<< vel);
                 gantry.goToPresetLocation(waypoint_iter);
                 break;
@@ -316,9 +315,26 @@ void checkAndProceedBackwards(Competition &comp, GantryControl &gantry, auto way
     }
 }
 
+double get_offset_to_pickup_part_on_tray(const std::string& part_name) {
+    if (part_name == "pulley_part_red" || part_name == "pulley_part_blue" || part_name == "pulley_part_green") {
+        return 0.02;    // check
+    } else if (part_name == "gasket_part_red" || part_name == "gasket_part_blue" || part_name == "gasket_part_green") {
+        return 0.03;   // check
+    } else if (part_name == "piston_rod_part_red" || part_name == "piston_rod_part_blue" || part_name == "pisy""ton_rod_part_green") {
+        return 0.0195;   // check
+    } else if (part_name == "gear_part_red" || part_name == "gear_part_blue" || part_name == "gear_part_green") {
+        return 0.01;    // check
+    } else if (part_name == "disk_part_red" || part_name == "disk_part_blue" || part_name =="disk_part_green") {
+        return 0.02;    // check
+    } else {
+        ROS_ERROR_STREAM(part_name << " is not a part in record" );
+        return 0.0;
+    }
+}
 
 void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryControl &gantry, part &part_in_tray) {
-    double offset = 0.2;
+    ROS_INFO_STREAM("checking part pose");
+    double offset = 0.01;
     parts_from_camera_16 = comp.get_parts_from_16_camera();
     parts_from_camera_17 = comp.get_parts_from_17_camera();
 
@@ -327,16 +343,16 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 
             if (master_vector_main.type == parts_from_camera_16[part_idx].type) {
 
-                if ((abs(comp.parts_from_16_camera[part_idx].pose.position.x -
+                if ((std::abs(comp.parts_from_16_camera[part_idx].pose.position.x -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.x) >
-                     offset) || (abs(comp.parts_from_16_camera[part_idx].pose.position.y -
+                     offset) || (std::abs(comp.parts_from_16_camera[part_idx].pose.position.y -
                                      gantry.getTargetWorldPose(
                                              master_vector_main.place_part_pose,
                                              master_vector_main.agv_id).position.y) >
                                  offset) ||
-                    (abs(comp.parts_from_16_camera[part_idx].pose.position.z -
+                    (std::abs(comp.parts_from_16_camera[part_idx].pose.position.z -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.z) >
@@ -350,7 +366,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 
                     part part_re_pick;
                     part_re_pick = comp.parts_from_16_camera[part_idx];
-                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + 0.03;
+                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);
 
                     gantry.pickPart(part_re_pick);
                     if (master_vector_main.agv_id == "agv1")
@@ -368,16 +384,16 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
         for (int part_idx = 0; part_idx < parts_from_camera_17.size(); part_idx++) {
             if (master_vector_main.type == parts_from_camera_17[part_idx].type) {
 
-                if ((abs(comp.parts_from_17_camera[part_idx].pose.position.x -
+                if ((std::abs(comp.parts_from_17_camera[part_idx].pose.position.x -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.x) >
-                     offset) || (abs(comp.parts_from_17_camera[part_idx].pose.position.y -
+                     offset) || (std::abs(comp.parts_from_17_camera[part_idx].pose.position.y -
                                      gantry.getTargetWorldPose(
                                              master_vector_main.place_part_pose,
                                              master_vector_main.agv_id).position.y) >
                                  offset) ||
-                    (abs(comp.parts_from_17_camera[part_idx].pose.position.z -
+                    (std::abs(comp.parts_from_17_camera[part_idx].pose.position.z -
                          gantry.getTargetWorldPose(
                                  master_vector_main.place_part_pose,
                                  master_vector_main.agv_id).position.z) >
@@ -391,7 +407,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
 
                     part part_re_pick;
                     part_re_pick = comp.parts_from_17_camera[part_idx];
-                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + 0.02;
+                    part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);;
 
                     gantry.pickPart(part_re_pick);
                     ROS_INFO_STREAM("Part Picked again");
@@ -697,7 +713,6 @@ int main(int argc, char ** argv) {
     GantryControl gantry(node);
 //    gantry.init();
 
-
     std::vector <std::string> shelf_vector;
     shelf_vector.push_back("/shelf3_frame");
     shelf_vector.push_back("/shelf4_frame");
@@ -804,8 +819,12 @@ int main(int argc, char ** argv) {
             (master_vector_main[i][j][k].type == "gasket_part_blue") ||
             (master_vector_main[i][j][k].type == "gasket_part_red") ||
             (master_vector_main[i][j][k].type == "gasket_part_green") ||
-                (master_vector_main[i][j][k].type == "gasket_part_green") || (master_vector_main[i][j][k].type == "gasket_part_green") ||
-                        (master_vector_main[i][j][k].type == "gasket_part_green")) {
+            (master_vector_main[i][j][k].type == "gasket_part_green") ||
+            (master_vector_main[i][j][k].type == "gasket_part_green") ||
+            (master_vector_main[i][j][k].type == "gasket_part_green")||
+            (master_vector_main[i][j][k].type == "gear_part_red") ||
+            (master_vector_main[i][j][k].type == "gear_part_green") ||
+            (master_vector_main[i][j][k].type == "gear_part_blue")) {
 
             ROS_INFO_STREAM("Parts found from orders");
             ROS_INFO_STREAM(master_vector_main[i][j][k].type);
@@ -1060,33 +1079,53 @@ int main(int argc, char ** argv) {
                                     ROS_INFO_STREAM("AGV1 location reached");
                                 }
                             }
-                            ROS_INFO_STREAM("Coming to start location to check for new orders");
-                            gantry.goToPresetLocation(gantry.start_);
 
-
-                            faulty_part = comp.get_quality_sensor_status_agv2();
+//                            faulty_part = comp.get_quality_sensor_status_agv2();
+                            if (master_vector_main[i][j][k].agv_id == "agv1") {
+                                faulty_part_from_sensor = comp.get_quality_sensor_status_agv1();
+                                ROS_INFO_STREAM("Black sheep location in camera " << faulty_part_from_sensor.type);
+                                ROS_INFO_STREAM(faulty_part_from_sensor.pose);
+                            } else if (master_vector_main[i][j][k].agv_id == "agv2") {
+                                faulty_part_from_sensor = comp.get_quality_sensor_status_agv2();
+                                ROS_INFO_STREAM("Black sheep location in camera " << faulty_part_from_sensor.type);
+                                ROS_INFO_STREAM(faulty_part_from_sensor.pose);
+                            } else {
+                                ROS_ERROR_STREAM("fail to recognize agv id, when trying to read from quality control sensor");
+                            }
                             ROS_INFO_STREAM("Status of faulty part = ");
-                            ROS_INFO_STREAM(faulty_part.faulty);
-                            if (faulty_part.faulty == true) {
+                            ROS_INFO_STREAM(faulty_part_from_sensor.faulty);
+                            if (faulty_part_from_sensor.faulty == true) {
                                 part faulty_part;
-                                faulty_part.pose = gantry.getTargetWorldPose_dummy(faulty_part.pose,
+                                faulty_part.pose = gantry.getTargetWorldPose_dummy_1(faulty_part_from_sensor.pose,
                                                                                    master_vector_main[i][j][k].agv_id);
                                 ROS_INFO_STREAM("Black sheep location");
                                 ROS_INFO_STREAM(faulty_part.pose);
                                 faulty_part.type = parts_from_camera_main[l][m].type;
                                 faulty_part.pose.position.x = faulty_part.pose.position.x;
                                 faulty_part.pose.position.y = faulty_part.pose.position.y;
-                                faulty_part.pose.position.z = faulty_part.pose.position.z + 0.03;
+                                faulty_part.pose.position.z = faulty_part.pose.position.z + get_offset_to_pickup_part_on_tray(faulty_part.type);
                                 faulty_part.pose.orientation.x = faulty_part.pose.orientation.x;
                                 faulty_part.pose.orientation.y = faulty_part.pose.orientation.y;
                                 faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;
                                 faulty_part.pose.orientation.w = faulty_part.pose.orientation.w;
                                 gantry.pickPart(faulty_part);
-                                gantry.goToPresetLocation(gantry.agv2_drop_);
+
+                                if (master_vector_main[i][j][k].agv_id == "agv1") {
+                                    gantry.goToPresetLocation(gantry.agv1_drop_);
+                                } else if (master_vector_main[i][j][k].agv_id == "agv2") {
+                                    gantry.goToPresetLocation(gantry.agv2_drop_);
+                                } else {
+                                    ROS_ERROR_STREAM("fail to recognize agv id, when trying to read from quality control sensor");
+                                }
+
                                 gantry.deactivateGripper("left_arm");
                                 ROS_INFO_STREAM("Go to Loop2 triggered");
                                 goto LOOP2;
-                            } else {
+                            } else {    // part not faulty
+                                ROS_INFO_STREAM("check pose after placing");
+                                fix_part_pose(comp, master_vector_main[i][j][k], gantry, part_in_tray);
+                                ROS_INFO_STREAM("Coming to start location to check for new orders");
+                                gantry.goToPresetLocation(gantry.start_);
 
                                 ROS_INFO_STREAM("Checking if vector size increased");
                                 ROS_INFO_STREAM("Go to Loop Triggered");
