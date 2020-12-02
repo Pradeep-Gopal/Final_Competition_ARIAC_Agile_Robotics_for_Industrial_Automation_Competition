@@ -1765,6 +1765,11 @@ bool GantryControl::pickPart(part part){
 ////        goToPresetLocation(start_);
 //}
 
+void GantryControl::reachOut(geometry_msgs::Pose pose_end_effector) {
+    left_arm_group_.setPoseTarget(pose_end_effector);
+    left_arm_group_.move();
+}
+
 void GantryControl::placePart(part part, std::string agv){
     geometry_msgs::Pose initial_pose, final_pose;
 

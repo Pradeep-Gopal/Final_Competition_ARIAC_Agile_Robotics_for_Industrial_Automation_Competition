@@ -368,7 +368,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
                     part_re_pick = comp.parts_from_16_camera[part_idx];
                     part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);
 
-                    gantry.pickPart(part_re_pick);
+                    gantry.pickPart(part_re_pick);   // pick up part
                     if (master_vector_main.agv_id == "agv1")
                         gantry.goToPresetLocation(gantry.agv1_);
                     else
@@ -408,8 +408,7 @@ void fix_part_pose(Competition &comp, master_struct master_vector_main, GantryCo
                     part part_re_pick;
                     part_re_pick = comp.parts_from_17_camera[part_idx];
                     part_re_pick.pose.position.z = part_re_pick.pose.position.z + get_offset_to_pickup_part_on_tray(part_re_pick.type);;
-
-                    gantry.pickPart(part_re_pick);
+                    gantry.pickPart(part_re_pick);   // pick up part
                     ROS_INFO_STREAM("Part Picked again");
                     if (master_vector_main.agv_id == "agv1")
                         gantry.goToPresetLocation(gantry.agv1_);
@@ -1108,7 +1107,14 @@ int main(int argc, char ** argv) {
                                 faulty_part.pose.orientation.y = faulty_part.pose.orientation.y;
                                 faulty_part.pose.orientation.z = faulty_part.pose.orientation.z;
                                 faulty_part.pose.orientation.w = faulty_part.pose.orientation.w;
-                                gantry.pickPart(faulty_part);
+
+                                //// reach out above part and then pick up
+                                geometry_msgs::Pose pose_above_part = faulty_part.pose;
+                                pose_above_part.position.z = pose_above_part.position.z + 0.5;
+                                gantry.reachOut(pose_above_part);   // reach out above part first
+                                gantry.pickPart(faulty_part);   // pick up part
+                                gantry.reachOut(pose_above_part);   // reach out above part first
+
 
                                 if (master_vector_main[i][j][k].agv_id == "agv1") {
                                     gantry.goToPresetLocation(gantry.agv1_drop_);
