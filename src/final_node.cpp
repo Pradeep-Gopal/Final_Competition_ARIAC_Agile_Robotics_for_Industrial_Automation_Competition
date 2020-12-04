@@ -1200,7 +1200,7 @@ int main(int argc, char **argv) {
                   parts_from_camera_main[l][m].picked = true;
                   ROS_INFO_STREAM(
                       "picked status " << parts_from_camera_main[l][m].picked);
-                  
+
                   ROS_INFO_STREAM("Part found in environment");
                   ROS_INFO_STREAM(parts_from_camera_main[l][m].type);
 
