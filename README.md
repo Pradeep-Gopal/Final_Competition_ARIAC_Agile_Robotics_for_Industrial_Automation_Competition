@@ -2,7 +2,8 @@
 
 Picking and delivering parts in an industrial environment with faulty parts/faulty gripper/sensor blackout/moving obstacles
 
-##Results
+## Results
+
 [Final Competition Video](https://youtu.be/3olX7gtbj1k)
 
 ## Previous Trial Results
@@ -32,7 +33,8 @@ Install Ariac package in your workspace using the steps mentioned in the followi
 Follow these instructions to run the package after installing ARIAC
 
 1. Copy the package and paste it in /ariac_ws/src
-2. Open a terminal and type the following commands
+2. Rename the package to final-group1
+3. Open a terminal and type the following commands
 ```
 cd /ariac_ws
 catkin build final-group1 
