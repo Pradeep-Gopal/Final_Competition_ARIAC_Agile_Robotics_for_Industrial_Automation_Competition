@@ -678,7 +678,7 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
           if (count == 1)
             bin1_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
           if (count == 2)
-            bin1_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+            bin1_drop.gantry[1] += (count) * 0.15;  // offset the next drop off location by 0.25
 
           gantry.goToPresetLocation(gantry.start_);
           gantry.goToPresetLocation(bin1_drop);
@@ -717,7 +717,7 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
           if (count == 1)
             bin9_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
           if (count == 2)
-            bin9_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+            bin9_drop.gantry[1] += (count) * 0.15;  // offset the next drop off location by 0.25
           gantry.goToPresetLocation(gantry.start_);
           gantry.goToPresetLocation(bin9_drop);
           ROS_INFO_STREAM("bin 9 location reached");
@@ -736,7 +736,7 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
           if (count == 1)
             bin11_drop.gantry[0] += (count) * 0.25;  // offset the next drop off location by 0.25
           if (count == 2)
-            bin11_drop.gantry[1] += (count) * 0.1;  // offset the next drop off location by 0.25
+            bin11_drop.gantry[1] += (count) * 0.15;  // offset the next drop off location by 0.25
           gantry.goToPresetLocation(gantry.start_);
           gantry.goToPresetLocation(bin11_drop);
           ROS_INFO_STREAM("bin 11 location reached");
@@ -758,7 +758,7 @@ void pick_part_from_conveyor(Competition &comp, GantryControl &gantry) {
       ROS_INFO_STREAM("no part on belt");
     }
 
-    ros::Duration(2).sleep();
+//    ros::Duration(2).sleep();
   }
   conveyor_part_picked = true;
   ROS_INFO_STREAM("first part " << parts_from_camera_main[11][0].pose);
@@ -1200,6 +1200,7 @@ int main(int argc, char **argv) {
                   parts_from_camera_main[l][m].picked = true;
                   ROS_INFO_STREAM(
                       "picked status " << parts_from_camera_main[l][m].picked);
+                  
                   ROS_INFO_STREAM("Part found in environment");
                   ROS_INFO_STREAM(parts_from_camera_main[l][m].type);
 
@@ -1523,13 +1524,13 @@ int main(int argc, char **argv) {
                     faulty_part.pose.orientation.w = faulty_part.pose
                         .orientation.w;
 
-//                    gantry.pickPart(faulty_part);
+                    gantry.pickPart(faulty_part);
 
-                  geometry_msgs::Pose pose_above_part = faulty_part.pose;
-                  pose_above_part.position.z = pose_above_part.position.z + 0.2;
-                  gantry.reachOut(pose_above_part);   // reach out above part first
-                  gantry.pickPart(faulty_part);   // pick up part
-                  gantry.reachOut(pose_above_part);   // reach out above part first
+//                  geometry_msgs::Pose pose_above_part = faulty_part.pose;
+//                  pose_above_part.position.z = pose_above_part.position.z + 0.2;
+//                  gantry.reachOut(pose_above_part);   // reach out above part first
+//                  gantry.pickPart(faulty_part);   // pick up part
+//                  gantry.reachOut(pose_above_part);   // reach out above part first
 
                     if (master_vector_main[i][j][k].agv_id == "agv1") {
                       gantry.goToPresetLocation(gantry.agv1_drop_);

@@ -715,7 +715,7 @@ void GantryControl::init() {
   bin8_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
   //Bin 15, camera 14
-  bin15_.gantry = { 4.026, 2.29, 0 };
+  bin15_.gantry = { 3.9, 2.29, 0 };
   bin15_.left_arm = { 0.0, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
   bin15_.right_arm = { PI, -PI / 4, PI / 2, -PI / 4, PI / 2, 0 };
 
