@@ -26,16 +26,15 @@
           $(arg gui_args)
           $(arg load_moveit_args)
           $(arg fill_demo_shipment_args)
-          --visualize-sensor-views
-          -f $(find final-group1)/config/rwa5-sample.yaml
+          -f $(find final-group1)/config/final.yaml
           $(find final-group1)/config/sensor.yaml
           " required="true" output="screen" />
 
-<!--  <group ns='ariac/gantry'>-->
-<!--    <include file="$(find gantry_moveit_config)/launch/moveit_rviz.launch">-->
-<!--      <arg name="rviz_config" value="$(find gantry_moveit_config)/launch/moveit.rviz"/>-->
-<!--    </include>-->
-<!--  </group>-->
-  
+  <!--  <group ns='ariac/gantry'>-->
+  <!--    <include file="$(find gantry_moveit_config)/launch/moveit_rviz.launch">-->
+  <!--      <arg name="rviz_config" value="$(find gantry_moveit_config)/launch/moveit.rviz"/>-->
+  <!--    </include>-->
+  <!--  </group>-->
+
   <!-- <node name="rwa3_node" pkg="rwa3_kootbally" type="rwa3_node" output="screen"/> -->
 </launch>

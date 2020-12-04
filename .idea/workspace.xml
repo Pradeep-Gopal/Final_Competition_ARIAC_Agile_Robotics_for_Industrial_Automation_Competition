@@ -9,9 +9,288 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd85d6f5-1e41-4fba-9d9a-e0123b3206ed" name="Default Changelist" comment="">
+    <list default="true" id="bdc255fb-6ece-4586-a453-8c40f088beab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/Doxyfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/annotated.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/bc_s.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/bdwn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_competition-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_competition.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_gantry_control-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_gantry_control.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_gantry_control__coll__graph.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_gantry_control__coll__graph.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/class_gantry_control__coll__graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/classes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/closed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/competition_8cpp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/competition_8cpp__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/competition_8cpp__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/competition_8cpp__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/competition_8h_source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_000006_000005.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_16118e255a85083d09415381158c4867.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_68267d1309a1af8e8297ef4c3efbcdba_dep.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_68267d1309a1af8e8297ef4c3efbcdba_dep.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_68267d1309a1af8e8297ef4c3efbcdba_dep.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_6c24254bfcd0bf0c016c9474000e5b59.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_95e29a8b8ee7c54052c171a88bb95675.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_a7b8a9c5edf90788926b36eafc45abeb.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_d44c64559bbebec7f509842c48db8b23.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dir_f89abcb304c928c7d889aa5625570de5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/doc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/doxygen.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/doxygen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/dynsections.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/files.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/final__node_8cpp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/final__node_8cpp__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/final__node_8cpp__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/final__node_8cpp__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/folderclosed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/folderopen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/functions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/functions_func.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/functions_vars.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8cpp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8cpp__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8cpp__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8cpp__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__dep__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__dep__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__dep__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/gantry__control_8h_source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/globals.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/globals_defs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/globals_func.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/globals_vars.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/graph_legend.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/graph_legend.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/graph_legend.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/md__r_e_a_d_m_e.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/menudata.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/nav_f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/nav_g.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/nav_h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/open.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/pages.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_10.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_10.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_11.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_11.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_12.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_12.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_7.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_8.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_9.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_9.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_a.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_b.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_c.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_c.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_d.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_d.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_e.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_e.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_f.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/all_f.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/classes_6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/defines_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/defines_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/defines_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/defines_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/files_3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_7.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_8.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_9.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_9.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_a.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_b.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_c.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_c.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_d.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_d.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_e.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_e.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_f.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/functions_f.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/mag_sel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/nomatches.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/pages_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/pages_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/search.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/search_l.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/search_m.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/search_r.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/searchdata.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_6.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_7.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_7.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_8.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/search/variables_8.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/splitbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_order-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_order.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_part-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_part.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_position-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_position.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_preset_location-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_preset_location.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_product-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_product.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_product__coll__graph.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_product__coll__graph.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_product__coll__graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_quaternion-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_quaternion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_shipment-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_shipment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_shipment__coll__graph.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_shipment__coll__graph.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_shipment__coll__graph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_stats-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/struct_stats.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/structmaster__struct-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/structmaster__struct.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/structpick__and__place-members.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/structpick__and__place.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/sync_off.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/sync_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/tab_a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/tab_b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/tab_h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/tab_s.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/tabs.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/utils_8cpp.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/utils_8cpp__incl.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/utils_8cpp__incl.md5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/utils_8cpp__incl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Doxygen_report/html/utils_8h_source.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/baseline_2.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/baseline_4.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/baseline_5.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/final.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/hpo_1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/hpo_2.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/hpo_3.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/hpo_4.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/hpo_5.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/mo_1.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/mo_2.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/mo_3.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/mo_4.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/mo_5.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/lecture6.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/baseline_3.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/rwa2_environment.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/rwa3-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/baseline_1.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/rwa4-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/rwa4-sample.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/rwa5-sample.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/rwa5-sample.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/sensor.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/sensor.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/competition.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/competition.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/gantry_control.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/gantry_control.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/launch/final.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/final.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/competition.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/competition.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/final_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/final_node.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gantry_control.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/gantry_control.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +303,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1kq2viuCrur3vinemSvpjKqFYtB" />
+  <component name="ProjectId" id="1lC8avPc2QDh0MXPlCI8YdqEpbX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -33,19 +312,29 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/final-group1" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cd85d6f5-1e41-4fba-9d9a-e0123b3206ed" name="Default Changelist" comment="" />
-      <created>1606414034317</created>
+      <changelist id="bdc255fb-6ece-4586-a453-8c40f088beab" name="Default Changelist" comment="" />
+      <created>1607089780666</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1606414034317</updated>
-      <workItem from="1606414035908" duration="7752000" />
-      <workItem from="1606494086478" duration="556000" />
-      <workItem from="1606494652835" duration="16000" />
+      <updated>1607089780666</updated>
+      <workItem from="1607089782345" duration="554000" />
     </task>
     <servers />
   </component>
@@ -53,9 +342,9 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1606494666468">
+    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1607090027675">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606494666468" />
+    <state x="2663" y="297" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1607090027675" />
   </component>
 </project>
